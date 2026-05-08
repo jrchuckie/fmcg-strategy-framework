@@ -2581,5 +2581,21 @@ document.addEventListener('DOMContentLoaded', () => {
   observer.observe(document.body, { subtree: true, attributes: true, attributeFilter: ['class'] });
 });
 </script>
+
+<!-- ── 动态页码修复：运行时按 DOM 顺序重新编号所有 slide-number ── -->
+<script>
+(function fixSlideNumbers() {
+  const slides = Array.from(document.querySelectorAll('section.slide'));
+  const total = slides.length;
+  slides.forEach((slide, i) => {
+    const el = slide.querySelector('.slide-number');
+    if (el) {
+      el.setAttribute('data-current', i + 1);
+      el.setAttribute('data-total', total);
+      el.textContent = (i + 1) + ' / ' + total;
+    }
+  });
+})();
+</script>
 </body>
 </html>
