@@ -302,15 +302,19 @@
       <div style="display:inline-block;background:var(--accent);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;align-self:start;">权重 20%</div>
       <div style="font-size:11px;color:var(--text-2);line-height:1.6;">
         <div style="font-weight:600;color:var(--text-1);margin-bottom:2px;">定义</div>
-        Top10品牌的市占集中度；集中度低说明格局分散、品牌多元，反之则头部固化
+        CR100（前100家品牌）或年销售额≥1亿品牌的合计市场占比；反映赛道内规模化、有预算的"值得打"客户的集中程度
+        <br><br>
+        <span style="font-family:monospace;font-size:10px;background:var(--border);padding:2px 6px;border-radius:4px;">CR100 = Top100品牌销售额之和 / 赛道总GMV</span>
       </div>
       <div style="font-size:11px;color:var(--text-2);line-height:1.6;">
         <div style="font-weight:600;color:var(--accent);margin-bottom:2px;">Implication</div>
-        集中度低 → 可攻客户多、单客依赖低；集中度高且头部已在平台 → 可深度绑定
+        CR100 高 → 规模化客户集中、BD 效率高、单客价值大，可攻性强；CR100 低 → 行业极度长尾碎片化，大量小品牌 ARPU 低、服务成本高，不值得优先投入
       </div>
       <div style="font-size:11px;color:var(--text-3);line-height:1.5;margin-top:auto;">
-        <div style="font-weight:600;margin-bottom:2px;">数据来源</div>
-        内部CRM客户分级 · 赛道Top10品牌广告主覆盖率 · 竞品投放监测
+        <div style="font-weight:600;margin-bottom:2px;">打分规则</div>
+        5分：CR100≥60% · 4分：45-60% · 3分：30-45% · 2分：15-30% · 1分：&lt;15%
+        <div style="font-weight:600;margin-top:6px;margin-bottom:2px;">数据来源</div>
+        魔镜市场情报 · 尼尔森零研云品牌市占报告 · 天猫/京东类目销售额排行榜 · 内部CRM规模客户覆盖率
       </div>
     </div>
 
@@ -571,7 +575,7 @@
         <th>赛道</th>
         <th title="来源：年报研究推算">预算规模(亿)¹</th>
         <th title="来源：年报研究推算">YoY增速¹</th>
-        <th>头部集中</th>
+        <th title="CR100（年销售额≥1亿品牌合计市占）· 5=≥60% 4=45-60% 3=30-45% 2=15-30% 1=&lt;15%">头部CR100</th>
         <th>新兴活跃</th>
         <th style="border-right:2px solid var(--accent)"><strong>MA总分</strong></th>
         <th>内容存量</th>
@@ -1435,9 +1439,9 @@
         </thead>
         <tbody>
           <tr style="border-bottom:1px solid #fef9c3;">
-            <td style="padding:7px 10px;font-weight:600;">MA · 头部集中度</td>
-            <td style="padding:7px 10px;color:var(--text-2);">各赛道Top10品牌市占CR10</td>
-            <td style="padding:7px 10px;color:var(--text-3);font-size:10px;">魔镜市场情报 · 尼尔森零研云 · 内部CRM客户分级</td>
+            <td style="padding:7px 10px;font-weight:600;">MA · 头部客户可攻性</td>
+            <td style="padding:7px 10px;color:var(--text-2);">各赛道 CR100 / 年销售额≥1亿品牌合计市占</td>
+            <td style="padding:7px 10px;color:var(--text-3);font-size:10px;">魔镜市场情报 · 尼尔森零研云品牌市占报告 · 天猫/京东类目销售额排行</td>
           </tr>
           <tr style="border-bottom:1px solid #fef9c3;">
             <td style="padding:7px 10px;font-weight:600;">MA · 新兴品牌活跃度</td>
