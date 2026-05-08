@@ -874,6 +874,7 @@
     }
     window.addEventListener('hashchange', fromHash);
     fromHash();
+    window.__goTo = go; // expose for goToAppendix()
     go(idx);
   });
 })();
