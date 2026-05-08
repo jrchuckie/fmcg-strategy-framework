@@ -556,15 +556,21 @@
     <span class="eyebrow">03 · 评分 & 矩阵</span>
     <span class="eyebrow">快消战略优先级框架</span>
   </div>
-  <p class="kicker">Scoring Table · Demo假设数据</p>
+  <p class="kicker">Scoring Table</p>
   <h2 class="h2">20个子赛道评分总表</h2>
-  <div class="card mt-m" style="padding:4px 12px;max-height:480px;overflow-y:auto;">
+  <div style="display:flex;align-items:center;gap:16px;margin:6px 0 4px;font-size:10.5px;color:var(--text-3);">
+    <span>图例：</span>
+    <span style="display:inline-flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;background:#22c55e;border-radius:2px;display:inline-block;"></span> 已研究数据</span>
+    <span style="display:inline-flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;background:#f59e0b;border-radius:2px;display:inline-block;"></span> Demo估算</span>
+    <span style="margin-left:8px;font-style:italic;">预算规模(亿) = 行业市场规模 × 销售费用率（来源：上市公司年报 + Euromonitor）</span>
+  </div>
+  <div class="card mt-m" style="padding:4px 12px;max-height:460px;overflow-y:auto;">
   <table class="st">
     <thead>
       <tr>
         <th>赛道</th>
-        <th>预算规模</th>
-        <th>增速</th>
+        <th title="来源：年报研究推算">预算规模(亿)¹</th>
+        <th title="来源：年报研究推算">YoY增速¹</th>
         <th>头部集中</th>
         <th>新兴活跃</th>
         <th style="border-right:2px solid var(--accent)"><strong>MA总分</strong></th>
@@ -578,42 +584,223 @@
       </tr>
     </thead>
     <tbody>
-      <!-- 核心赛道 -->
       <tr><td class="sect" colspan="13">🔴 Double Down · 重点攻坚</td></tr>
-      <tr><td>母婴食品</td><td class="num">4</td><td class="num">4</td><td class="num">3</td><td class="num">4</td><td class="num" style="border-right:2px solid var(--accent)"><strong>3.8</strong></td><td class="num">5</td><td class="num">4</td><td class="num">5</td><td class="num">4</td><td class="num">4</td><td class="num" style="border-right:2px solid #6366f1"><strong>4.5</strong></td><td><span class="badge badge-a">核心</span></td></tr>
-      <tr><td>母婴用品</td><td class="num">4</td><td class="num">3</td><td class="num">3</td><td class="num">4</td><td class="num" style="border-right:2px solid var(--accent)"><strong>3.5</strong></td><td class="num">5</td><td class="num">4</td><td class="num">5</td><td class="num">4</td><td class="num">3</td><td class="num" style="border-right:2px solid #6366f1"><strong>4.3</strong></td><td><span class="badge badge-a">核心</span></td></tr>
-      <tr><td>保健食品</td><td class="num">5</td><td class="num">5</td><td class="num">3</td><td class="num">5</td><td class="num" style="border-right:2px solid var(--accent)"><strong>4.5</strong></td><td class="num">5</td><td class="num">5</td><td class="num">5</td><td class="num">4</td><td class="num">3</td><td class="num" style="border-right:2px solid #6366f1"><strong>4.5</strong></td><td><span class="badge badge-a">核心</span></td></tr>
-      <tr><td>传统滋补营养品</td><td class="num">4</td><td class="num">4</td><td class="num">3</td><td class="num">4</td><td class="num" style="border-right:2px solid var(--accent)"><strong>3.8</strong></td><td class="num">4</td><td class="num">4</td><td class="num">5</td><td class="num">4</td><td class="num">3</td><td class="num" style="border-right:2px solid #6366f1"><strong>4.1</strong></td><td><span class="badge badge-a">核心</span></td></tr>
-      <tr><td>宠物食品</td><td class="num">4</td><td class="num">5</td><td class="num">3</td><td class="num">5</td><td class="num" style="border-right:2px solid var(--accent)"><strong>4.2</strong></td><td class="num">4</td><td class="num">5</td><td class="num">4</td><td class="num">3</td><td class="num">3</td><td class="num" style="border-right:2px solid #6366f1"><strong>3.9</strong></td><td><span class="badge badge-a">核心</span></td></tr>
-      <tr><td>食品</td><td class="num">5</td><td class="num">3</td><td class="num">2</td><td class="num">4</td><td class="num" style="border-right:2px solid var(--accent)"><strong>3.6</strong></td><td class="num">5</td><td class="num">4</td><td class="num">4</td><td class="num">4</td><td class="num">4</td><td class="num" style="border-right:2px solid #6366f1"><strong>4.2</strong></td><td><span class="badge badge-a">核心</span></td></tr>
-      <!-- 战略培育 -->
+      <!-- 预算规模打分：5=≥1000亿 4=400-999亿 3=100-399亿 2=30-99亿 1=<30亿 -->
+      <!-- 增速打分：5=≥+15% 4=+8~14% 3=+3~7% 2=0~2% 1=负增长 -->
+      <tr>
+        <td>母婴食品</td>
+        <td class="num" style="background:#f0fdf4;color:#15803d;" title="营销预算~700亿（市场2500亿×28%）"><strong>5</strong></td>
+        <td class="num" style="background:#fef9c3;color:#854d0e;" title="YoY≈0%，市场趋稳">2</td>
+        <td class="num">3</td><td class="num">4</td>
+        <td class="num" style="border-right:2px solid var(--accent)"><strong>3.7</strong></td>
+        <td class="num">5</td><td class="num">4</td><td class="num">5</td><td class="num">4</td><td class="num">4</td>
+        <td class="num" style="border-right:2px solid #6366f1"><strong>4.5</strong></td>
+        <td><span class="badge badge-a">Double Down</span></td>
+      </tr>
+      <tr>
+        <td>母婴用品</td>
+        <td class="num" style="background:#f0fdf4;color:#15803d;" title="营销预算~270亿（市场1500亿×18%）"><strong>4</strong></td>
+        <td class="num" style="background:#f0fdf4;color:#15803d;" title="YoY≈+7%，国补拉动"><strong>4</strong></td>
+        <td class="num">3</td><td class="num">4</td>
+        <td class="num" style="border-right:2px solid var(--accent)"><strong>3.7</strong></td>
+        <td class="num">5</td><td class="num">4</td><td class="num">5</td><td class="num">4</td><td class="num">3</td>
+        <td class="num" style="border-right:2px solid #6366f1"><strong>4.3</strong></td>
+        <td><span class="badge badge-a">Double Down</span></td>
+      </tr>
+      <tr>
+        <td>保健食品</td>
+        <td class="num" style="background:#f0fdf4;color:#15803d;" title="营销预算~1,536亿（市场4800亿×32%），费率行业最高"><strong>5</strong></td>
+        <td class="num" style="background:#f0fdf4;color:#15803d;" title="YoY≈+6%，私域/直播持续放量"><strong>3</strong></td>
+        <td class="num">3</td><td class="num">5</td>
+        <td class="num" style="border-right:2px solid var(--accent)"><strong>4.3</strong></td>
+        <td class="num">5</td><td class="num">5</td><td class="num">5</td><td class="num">4</td><td class="num">3</td>
+        <td class="num" style="border-right:2px solid #6366f1"><strong>4.5</strong></td>
+        <td><span class="badge badge-a">Double Down</span></td>
+      </tr>
+      <tr>
+        <td>传统滋补营养品</td>
+        <td class="num" style="background:#f0fdf4;color:#15803d;" title="营销预算~560亿（市场2000亿×28%）"><strong>4</strong></td>
+        <td class="num" style="background:#f0fdf4;color:#15803d;" title="YoY≈+8%，直播渠道持续放量"><strong>4</strong></td>
+        <td class="num">3</td><td class="num">4</td>
+        <td class="num" style="border-right:2px solid var(--accent)"><strong>3.9</strong></td>
+        <td class="num">4</td><td class="num">4</td><td class="num">5</td><td class="num">4</td><td class="num">3</td>
+        <td class="num" style="border-right:2px solid #6366f1"><strong>4.1</strong></td>
+        <td><span class="badge badge-a">Double Down</span></td>
+      </tr>
+      <tr>
+        <td>宠物食品</td>
+        <td class="num" style="background:#f0fdf4;color:#15803d;" title="营销预算~334亿（市场1668亿×20%）"><strong>4</strong></td>
+        <td class="num" style="background:#f0fdf4;color:#15803d;" title="YoY≈+9%，国产品牌加速投放"><strong>4</strong></td>
+        <td class="num">3</td><td class="num">5</td>
+        <td class="num" style="border-right:2px solid var(--accent)"><strong>4.2</strong></td>
+        <td class="num">4</td><td class="num">5</td><td class="num">4</td><td class="num">3</td><td class="num">3</td>
+        <td class="num" style="border-right:2px solid #6366f1"><strong>3.9</strong></td>
+        <td><span class="badge badge-a">Double Down</span></td>
+      </tr>
+      <tr>
+        <td>食品</td>
+        <td class="num" style="background:#f0fdf4;color:#15803d;" title="营销预算~2,250亿（市场15000亿×15%）"><strong>5</strong></td>
+        <td class="num" style="background:#fef9c3;color:#854d0e;" title="YoY≈+2%，整体平稳">2</td>
+        <td class="num">2</td><td class="num">4</td>
+        <td class="num" style="border-right:2px solid var(--accent)"><strong>3.5</strong></td>
+        <td class="num">5</td><td class="num">4</td><td class="num">4</td><td class="num">4</td><td class="num">4</td>
+        <td class="num" style="border-right:2px solid #6366f1"><strong>4.2</strong></td>
+        <td><span class="badge badge-a">Double Down</span></td>
+      </tr>
+
       <tr><td class="sect" colspan="13">🟡 Invest to Win · 潜力孵化</td></tr>
-      <tr><td>蛋白食饮</td><td class="num">4</td><td class="num">5</td><td class="num">3</td><td class="num">5</td><td class="num" style="border-right:2px solid var(--accent)"><strong>4.2</strong></td><td class="num">3</td><td class="num">4</td><td class="num">3</td><td class="num">3</td><td class="num">2</td><td class="num" style="border-right:2px solid #6366f1"><strong>3.0</strong></td><td><span class="badge badge-b">培育</span></td></tr>
-      <tr><td>酒类</td><td class="num">5</td><td class="num">3</td><td class="num">4</td><td class="num">3</td><td class="num" style="border-right:2px solid var(--accent)"><strong>3.9</strong></td><td class="num">4</td><td class="num">3</td><td class="num">3</td><td class="num">3</td><td class="num">2</td><td class="num" style="border-right:2px solid #6366f1"><strong>3.1</strong></td><td><span class="badge badge-b">培育</span></td></tr>
-      <tr><td>饮料</td><td class="num">5</td><td class="num">4</td><td class="num">4</td><td class="num">3</td><td class="num" style="border-right:2px solid var(--accent)"><strong>4.1</strong></td><td class="num">4</td><td class="num">3</td><td class="num">3</td><td class="num">3</td><td class="num">2</td><td class="num" style="border-right:2px solid #6366f1"><strong>3.1</strong></td><td><span class="badge badge-b">培育</span></td></tr>
-      <tr><td>宠物药品&健康品</td><td class="num">3</td><td class="num">5</td><td class="num">3</td><td class="num">4</td><td class="num" style="border-right:2px solid var(--accent)"><strong>3.8</strong></td><td class="num">3</td><td class="num">4</td><td class="num">3</td><td class="num">2</td><td class="num">2</td><td class="num" style="border-right:2px solid #6366f1"><strong>2.9</strong></td><td><span class="badge badge-b">培育</span></td></tr>
-      <tr><td>文具玩具礼品</td><td class="num">3</td><td class="num">4</td><td class="num">2</td><td class="num">4</td><td class="num" style="border-right:2px solid var(--accent)"><strong>3.3</strong></td><td class="num">4</td><td class="num">4</td><td class="num">4</td><td class="num">3</td><td class="num">2</td><td class="num" style="border-right:2px solid #6366f1"><strong>3.5</strong></td><td><span class="badge badge-b">培育</span></td></tr>
-      <!-- 效率收割 -->
+      <tr>
+        <td>蛋白食饮</td>
+        <td class="num" style="background:#fef9c3;color:#854d0e;" title="营销预算~20亿（市场73亿×27%），体量小">2</td>
+        <td class="num" style="background:#f0fdf4;color:#15803d;" title="YoY≈+40%，新兴赛道高速教育期"><strong>5</strong></td>
+        <td class="num">3</td><td class="num">5</td>
+        <td class="num" style="border-right:2px solid var(--accent)"><strong>3.8</strong></td>
+        <td class="num">3</td><td class="num">4</td><td class="num">3</td><td class="num">3</td><td class="num">2</td>
+        <td class="num" style="border-right:2px solid #6366f1"><strong>3.0</strong></td>
+        <td><span class="badge badge-b">Invest to Win</span></td>
+      </tr>
+      <tr>
+        <td>酒类</td>
+        <td class="num" style="background:#f0fdf4;color:#15803d;" title="营销预算~2,600亿（市场20000亿×13%），绝对体量最大"><strong>5</strong></td>
+        <td class="num" style="background:#fef2f2;color:#991b1b;" title="YoY≈-2%，白酒调整期主动降费">1</td>
+        <td class="num">4</td><td class="num">3</td>
+        <td class="num" style="border-right:2px solid var(--accent)"><strong>3.5</strong></td>
+        <td class="num">4</td><td class="num">3</td><td class="num">3</td><td class="num">3</td><td class="num">2</td>
+        <td class="num" style="border-right:2px solid #6366f1"><strong>3.1</strong></td>
+        <td><span class="badge badge-b">Invest to Win</span></td>
+      </tr>
+      <tr>
+        <td>饮料</td>
+        <td class="num" style="background:#f0fdf4;color:#15803d;" title="营销预算~1,000亿（市场5000亿×20%）"><strong>5</strong></td>
+        <td class="num" style="background:#f0fdf4;color:#15803d;" title="YoY≈+8%，无糖/功能类加大投放"><strong>4</strong></td>
+        <td class="num">4</td><td class="num">3</td>
+        <td class="num" style="border-right:2px solid var(--accent)"><strong>4.2</strong></td>
+        <td class="num">4</td><td class="num">3</td><td class="num">3</td><td class="num">3</td><td class="num">2</td>
+        <td class="num" style="border-right:2px solid #6366f1"><strong>3.1</strong></td>
+        <td><span class="badge badge-b">Invest to Win</span></td>
+      </tr>
+      <tr>
+        <td>宠物药品&健康品</td>
+        <td class="num" style="background:#fef9c3;color:#854d0e;" title="营销预算~27亿（市场209亿×13%）">2</td>
+        <td class="num" style="background:#f0fdf4;color:#15803d;" title="YoY≈+11%，品类教育加大"><strong>4</strong></td>
+        <td class="num">3</td><td class="num">4</td>
+        <td class="num" style="border-right:2px solid var(--accent)"><strong>3.2</strong></td>
+        <td class="num">3</td><td class="num">4</td><td class="num">3</td><td class="num">2</td><td class="num">2</td>
+        <td class="num" style="border-right:2px solid #6366f1"><strong>2.9</strong></td>
+        <td><span class="badge badge-b">Invest to Win</span></td>
+      </tr>
+      <tr>
+        <td>文具玩具礼品</td>
+        <td class="num" style="background:#f0fdf4;color:#15803d;" title="营销预算~876亿（文具198+玩具礼品678）"><strong>4</strong></td>
+        <td class="num" style="background:#f0fdf4;color:#15803d;" title="YoY≈+15%，潮玩/IP联名高速增长"><strong>5</strong></td>
+        <td class="num">2</td><td class="num">4</td>
+        <td class="num" style="border-right:2px solid var(--accent)"><strong>3.8</strong></td>
+        <td class="num">4</td><td class="num">4</td><td class="num">4</td><td class="num">3</td><td class="num">2</td>
+        <td class="num" style="border-right:2px solid #6366f1"><strong>3.5</strong></td>
+        <td><span class="badge badge-b">Invest to Win</span></td>
+      </tr>
+
       <tr><td class="sect" colspan="13">🟢 Defend & Harvest · 优势守成</td></tr>
-      <tr><td>宠物用品</td><td class="num">3</td><td class="num">4</td><td class="num">3</td><td class="num">3</td><td class="num" style="border-right:2px solid var(--accent)"><strong>3.3</strong></td><td class="num">4</td><td class="num">4</td><td class="num">4</td><td class="num">3</td><td class="num">3</td><td class="num" style="border-right:2px solid #6366f1"><strong>3.7</strong></td><td><span class="badge badge-c">收割</span></td></tr>
-      <tr><td>宠物生活</td><td class="num">2</td><td class="num">4</td><td class="num">2</td><td class="num">3</td><td class="num" style="border-right:2px solid var(--accent)"><strong>2.8</strong></td><td class="num">4</td><td class="num">4</td><td class="num">4</td><td class="num">3</td><td class="num">2</td><td class="num" style="border-right:2px solid #6366f1"><strong>3.5</strong></td><td><span class="badge badge-c">收割</span></td></tr>
-      <!-- 谨慎/观望 -->
+      <tr>
+        <td>宠物用品</td>
+        <td class="num" style="background:#fef9c3;color:#854d0e;" title="营销预算~67亿（市场513亿×13%）">3</td>
+        <td class="num" style="background:#f0fdf4;color:#15803d;" title="YoY≈+7%"><strong>4</strong></td>
+        <td class="num">3</td><td class="num">3</td>
+        <td class="num" style="border-right:2px solid var(--accent)"><strong>3.2</strong></td>
+        <td class="num">4</td><td class="num">4</td><td class="num">4</td><td class="num">3</td><td class="num">3</td>
+        <td class="num" style="border-right:2px solid #6366f1"><strong>3.7</strong></td>
+        <td><span class="badge badge-c">Defend</span></td>
+      </tr>
+      <tr>
+        <td>宠物生活</td>
+        <td class="num" style="background:#fef9c3;color:#854d0e;" title="营销预算~75亿（市场940亿×8%，服务型，营销密度低）">3</td>
+        <td class="num" style="background:#f0fdf4;color:#15803d;" title="YoY≈+9%"><strong>4</strong></td>
+        <td class="num">2</td><td class="num">3</td>
+        <td class="num" style="border-right:2px solid var(--accent)"><strong>3.0</strong></td>
+        <td class="num">4</td><td class="num">4</td><td class="num">4</td><td class="num">3</td><td class="num">2</td>
+        <td class="num" style="border-right:2px solid #6366f1"><strong>3.5</strong></td>
+        <td><span class="badge badge-c">Defend</span></td>
+      </tr>
+
       <tr><td class="sect" colspan="13">⚪ Deprioritize · 释放资源</td></tr>
-      <tr><td>医疗用品</td><td class="num">4</td><td class="num">3</td><td class="num">4</td><td class="num">2</td><td class="num" style="border-right:2px solid var(--accent)"><strong>3.3</strong></td><td class="num">3</td><td class="num">2</td><td class="num">2</td><td class="num">2</td><td class="num">2</td><td class="num" style="border-right:2px solid #6366f1"><strong>2.2</strong></td><td><span class="badge badge-d">观望</span></td></tr>
-      <tr><td>OTC</td><td class="num">4</td><td class="num">3</td><td class="num">4</td><td class="num">2</td><td class="num" style="border-right:2px solid var(--accent)"><strong>3.3</strong></td><td class="num">2</td><td class="num">2</td><td class="num">2</td><td class="num">1</td><td class="num">2</td><td class="num" style="border-right:2px solid #6366f1"><strong>1.9</strong></td><td><span class="badge badge-d">观望</span></td></tr>
-      <tr><td>药房</td><td class="num">4</td><td class="num">3</td><td class="num">4</td><td class="num">2</td><td class="num" style="border-right:2px solid var(--accent)"><strong>3.3</strong></td><td class="num">2</td><td class="num">2</td><td class="num">2</td><td class="num">1</td><td class="num">1</td><td class="num" style="border-right:2px solid #6366f1"><strong>1.7</strong></td><td><span class="badge badge-d">观望</span></td></tr>
-      <tr><td>药品</td><td class="num">3</td><td class="num">3</td><td class="num">4</td><td class="num">1</td><td class="num" style="border-right:2px solid var(--accent)"><strong>2.8</strong></td><td class="num">2</td><td class="num">2</td><td class="num">2</td><td class="num">1</td><td class="num">1</td><td class="num" style="border-right:2px solid #6366f1"><strong>1.6</strong></td><td><span class="badge badge-d">观望</span></td></tr>
-      <tr><td>特医</td><td class="num">2</td><td class="num">3</td><td class="num">3</td><td class="num">2</td><td class="num" style="border-right:2px solid var(--accent)"><strong>2.5</strong></td><td class="num">2</td><td class="num">2</td><td class="num">2</td><td class="num">1</td><td class="num">1</td><td class="num" style="border-right:2px solid #6366f1"><strong>1.6</strong></td><td><span class="badge badge-d">观望</span></td></tr>
-      <tr><td>餐饮</td><td class="num">4</td><td class="num">2</td><td class="num">2</td><td class="num">3</td><td class="num" style="border-right:2px solid var(--accent)"><strong>2.9</strong></td><td class="num">4</td><td class="num">3</td><td class="num">2</td><td class="num">1</td><td class="num">2</td><td class="num" style="border-right:2px solid #6366f1"><strong>2.5</strong></td><td><span class="badge badge-d">观望</span></td></tr>
-      <tr><td>零售</td><td class="num">3</td><td class="num">2</td><td class="num">3</td><td class="num">2</td><td class="num" style="border-right:2px solid var(--accent)"><strong>2.6</strong></td><td class="num">3</td><td class="num">2</td><td class="num">2</td><td class="num">1</td><td class="num">2</td><td class="num" style="border-right:2px solid #6366f1"><strong>2.1</strong></td><td><span class="badge badge-d">观望</span></td></tr>
+      <tr>
+        <td>医疗用品</td>
+        <td class="num" style="background:#fef9c3;color:#854d0e;" title="营销预算~96亿（市场800亿×12%）">3</td>
+        <td class="num" style="background:#fef9c3;color:#854d0e;" title="YoY≈+9%，但政策受限">3</td>
+        <td class="num">4</td><td class="num">2</td>
+        <td class="num" style="border-right:2px solid var(--accent)"><strong>3.0</strong></td>
+        <td class="num">3</td><td class="num">2</td><td class="num">2</td><td class="num">2</td><td class="num">2</td>
+        <td class="num" style="border-right:2px solid #6366f1"><strong>2.2</strong></td>
+        <td><span class="badge badge-d">Depriori.</span></td>
+      </tr>
+      <tr>
+        <td>OTC</td>
+        <td class="num" style="background:#f0fdf4;color:#15803d;" title="营销预算~368亿（市场1839亿×20%）"><strong>4</strong></td>
+        <td class="num" style="background:#fef2f2;color:#991b1b;" title="YoY≈-1%，行业承压控费">1</td>
+        <td class="num">4</td><td class="num">2</td>
+        <td class="num" style="border-right:2px solid var(--accent)"><strong>3.0</strong></td>
+        <td class="num">2</td><td class="num">2</td><td class="num">2</td><td class="num">1</td><td class="num">2</td>
+        <td class="num" style="border-right:2px solid #6366f1"><strong>1.9</strong></td>
+        <td><span class="badge badge-d">Depriori.</span></td>
+      </tr>
+      <tr>
+        <td>药房</td>
+        <td class="num" style="background:#f0fdf4;color:#15803d;" title="营销预算~407亿（市场4527亿×9%，以门店运营为主）"><strong>4</strong></td>
+        <td class="num" style="background:#fef9c3;color:#854d0e;" title="YoY≈+2%，增速放缓">2</td>
+        <td class="num">4</td><td class="num">2</td>
+        <td class="num" style="border-right:2px solid var(--accent)"><strong>3.1</strong></td>
+        <td class="num">2</td><td class="num">2</td><td class="num">2</td><td class="num">1</td><td class="num">1</td>
+        <td class="num" style="border-right:2px solid #6366f1"><strong>1.7</strong></td>
+        <td><span class="badge badge-d">Depriori.</span></td>
+      </tr>
+      <tr>
+        <td>药品</td>
+        <td class="num" style="background:#fef9c3;color:#854d0e;" title="营销预算~350亿（市场2688亿×13%）">3</td>
+        <td class="num" style="background:#f0fdf4;color:#15803d;" title="YoY≈+10%，处方外流，但广告受限"><strong>4</strong></td>
+        <td class="num">4</td><td class="num">1</td>
+        <td class="num" style="border-right:2px solid var(--accent)"><strong>2.8</strong></td>
+        <td class="num">2</td><td class="num">2</td><td class="num">2</td><td class="num">1</td><td class="num">1</td>
+        <td class="num" style="border-right:2px solid #6366f1"><strong>1.6</strong></td>
+        <td><span class="badge badge-d">Depriori.</span></td>
+      </tr>
+      <tr>
+        <td>特医</td>
+        <td class="num" style="background:#fef9c3;color:#854d0e;" title="营销预算~43亿（市场160亿×27%），绝对体量小">2</td>
+        <td class="num" style="background:#f0fdf4;color:#15803d;" title="YoY≈+21%，高景气赛道"><strong>5</strong></td>
+        <td class="num">3</td><td class="num">2</td>
+        <td class="num" style="border-right:2px solid var(--accent)"><strong>2.8</strong></td>
+        <td class="num">2</td><td class="num">2</td><td class="num">2</td><td class="num">1</td><td class="num">1</td>
+        <td class="num" style="border-right:2px solid #6366f1"><strong>1.6</strong></td>
+        <td><span class="badge badge-d">Depriori.</span></td>
+      </tr>
+      <tr>
+        <td>餐饮</td>
+        <td class="num" style="background:#f0fdf4;color:#15803d;" title="营销预算~2,200亿（市场55000亿×4%），费率极低但体量超大"><strong>5</strong></td>
+        <td class="num" style="background:#fef9c3;color:#854d0e;" title="YoY≈+5%">3</td>
+        <td class="num">2</td><td class="num">3</td>
+        <td class="num" style="border-right:2px solid var(--accent)"><strong>3.2</strong></td>
+        <td class="num">4</td><td class="num">3</td><td class="num">2</td><td class="num">1</td><td class="num">2</td>
+        <td class="num" style="border-right:2px solid #6366f1"><strong>2.5</strong></td>
+        <td><span class="badge badge-d">Depriori.</span></td>
+      </tr>
+      <tr>
+        <td>零售</td>
+        <td class="num" style="background:#fef9c3;color:#854d0e;" title="营销预算估算口径差异大，品牌广告口径偏低">2</td>
+        <td class="num" style="background:#fef9c3;color:#854d0e;" title="YoY≈+2%，整体平稳">2</td>
+        <td class="num">3</td><td class="num">2</td>
+        <td class="num" style="border-right:2px solid var(--accent)"><strong>2.2</strong></td>
+        <td class="num">3</td><td class="num">2</td><td class="num">2</td><td class="num">1</td><td class="num">2</td>
+        <td class="num" style="border-right:2px solid #6366f1"><strong>2.1</strong></td>
+        <td><span class="badge badge-d">Depriori.</span></td>
+      </tr>
     </tbody>
   </table>
   </div>
+  <div style="font-size:10px;color:var(--text-3);margin-top:6px;">¹ 来源：头部上市公司2024年报销售费用率 × 行业市场规模推算（飞鹤/汤臣倍健/农夫山泉/五粮液/中宠等），已标注研究数据；其余维度为Demo估算</div>
   <div class="deck-footer">
-    <span class="dim2">⚠️ Demo假设数据，待真实数据替换</span>
-    <span class="slide-number" data-current="6" data-total="11"></span>
+    <span class="dim2">🟢已研究数据：预算规模 · 增速 &nbsp;|&nbsp; 🟡Demo估算：头部集中 · 新兴活跃 · ATW全部维度</span>
+    <span class="slide-number" data-current="8" data-total="14"></span>
   </div>
-  <div class="notes">这是20个赛道的评分总表。当前是基于框架的假设数据，需要各维度的真实数据填入后验证。评分逻辑：1分最低，5分最高，MA和ATW分别按权重加权。</div>
 </section>
 
 <!-- ══════════════════════════════════════════
@@ -1177,6 +1364,134 @@
 <!-- ══════════════════════════════════════════
      SLIDE 11 · APPENDIX — 竞品参考
 ══════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════
+     APPENDIX A · 数据来源与完成度汇总
+══════════════════════════════════════════ -->
+<section class="slide" data-title="Appendix：数据完成度">
+  <div class="deck-header">
+    <span class="eyebrow">Appendix A · 数据来源汇总</span>
+    <span class="eyebrow">快消战略优先级框架</span>
+  </div>
+  <p class="kicker">Data Audit · 哪些数据已研究完成，哪些仍是Demo估算</p>
+  <h2 class="h2">数据完成度 & 来源索引</h2>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;">
+
+    <!-- 左：已完成数据 -->
+    <div>
+      <div style="font-weight:700;font-size:12px;color:#15803d;margin-bottom:10px;display:flex;align-items:center;gap:6px;">
+        <span style="background:#22c55e;color:#fff;padding:2px 8px;border-radius:10px;font-size:10px;">✓ 已研究完成</span>
+      </div>
+      <table style="width:100%;border-collapse:collapse;font-size:11px;">
+        <thead>
+          <tr style="background:#f0fdf4;">
+            <th style="padding:6px 10px;text-align:left;border-bottom:1px solid #bbf7d0;color:#15803d;">维度 / 页面</th>
+            <th style="padding:6px 10px;text-align:left;border-bottom:1px solid #bbf7d0;color:#15803d;">数据内容</th>
+            <th style="padding:6px 10px;text-align:left;border-bottom:1px solid #bbf7d0;color:#15803d;">来源</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid #dcfce7;">
+            <td style="padding:7px 10px;font-weight:600;">MA · 营销预算规模</td>
+            <td style="padding:7px 10px;color:var(--text-2);">20赛道营销预算估算值（亿）<br><span style="font-size:10px;color:var(--text-3);">= 市场规模 × 销售费用率</span></td>
+            <td style="padding:7px 10px;color:var(--text-3);font-size:10px;">飞鹤/汤臣倍健/农夫山泉/五粮液/中宠/东鹏等2024年报实际销售费用率 · Euromonitor行业市场规模</td>
+          </tr>
+          <tr style="border-bottom:1px solid #dcfce7;">
+            <td style="padding:7px 10px;font-weight:600;">MA · 市场增速</td>
+            <td style="padding:7px 10px;color:var(--text-2);">20赛道2024→2025营销预算YoY增速</td>
+            <td style="padding:7px 10px;color:var(--text-3);font-size:10px;">行业年报趋势 · 机构预测（特医+21% / 蛋白食饮+40% / 酒类-2%等）</td>
+          </tr>
+          <tr style="border-bottom:1px solid #dcfce7;">
+            <td style="padding:7px 10px;font-weight:600;">市场规模基础数据</td>
+            <td style="padding:7px 10px;color:var(--text-2);">各赛道2024年行业市场规模（亿）</td>
+            <td style="padding:7px 10px;color:var(--text-3);font-size:10px;">Euromonitor · 灼识咨询 · 国家统计局 · 公司年报</td>
+          </tr>
+          <tr style="border-bottom:1px solid #dcfce7;">
+            <td style="padding:7px 10px;font-weight:600;">销售费用率</td>
+            <td style="padding:7px 10px;color:var(--text-2);">头部上市公司2024年报加权均值</td>
+            <td style="padding:7px 10px;color:var(--text-3);font-size:10px;">保健食品~32% · 母婴食品~28% · 饮料~20% · 酒类~13% · 药房~9% · 餐饮~4%等</td>
+          </tr>
+          <tr>
+            <td style="padding:7px 10px;font-weight:600;">Framework 设计</td>
+            <td style="padding:7px 10px;color:var(--text-2);">MA×ATW 维度定义、权重、竞品参考</td>
+            <td style="padding:7px 10px;color:var(--text-3);font-size:10px;">GE-McKinsey · Meta · Google GBU · 字节商业化 · 腾讯广告 Framework 对标研究</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 右：待补充数据 -->
+    <div>
+      <div style="font-weight:700;font-size:12px;color:#b45309;margin-bottom:10px;display:flex;align-items:center;gap:6px;">
+        <span style="background:#f59e0b;color:#fff;padding:2px 8px;border-radius:10px;font-size:10px;">⚠ Demo估算 · 待替换</span>
+      </div>
+      <table style="width:100%;border-collapse:collapse;font-size:11px;">
+        <thead>
+          <tr style="background:#fefce8;">
+            <th style="padding:6px 10px;text-align:left;border-bottom:1px solid #fde68a;color:#b45309;">维度 / 页面</th>
+            <th style="padding:6px 10px;text-align:left;border-bottom:1px solid #fde68a;color:#b45309;">缺少的数据</th>
+            <th style="padding:6px 10px;text-align:left;border-bottom:1px solid #fde68a;color:#b45309;">建议来源</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid #fef9c3;">
+            <td style="padding:7px 10px;font-weight:600;">MA · 头部集中度</td>
+            <td style="padding:7px 10px;color:var(--text-2);">各赛道Top10品牌市占CR10</td>
+            <td style="padding:7px 10px;color:var(--text-3);font-size:10px;">魔镜市场情报 · 尼尔森零研云 · 内部CRM客户分级</td>
+          </tr>
+          <tr style="border-bottom:1px solid #fef9c3;">
+            <td style="padding:7px 10px;font-weight:600;">MA · 新兴品牌活跃度</td>
+            <td style="padding:7px 10px;color:var(--text-2);">近2年新成立品牌数 · VC融资频次</td>
+            <td style="padding:7px 10px;color:var(--text-3);font-size:10px;">IT桔子 / 鲸准融资数据库 · 天眼查新注册品牌 · 内部新客开户数</td>
+          </tr>
+          <tr style="border-bottom:1px solid #fef9c3;">
+            <td style="padding:7px 10px;font-weight:600;">ATW · 内容势能（全部）</td>
+            <td style="padding:7px 10px;color:var(--text-2);">站内UGC量 · 搜索量 · 阅读量（赛道维度）及YoY增速</td>
+            <td style="padding:7px 10px;color:var(--text-3);font-size:10px;">RedBI 内容数据仪表盘 · 灵犀搜索洞察</td>
+          </tr>
+          <tr style="border-bottom:1px solid #fef9c3;">
+            <td style="padding:7px 10px;font-weight:600;">ATW · 决策链路重要性</td>
+            <td style="padding:7px 10px;color:var(--text-2);">消费者购前使用XHS概率（各品类）</td>
+            <td style="padding:7px 10px;color:var(--text-3);font-size:10px;">内部用研报告 · 小红书品类洞察白皮书 · 第三方用户调研</td>
+          </tr>
+          <tr style="border-bottom:1px solid #fef9c3;">
+            <td style="padding:7px 10px;font-weight:600;">ATW · 产品承接 · 打法成熟</td>
+            <td style="padding:7px 10px;color:var(--text-2);">各赛道产品覆盖矩阵 · 标杆案例库</td>
+            <td style="padding:7px 10px;color:var(--text-3);font-size:10px;">内部商业化产品团队 · BD案例库 · 行业solution文档</td>
+          </tr>
+          <tr style="border-bottom:1px solid #fef9c3;">
+            <td style="padding:7px 10px;font-weight:600;">POD · Share of Wallet</td>
+            <td style="padding:7px 10px;color:var(--text-2);">XHS各赛道实际广告收入 / 行业数字广告总盘</td>
+            <td style="padding:7px 10px;color:var(--text-3);font-size:10px;">内部CRM收入数据 · CTR/魔镜行业数字广告规模</td>
+          </tr>
+          <tr style="border-bottom:1px solid #fef9c3;">
+            <td style="padding:7px 10px;font-weight:600;">POD · Take Rate</td>
+            <td style="padding:7px 10px;color:var(--text-2);">各赛道广告收入 / 平台GMV</td>
+            <td style="padding:7px 10px;color:var(--text-3);font-size:10px;">内部电商GMV报表 · 广告收入内部数据</td>
+          </tr>
+          <tr>
+            <td style="padding:7px 10px;font-weight:600;">POD · 客户渗透率 & ARPU</td>
+            <td style="padding:7px 10px;color:var(--text-2);">已投广告主 / Top N品牌总数 · 客均消耗</td>
+            <td style="padding:7px 10px;color:var(--text-3);font-size:10px;">内部CRM开户+消耗数据（按赛道维度拆分）</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- 气泡图数据 -->
+      <div style="margin-top:10px;background:#fff7ed;border-radius:8px;padding:10px 14px;border-left:3px solid #f97316;">
+        <div style="font-size:11px;font-weight:700;color:#9a3412;margin-bottom:4px;">📊 气泡图 bubble size</div>
+        <div style="font-size:11px;color:var(--text-2);">当前用相对估算值，应替换为：<strong>XHS各赛道2025年广告收入</strong>（内部BI数据）</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="deck-footer">
+    <span class="dim2">已研究：MA预算规模 + 增速 · 待补：ATW全部 + MA头部集中/新兴活跃 + POD四指标</span>
+    <span class="slide-number" data-current="13" data-total="15"></span>
+  </div>
+</section>
+
 <section class="slide" data-title="Appendix：竞品参考">
   <div class="deck-header">
     <span class="eyebrow">Appendix</span>
