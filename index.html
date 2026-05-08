@@ -1,4 +1,4 @@
-<!-- cache-bust: 1778242625 -->
+<!-- cache-bust: 1778242984 -->
 <!DOCTYPE html>
 <html lang="zh-CN" data-theme="corporate-clean">
 <head>
@@ -88,6 +88,112 @@
 .app-btn-indigo{ color: #6366f1; border-color: #6366f1; }
 .app-btn-slate { color: #64748b; border-color: #94a3b8; }
 .app-btns { display:flex; gap:6px; flex-wrap:wrap; align-items:center; }
+
+/* ── Slide Nav Sidebar ── */
+#slide-nav {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 9999;
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  transition: transform 0.3s ease;
+}
+#slide-nav-toggle {
+  writing-mode: vertical-rl;
+  background: rgba(30,41,59,0.85);
+  color: #f1f5f9;
+  border: none;
+  padding: 12px 6px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .05em;
+  cursor: pointer;
+  border-radius: 8px 0 0 8px;
+  backdrop-filter: blur(8px);
+  transition: background 0.2s;
+  user-select: none;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+#slide-nav-toggle:hover { background: rgba(30,41,59,0.95); }
+#slide-nav-toggle .toggle-arrow {
+  font-size: 9px;
+  transition: transform 0.3s;
+}
+#slide-nav.collapsed #slide-nav-toggle .toggle-arrow { transform: rotate(180deg); }
+#slide-nav-panel {
+  background: rgba(15,23,42,0.92);
+  backdrop-filter: blur(12px);
+  border-radius: 0 0 0 10px;
+  padding: 10px 0;
+  min-width: 220px;
+  max-height: 80vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.2) transparent;
+  box-shadow: -4px 0 20px rgba(0,0,0,0.3);
+  transition: width 0.3s ease, opacity 0.3s ease;
+}
+#slide-nav.collapsed #slide-nav-panel {
+  width: 0;
+  opacity: 0;
+  pointer-events: none;
+  min-width: 0;
+  padding: 0;
+}
+#slide-nav-panel::-webkit-scrollbar { width: 3px; }
+#slide-nav-panel::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 3px; }
+
+.snav-section-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  color: rgba(148,163,184,0.6);
+  text-transform: uppercase;
+  padding: 8px 14px 3px;
+  margin-top: 4px;
+}
+.snav-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: background 0.15s;
+  border-left: 2px solid transparent;
+  text-decoration: none;
+}
+.snav-item:hover { background: rgba(255,255,255,0.07); }
+.snav-item.active {
+  background: rgba(99,102,241,0.2);
+  border-left-color: #6366f1;
+}
+.snav-num {
+  font-size: 9px;
+  font-weight: 700;
+  color: rgba(148,163,184,0.5);
+  min-width: 18px;
+  text-align: right;
+}
+.snav-item.active .snav-num { color: #818cf8; }
+.snav-title {
+  font-size: 11px;
+  color: rgba(226,232,240,0.75);
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 170px;
+}
+.snav-item.active .snav-title { color: #e2e8f0; font-weight: 600; }
+
 </style>
 </head>
 <body>
@@ -2960,5 +3066,104 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 })();
 </script>
+
+<!-- ── Slide Nav Sidebar ── -->
+<div id="slide-nav">
+  <button id="slide-nav-toggle" onclick="document.getElementById('slide-nav').classList.toggle('collapsed');" title="目录">
+    <span>目录</span><span class="toggle-arrow">◀</span>
+  </button>
+  <div id="slide-nav-panel">
+<div class="snav-section-label">正文</div><div class="snav-item active" data-idx="0" onclick="window.__goTo && window.__goTo(0); snavUpdate(0);">
+      <span class="snav-num">1</span>
+      <span class="snav-title">封面</span>
+    </div><div class="snav-item" data-idx="1" onclick="window.__goTo && window.__goTo(1); snavUpdate(1);">
+      <span class="snav-num">2</span>
+      <span class="snav-title">目录</span>
+    </div><div class="snav-item" data-idx="2" onclick="window.__goTo && window.__goTo(2); snavUpdate(2);">
+      <span class="snav-num">3</span>
+      <span class="snav-title">Framework 设计</span>
+    </div><div class="snav-item" data-idx="3" onclick="window.__goTo && window.__goTo(3); snavUpdate(3);">
+      <span class="snav-num">4</span>
+      <span class="snav-title">MA评分维度</span>
+    </div><div class="snav-item" data-idx="4" onclick="window.__goTo && window.__goTo(4); snavUpdate(4);">
+      <span class="snav-num">5</span>
+      <span class="snav-title">ATW评分维度</span>
+    </div><div class="snav-item" data-idx="5" onclick="window.__goTo && window.__goTo(5); snavUpdate(5);">
+      <span class="snav-num">6</span>
+      <span class="snav-title">战略矩阵框架</span>
+    </div><div class="snav-item" data-idx="6" onclick="window.__goTo && window.__goTo(6); snavUpdate(6);">
+      <span class="snav-num">7</span>
+      <span class="snav-title">20赛道评分表</span>
+    </div><div class="snav-item" data-idx="7" onclick="window.__goTo && window.__goTo(7); snavUpdate(7);">
+      <span class="snav-num">8</span>
+      <span class="snav-title">2×2矩阵</span>
+    </div><div class="snav-item" data-idx="8" onclick="window.__goTo && window.__goTo(8); snavUpdate(8);">
+      <span class="snav-num">9</span>
+      <span class="snav-title">POD天花板</span>
+    </div><div class="snav-item" data-idx="9" onclick="window.__goTo && window.__goTo(9); snavUpdate(9);">
+      <span class="snav-num">10</span>
+      <span class="snav-title">20赛道POD评估</span>
+    </div><div class="snav-section-label">Appendix</div><div class="snav-item" data-idx="10" onclick="window.__goTo && window.__goTo(10); snavUpdate(10);">
+      <span class="snav-num">11</span>
+      <span class="snav-title">B1 UGC内容势能</span>
+    </div><div class="snav-item" data-idx="11" onclick="window.__goTo && window.__goTo(11); snavUpdate(11);">
+      <span class="snav-num">12</span>
+      <span class="snav-title">B2 决策链路</span>
+    </div><div class="snav-item" data-idx="12" onclick="window.__goTo && window.__goTo(12); snavUpdate(12);">
+      <span class="snav-num">13</span>
+      <span class="snav-title">A1 市场规模</span>
+    </div><div class="snav-item" data-idx="13" onclick="window.__goTo && window.__goTo(13); snavUpdate(13);">
+      <span class="snav-num">14</span>
+      <span class="snav-title">A2 市场增速</span>
+    </div><div class="snav-item" data-idx="14" onclick="window.__goTo && window.__goTo(14); snavUpdate(14);">
+      <span class="snav-num">15</span>
+      <span class="snav-title">C SoW & Take Rate</span>
+    </div><div class="snav-item" data-idx="15" onclick="window.__goTo && window.__goTo(15); snavUpdate(15);">
+      <span class="snav-num">16</span>
+      <span class="snav-title">集中度&融资</span>
+    </div><div class="snav-item" data-idx="16" onclick="window.__goTo && window.__goTo(16); snavUpdate(16);">
+      <span class="snav-num">17</span>
+      <span class="snav-title">竞品参考</span>
+    </div><div class="snav-item" data-idx="17" onclick="window.__goTo && window.__goTo(17); snavUpdate(17);">
+      <span class="snav-num">18</span>
+      <span class="snav-title">D 品牌清单</span>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  function snavUpdate(idx) {
+    var items = document.querySelectorAll('.snav-item');
+    items.forEach(function(el, i) {
+      el.classList.toggle('active', i === idx);
+    });
+    // scroll active into view in panel
+    var active = document.querySelector('.snav-item.active');
+    if (active) active.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  }
+  window.snavUpdate = snavUpdate;
+
+  // Hook into runtime slide-change
+  // runtime fires hashchange and sets is-active
+  // We observe mutations on the deck
+  var deck = document.querySelector('.deck');
+  if (deck && window.MutationObserver) {
+    var obs = new MutationObserver(function() {
+      var slides = Array.from(document.querySelectorAll('section.slide'));
+      var idx = slides.findIndex(function(s) { return s.classList.contains('is-active'); });
+      if (idx >= 0) snavUpdate(idx);
+    });
+    obs.observe(deck, { attributes: true, subtree: true, attributeFilter: ['class'] });
+  }
+  
+  // Also listen to hashchange
+  window.addEventListener('hashchange', function() {
+    var m = location.hash.match(/#\/(\d+)/);
+    if (m) snavUpdate(parseInt(m[1], 10) - 1);
+  });
+})();
+</script>
+
 </body>
 </html>
