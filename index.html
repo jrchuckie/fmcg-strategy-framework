@@ -1,4 +1,4 @@
-<!-- cache-bust: 1778239603 -->
+<!-- cache-bust: 1778240168 -->
 <!DOCTYPE html>
 <html lang="zh-CN" data-theme="corporate-clean">
 <head>
@@ -65,6 +65,29 @@
 
 /* ── tag pill row ── */
 .pill-row { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+
+/* ── Appendix 跳转按钮 ── */
+.app-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 5px;
+  font-size: 10px;
+  font-weight: 600;
+  border: 1px solid currentColor;
+  cursor: pointer;
+  background: transparent;
+  text-decoration: none;
+  transition: background .15s, color .15s;
+  white-space: nowrap;
+}
+.app-btn:hover { opacity: .75; }
+.app-btn-blue  { color: #0ea5e9; border-color: #0ea5e9; }
+.app-btn-purple{ color: #8b5cf6; border-color: #8b5cf6; }
+.app-btn-indigo{ color: #6366f1; border-color: #6366f1; }
+.app-btn-slate { color: #64748b; border-color: #94a3b8; }
+.app-btns { display:flex; gap:6px; flex-wrap:wrap; align-items:center; }
 </style>
 </head>
 <body>
@@ -359,6 +382,8 @@
 
   </div>
 
+  
+  <div class="app-btns" style="margin-bottom:4px;"><button class="app-btn app-btn-blue" onclick="goToAppendix('A1：市场规模')">↗ Appendix A1 市场规模</button><button class="app-btn app-btn-blue" onclick="goToAppendix('A2：市场增速')">↗ Appendix A2 增速</button><button class="app-btn app-btn-slate" onclick="goToAppendix('集中度&融资')">↗ Appendix 集中度&融资</button></div>
   <div class="deck-footer">
     <span class="dim2">XHS 商业化快消策略组</span>
     <span class="slide-number" data-current="5" data-total="13"></span>
@@ -466,6 +491,8 @@
 
   </div>
 
+  
+  <div class="app-btns" style="margin-bottom:4px;"><button class="app-btn app-btn-purple" onclick="goToAppendix('B1：UGC')">↗ Appendix B1 UGC内容势能</button><button class="app-btn app-btn-purple" onclick="goToAppendix('B2：决策链路')">↗ Appendix B2 决策链路</button></div>
   <div class="deck-footer">
     <span class="dim2">XHS 商业化快消策略组</span>
     <span class="slide-number" data-current="6" data-total="13"></span>
@@ -571,6 +598,8 @@
     </div>
   </div>
 
+  
+  <div class="app-btns" style="margin-bottom:4px;"><button class="app-btn app-btn-blue" onclick="goToAppendix('2×2战略矩阵')">↗ 2×2 气泡图</button><button class="app-btn app-btn-slate" onclick="goToAppendix('20赛道评分表')">↗ 20赛道打分表</button></div>
   <div class="deck-footer">
     <span class="dim2">每个赛道通过10维打分定位象限</span>
     <span class="slide-number" data-current="6" data-total="12"></span>
@@ -834,6 +863,8 @@
   </table>
   </div>
   <div style="font-size:10px;color:var(--text-3);margin-top:6px;">¹ ATW内容存量/增速来源：XHS RedBI UGC数据（2025全年，曝光存量/YoY） &nbsp;|&nbsp; ² 决策链路：研究推导（高决策成本/口碑依赖程度）&nbsp;|&nbsp; 绿框=已研究数据，黄底=Demo估算</div>
+  
+  <div class="app-btns" style="margin-bottom:4px;"><button class="app-btn app-btn-purple" onclick="goToAppendix('B1：UGC')">↗ Appendix B1 UGC存量/增速</button><button class="app-btn app-btn-purple" onclick="goToAppendix('B2：决策链路')">↗ Appendix B2 决策链路</button><button class="app-btn app-btn-blue" onclick="goToAppendix('A1：市场规模')">↗ Appendix A1 营销预算</button></div>
   <div class="deck-footer">
     <span class="dim2">🟢已研究：MA四维度 · ATW内容存量/增速/决策链路 &nbsp;|&nbsp; 🟡Demo待补：ATW产品承接 · 打法成熟</span>
     <span class="slide-number" data-current="8" data-total="14"></span>
@@ -979,6 +1010,8 @@
     <div style="margin-left:auto;font-size:10px;color:#64748b;">Gap越大 = 增量潜力越高 · 结合渗透率判断拓客 vs 深耕</div>
   </div>
 
+  
+  <div class="app-btns" style="margin-bottom:4px;"><button class="app-btn app-btn-indigo" onclick="goToAppendix('C：SoW')">↗ Appendix C SoW & Take Rate数据</button><button class="app-btn app-btn-indigo" onclick="goToAppendix('D：客户渗透率')">↗ Appendix D 品牌覆盖明细</button></div>
   <div class="deck-footer">
     <span class="dim2">Layer 2 · 在矩阵定位基础上评估收入天花板与 Gap</span>
     <span class="slide-number" data-current="10" data-total="13"></span>
@@ -1246,6 +1279,8 @@
     <span>底池口径：全网电商/连锁收入&gt;1亿品牌 · 打标修正=宠物赛道猫狗标签估算</span>
     <span>→ <a href="#" onclick="document.querySelector('[data-title=\"Appendix D：客户渗透率品牌清单\"]')?.scrollIntoView()" style="color:#6366f1;">Appendix D 查看品牌明细 ↓</a></span>
   </div>
+  
+  <div class="app-btns" style="margin-bottom:4px;"><button class="app-btn app-btn-indigo" onclick="goToAppendix('C：SoW')">↗ Appendix C SoW & Take Rate</button><button class="app-btn app-btn-indigo" onclick="goToAppendix('D：客户渗透率')">↗ Appendix D 品牌清单</button></div>
   <div class="deck-footer">
     <span class="dim2">Layer 2 · SoW衡量预算份额 · Take Rate衡量GMV变现效率 · 客户渗透率衡量拓客空间</span>
     <span class="slide-number" data-current="11" data-total="21"></span>
@@ -1261,44 +1296,55 @@
   </div>
   <p class="kicker">Summary & Next Steps</p>
   <h2 class="h2">总结与下一步行动</h2>
-  <div class="grid g2 mt-l" style="gap:20px;align-items:start;">
+
+  <div class="grid g2 mt-l" style="gap:16px;align-items:start;">
+    <!-- 左：已完成 -->
     <div>
-      <h4 style="font-size:14px;font-weight:700;color:#15803d;text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px;">✅ 已完成</h4>
-      <div class="card card-soft" style="padding:14px 20px;">
-        <ul style="margin:0;padding-left:18px;font-size:13px;line-height:2.1;color:var(--text-1);">
-          <li>Framework 双轴 10 维度设计确认</li>
-          <li>MA 全部 4 个维度接入真实研究数据<br><span style="font-size:11px;color:var(--text-3);">营销预算 · 市场增速 · CR100 集中度 · 新兴品牌活跃度</span></li>
-          <li>ATW · 内容存量 / 增速接入真实 UGC 数据（12赛道）<br><span style="font-size:11px;color:var(--text-3);">来源：XHS RedBI 2025全年曝光存量 / YoY</span></li>
-          <li>ATW · 决策链路重要性 — 全20赛道研究推导完成</li>
-          <li>20赛道象限分组对齐（按真实 ATW 总分重排）</li>
-          <li>POD · SoW &amp; Take Rate 研究完成（16赛道）</li>
+      <h4 style="font-size:13px;font-weight:700;color:#15803d;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;">✅ 已完成（本版）</h4>
+      <div class="card card-soft" style="padding:12px 18px;">
+        <ul style="margin:0;padding-left:16px;font-size:12px;line-height:2.0;color:var(--text-1);">
+          <li>Framework 双轴 4+4 维度设计确认<br><span style="font-size:10px;color:var(--text-3);">政策风险作为门控变量，不参与加权</span></li>
+          <li>MA 全20赛道 · 4维度真实研究数据接入<br><span style="font-size:10px;color:var(--text-3);">营销预算 · 市场增速 · 头部可攻性 · 新兴品牌活跃度</span></li>
+          <li>ATW · 内容存量/增速 — 12赛道直接UGC数据 + 8赛道品牌估算<br><span style="font-size:10px;color:var(--text-3);">来源：XHS RedBI 2025全年曝光存量 / YoY</span></li>
+          <li>ATW · 决策链路重要性 — 全20赛道研究推导</li>
+          <li>ATW · 解法成熟度 — 全20赛道真实评分（策略组提供）</li>
+          <li>POD · SoW / Take Rate — 天花板3.10% / 0.796%，20赛道Gap完成</li>
+          <li>POD · 客户渗透率 — 全20赛道底池品牌覆盖率接入<br><span style="font-size:10px;color:var(--text-3);">天花板100%，底池口径：全网GMV/收入&gt;1亿品牌</span></li>
+          <li>气泡图 — 20赛道完整版，按象限分色，数据质量透明度区分</li>
         </ul>
       </div>
     </div>
-    <div>
-      <h4 style="font-size:14px;font-weight:700;color:#f59e0b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px;">⏳ 待补充</h4>
-      <div class="card card-soft" style="padding:14px 20px;">
-        <ul style="margin:0;padding-left:18px;font-size:13px;line-height:2.1;color:var(--text-1);">
-          <li>ATW · 产品承接能力（内部用研 / 行业白皮书）</li>
-          <li>ATW · 打法成熟度（策略 + 销售运营联合评分）</li>
-          <li>8赛道 UGC 内容存量 / 增速真实数据<br><span style="font-size:11px;color:var(--text-3);">传统滋补 · 宠物用品 · 宠物生活 · 宠物药品 · 药房 · 药品 · 特医 · 零售</span></li>
-          <li>气泡图大小 — 各赛道真实广告收入（内部数据）</li>
-          <li>POD · 客户渗透率（CRM / RedBI）</li>
-          <li>4赛道广告流水补充（传统滋补 / 宠物生活 / 药品 / 零售）</li>
-        </ul>
+
+    <!-- 右：待补充 + Next Steps -->
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div>
+        <h4 style="font-size:13px;font-weight:700;color:#f59e0b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;">⏳ 数据待补充</h4>
+        <div class="card card-soft" style="padding:12px 18px;">
+          <ul style="margin:0;padding-left:16px;font-size:12px;line-height:2.0;color:var(--text-1);">
+            <li>8赛道 UGC 直接数据<br><span style="font-size:10px;color:var(--text-3);">传统滋补·宠物用品·宠物生活·宠物药品·药房·药品·特医·零售（当前为品牌估算或空）</span></li>
+            <li>4赛道广告流水（传统滋补 / 宠物生活 / 药品 / 零售）<br><span style="font-size:10px;color:var(--text-3);">气泡大小当前为估算值</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div>
+        <h4 style="font-size:13px;font-weight:700;color:#6366f1;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;">🚀 建议下一步行动</h4>
+        <div class="card card-soft" style="padding:12px 18px;">
+          <ul style="margin:0;padding-left:16px;font-size:12px;line-height:2.0;color:var(--text-1);">
+            <li><strong>Double Down 赛道启动 KA 突破计划</strong><br><span style="font-size:10px;color:var(--text-3);">母婴用品/母婴食品/保健食品/宠物食品/蛋白食饮/食品 · 配置专属BD资源</span></li>
+            <li><strong>Invest to Win 赛道 ATW 短板诊断</strong><br><span style="font-size:10px;color:var(--text-3);">文具玩具/传统滋补/饮料/酒类 · 内容生态建设 + 新品牌切入</span></li>
+            <li><strong>客户渗透率低赛道 拓客名单激活</strong><br><span style="font-size:10px;color:var(--text-3);">饮料(16%)·文具玩具(29%)·酒类(34%) · 参考 Appendix D 未投放品牌列表</span></li>
+            <li><strong>季度 Review 机制建立</strong><br><span style="font-size:10px;color:var(--text-3);">每季度更新MA/ATW数据，监控赛道象限漂移</span></li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
-  <div class="card card-accent mt-l" style="padding:14px 24px;">
-    <p style="margin:0;font-size:13px;color:var(--text-1);line-height:1.9;">
-      <strong>建议下一步：</strong>补充「产品承接」+「打法成熟」两列评分（策略 + 销售运营联合），同步补全8个 Demo 赛道 UGC 数据，完成全量真实版 2×2 矩阵。
-    </p>
-  </div>
+
   <div class="deck-footer">
-    <span class="dim2">XHS 商业化快消策略组</span>
-    <span class="slide-number" data-current="10" data-total="11"></span>
+    <span class="dim2">XHS 商业化快消策略组 · 框架 v1.0</span>
+    <span class="slide-number" data-current="12" data-total="20"></span>
   </div>
-  <div class="notes">今天最重要的是对齐框架设计。接下来两个关键动作：一是把真实数据接进来，二是找3个典型赛道做一遍完整的校准，确保打分逻辑合理再批量展开。</div>
 </section>
 
 <!-- ══════════════════════════════════════════
@@ -2863,6 +2909,27 @@
 </div><!-- /.deck -->
 
 <script src="./assets/runtime.js"></script>
+<script>
+function goToAppendix(title) {
+  const slides = Array.from(document.querySelectorAll('section.slide'));
+  const idx = slides.findIndex(s => s.dataset.title && s.dataset.title.includes(title));
+  if (idx < 0) { console.warn('[goToAppendix] not found:', title); return; }
+  if (window.__goTo) { window.__goTo(idx); return; }
+  // fallback
+  slides.forEach((s,i) => {
+    s.classList.toggle('is-active', i===idx);
+    s.classList.toggle('is-prev', i<idx);
+  });
+  history.replaceState(null,'','?#/'+(idx+1));
+  const barFill = document.querySelector('.progress-bar span');
+  if (barFill) barFill.style.width = ((idx+1)/slides.length*100)+'%';
+  document.querySelectorAll('.slide-number').forEach(el => {
+    el.dataset.current = idx+1;
+    el.dataset.total = slides.length;
+  });
+  document.dispatchEvent(new CustomEvent('slide-change', {detail:{idx}}));
+}
+</script>
 <script>
 // ── Bubble Chart — 纯 Canvas 2D，无第三方依赖 ──────────────────
 function drawBubbleChart() {
