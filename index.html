@@ -247,40 +247,226 @@
 <!-- ══════════════════════════════════════════
      SLIDE 5 · 10个评分维度
 ══════════════════════════════════════════ -->
-<section class="slide" data-title="评分维度">
+<!-- ══════════════════════════════════════════
+     SLIDE 5A · Market Attractiveness 5维度详解
+══════════════════════════════════════════ -->
+<section class="slide" data-title="MA评分维度">
   <div class="deck-header">
     <span class="eyebrow">02 · Framework 设计</span>
     <span class="eyebrow">快消战略优先级框架</span>
   </div>
-  <p class="kicker">Scoring Dimensions</p>
-  <h2 class="h2">10个核心评分维度（各1-5分加权）</h2>
-  <div class="dim-row mt-l">
-    <div class="dim-card">
-      <h4>📈 Market Attractiveness（外部）</h4>
-      <ul>
-        <li><strong>营销预算规模</strong> × 25% — 行业总营销支出 + 传统→数字迁移空间</li>
-        <li><strong>市场增速</strong> × 20% — 近3年CAGR + 未来3年预期</li>
-        <li><strong>头部客户可攻性</strong> × 20% — Top10品牌市占集中度</li>
-        <li><strong>新兴品牌活跃度</strong> × 20% — VC融资热度 + 新品牌数量</li>
-        <li><strong>政策风险</strong> — <em>门控变量，高风险直接降档</em></li>
-      </ul>
+  <p class="kicker">Scoring Dimensions · 外部视角</p>
+  <h2 class="h2">📈 Market Attractiveness — 5个评分维度</h2>
+
+  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:18px;">
+
+    <!-- D1 营销预算规模 -->
+    <div style="background:var(--surface-2);border-radius:10px;padding:14px 12px;border-top:3px solid var(--accent);display:flex;flex-direction:column;gap:8px;">
+      <div style="font-weight:700;font-size:13px;color:var(--text-1);">营销预算规模</div>
+      <div style="display:inline-block;background:var(--accent);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;align-self:start;">权重 25%</div>
+      <div style="font-size:11px;color:var(--text-2);line-height:1.6;">
+        <div style="font-weight:600;color:var(--text-1);margin-bottom:2px;">定义</div>
+        行业年度总营销支出规模，含线下媒体 + 数字渠道，及传统预算向数字化迁移的空间
+      </div>
+      <div style="font-size:11px;color:var(--text-2);line-height:1.6;">
+        <div style="font-weight:600;color:var(--accent);margin-bottom:2px;">Implication</div>
+        预算盘子越大，平台可分食的收入天花板越高；迁移空间大意味着增量而非存量竞争
+      </div>
+      <div style="font-size:11px;color:var(--text-3);line-height:1.5;margin-top:auto;">
+        <div style="font-weight:600;margin-bottom:2px;">数据来源</div>
+        CTR/尼尔森行业报告 · 艾瑞广告市场规模 · 内部客户预算调研
+      </div>
     </div>
-    <div class="dim-card">
-      <h4>🏆 Ability to Win（内部）</h4>
-      <ul>
-        <li><strong>内容势能存量</strong> × 20% — UGC量 × 搜索量 × 阅读量</li>
-        <li><strong>内容势能增速</strong> × 15% — 三项指标增速均值</li>
-        <li><strong>决策链路重要性</strong> × 25% — 消费者购买前在XHS种草概率</li>
-        <li><strong>产品承接能力</strong> × 20% — 广告产品适配 + 转化路径完整度</li>
-        <li><strong>打法成熟度</strong> × 20% — 标杆案例数 + 系统打法完备性</li>
-      </ul>
+
+    <!-- D2 市场增速 -->
+    <div style="background:var(--surface-2);border-radius:10px;padding:14px 12px;border-top:3px solid var(--accent);display:flex;flex-direction:column;gap:8px;">
+      <div style="font-weight:700;font-size:13px;color:var(--text-1);">市场增速</div>
+      <div style="display:inline-block;background:var(--accent);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;align-self:start;">权重 20%</div>
+      <div style="font-size:11px;color:var(--text-2);line-height:1.6;">
+        <div style="font-weight:600;color:var(--text-1);margin-bottom:2px;">定义</div>
+        近3年行业GMV/营销支出 CAGR，结合机构对未来3年的增速预测
+      </div>
+      <div style="font-size:11px;color:var(--text-2);line-height:1.6;">
+        <div style="font-weight:600;color:var(--accent);margin-bottom:2px;">Implication</div>
+        高增速赛道客户扩张意愿强，更愿意尝试新渠道；存量市场竞争激烈、议价空间小
+      </div>
+      <div style="font-size:11px;color:var(--text-3);line-height:1.5;margin-top:auto;">
+        <div style="font-weight:600;margin-bottom:2px;">数据来源</div>
+        Euromonitor · 灼识咨询 · 国家统计局行业数据 · 公司年报
+      </div>
     </div>
+
+    <!-- D3 头部客户可攻性 -->
+    <div style="background:var(--surface-2);border-radius:10px;padding:14px 12px;border-top:3px solid var(--accent);display:flex;flex-direction:column;gap:8px;">
+      <div style="font-weight:700;font-size:13px;color:var(--text-1);">头部客户可攻性</div>
+      <div style="display:inline-block;background:var(--accent);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;align-self:start;">权重 20%</div>
+      <div style="font-size:11px;color:var(--text-2);line-height:1.6;">
+        <div style="font-weight:600;color:var(--text-1);margin-bottom:2px;">定义</div>
+        Top10品牌的市占集中度；集中度低说明格局分散、品牌多元，反之则头部固化
+      </div>
+      <div style="font-size:11px;color:var(--text-2);line-height:1.6;">
+        <div style="font-weight:600;color:var(--accent);margin-bottom:2px;">Implication</div>
+        集中度低 → 可攻客户多、单客依赖低；集中度高且头部已在平台 → 可深度绑定
+      </div>
+      <div style="font-size:11px;color:var(--text-3);line-height:1.5;margin-top:auto;">
+        <div style="font-weight:600;margin-bottom:2px;">数据来源</div>
+        内部CRM客户分级 · 赛道Top10品牌广告主覆盖率 · 竞品投放监测
+      </div>
+    </div>
+
+    <!-- D4 新兴品牌活跃度 -->
+    <div style="background:var(--surface-2);border-radius:10px;padding:14px 12px;border-top:3px solid var(--accent);display:flex;flex-direction:column;gap:8px;">
+      <div style="font-weight:700;font-size:13px;color:var(--text-1);">新兴品牌活跃度</div>
+      <div style="display:inline-block;background:var(--accent);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;align-self:start;">权重 20%</div>
+      <div style="font-size:11px;color:var(--text-2);line-height:1.6;">
+        <div style="font-weight:600;color:var(--text-1);margin-bottom:2px;">定义</div>
+        近2年赛道内新成立品牌数量 + VC/PE融资频次和金额，反映市场活力与新进入者意愿
+      </div>
+      <div style="font-size:11px;color:var(--text-2);line-height:1.6;">
+        <div style="font-weight:600;color:var(--accent);margin-bottom:2px;">Implication</div>
+        新品牌天然依赖内容种草，是平台增量客户的最大来源；融资活跃 → 预算充足、投放意愿强
+      </div>
+      <div style="font-size:11px;color:var(--text-3);line-height:1.5;margin-top:auto;">
+        <div style="font-weight:600;margin-bottom:2px;">数据来源</div>
+        IT桔子 / 鲸准融资数据 · 天眼查新注册品牌 · 内部新客开户数据
+      </div>
+    </div>
+
+    <!-- D5 政策风险（门控） -->
+    <div style="background:#fff7ed;border-radius:10px;padding:14px 12px;border-top:3px solid #f97316;display:flex;flex-direction:column;gap:8px;">
+      <div style="font-weight:700;font-size:13px;color:#9a3412;">政策风险</div>
+      <div style="display:inline-block;background:#f97316;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;align-self:start;">⛔ 门控变量</div>
+      <div style="font-size:11px;color:var(--text-2);line-height:1.6;">
+        <div style="font-weight:600;color:var(--text-1);margin-bottom:2px;">定义</div>
+        该赛道广告投放受监管程度；高风险赛道包含：药品、特医、OTC、医疗器械
+      </div>
+      <div style="font-size:11px;color:#9a3412;line-height:1.6;">
+        <div style="font-weight:600;margin-bottom:2px;">Implication</div>
+        不参与加权打分；高政策风险直接将赛道降档至"观望"，无论MA/ATW得分多高
+      </div>
+      <div style="font-size:11px;color:var(--text-3);line-height:1.5;margin-top:auto;">
+        <div style="font-weight:600;margin-bottom:2px;">数据来源</div>
+        广告法合规清单 · 国家药监局政策 · 法务合规团队季度评估
+      </div>
+    </div>
+
   </div>
+
   <div class="deck-footer">
     <span class="dim2">XHS 商业化快消策略组</span>
-    <span class="slide-number" data-current="5" data-total="11"></span>
+    <span class="slide-number" data-current="5" data-total="13"></span>
   </div>
-  <div class="notes">每个维度1-5分，按权重加权求和，分别得到MA分和ATW分。政策风险不参与打分，作为门控变量，比如药品、特医类的赛道，即使MA高也要先过政策关。</div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SLIDE 5B · Ability to Win 5维度详解
+══════════════════════════════════════════ -->
+<section class="slide" data-title="ATW评分维度">
+  <div class="deck-header">
+    <span class="eyebrow">02 · Framework 设计</span>
+    <span class="eyebrow">快消战略优先级框架</span>
+  </div>
+  <p class="kicker">Scoring Dimensions · 内部视角</p>
+  <h2 class="h2">🏆 Ability to Win — 5个评分维度</h2>
+
+  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:18px;">
+
+    <!-- A1 内容势能存量 -->
+    <div style="background:var(--surface-2);border-radius:10px;padding:14px 12px;border-top:3px solid #6366f1;display:flex;flex-direction:column;gap:8px;">
+      <div style="font-weight:700;font-size:13px;color:var(--text-1);">内容势能存量</div>
+      <div style="display:inline-block;background:#6366f1;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;align-self:start;">权重 20%</div>
+      <div style="font-size:11px;color:var(--text-2);line-height:1.6;">
+        <div style="font-weight:600;color:var(--text-1);margin-bottom:2px;">定义</div>
+        站内该赛道 UGC 笔记量 × 搜索量 × 阅读量的综合存量，反映平台内容生态厚度
+      </div>
+      <div style="font-size:11px;color:var(--text-2);line-height:1.6;">
+        <div style="font-weight:600;color:#6366f1;margin-bottom:2px;">Implication</div>
+        存量越厚，用户自发种草越活跃，广告的内容环境越好，投放效率越高
+      </div>
+      <div style="font-size:11px;color:var(--text-3);line-height:1.5;margin-top:auto;">
+        <div style="font-weight:600;margin-bottom:2px;">数据来源</div>
+        RedBI 内容数据仪表盘 · 搜索量 · 笔记阅读量（赛道维度聚合）
+      </div>
+    </div>
+
+    <!-- A2 内容势能增速 -->
+    <div style="background:var(--surface-2);border-radius:10px;padding:14px 12px;border-top:3px solid #6366f1;display:flex;flex-direction:column;gap:8px;">
+      <div style="font-weight:700;font-size:13px;color:var(--text-1);">内容势能增速</div>
+      <div style="display:inline-block;background:#6366f1;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;align-self:start;">权重 15%</div>
+      <div style="font-size:11px;color:var(--text-2);line-height:1.6;">
+        <div style="font-weight:600;color:var(--text-1);margin-bottom:2px;">定义</div>
+        UGC量、搜索量、阅读量三项指标近12个月YoY增速均值
+      </div>
+      <div style="font-size:11px;color:var(--text-2);line-height:1.6;">
+        <div style="font-weight:600;color:#6366f1;margin-bottom:2px;">Implication</div>
+        增速捕捉的是趋势方向；存量高但增速低说明生态成熟；存量低但增速高是新兴机会赛道
+      </div>
+      <div style="font-size:11px;color:var(--text-3);line-height:1.5;margin-top:auto;">
+        <div style="font-weight:600;margin-bottom:2px;">数据来源</div>
+        RedBI 内容趋势数据 · 搜索量YoY · 笔记发布量YoY
+      </div>
+    </div>
+
+    <!-- A3 决策链路重要性 -->
+    <div style="background:var(--surface-2);border-radius:10px;padding:14px 12px;border-top:3px solid #6366f1;display:flex;flex-direction:column;gap:8px;">
+      <div style="font-weight:700;font-size:13px;color:var(--text-1);">决策链路重要性</div>
+      <div style="display:inline-block;background:#6366f1;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;align-self:start;">权重 25%</div>
+      <div style="font-size:11px;color:var(--text-2);line-height:1.6;">
+        <div style="font-weight:600;color:var(--text-1);margin-bottom:2px;">定义</div>
+        消费者在该品类购买决策过程中使用小红书种草/搜索的概率；衡量平台在购买决策中的角色
+      </div>
+      <div style="font-size:11px;color:var(--text-2);line-height:1.6;">
+        <div style="font-weight:600;color:#6366f1;margin-bottom:2px;">Implication</div>
+        种草概率越高，品牌广告主越相信平台能影响购买决策，ROAS归因越顺畅
+      </div>
+      <div style="font-size:11px;color:var(--text-3);line-height:1.5;margin-top:auto;">
+        <div style="font-weight:600;margin-bottom:2px;">数据来源</div>
+        用研/消费者调研 · 内部用户行为路径数据 · 第三方品牌健康度追踪
+      </div>
+    </div>
+
+    <!-- A4 产品承接能力 -->
+    <div style="background:var(--surface-2);border-radius:10px;padding:14px 12px;border-top:3px solid #6366f1;display:flex;flex-direction:column;gap:8px;">
+      <div style="font-weight:700;font-size:13px;color:var(--text-1);">产品承接能力</div>
+      <div style="display:inline-block;background:#6366f1;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;align-self:start;">权重 20%</div>
+      <div style="font-size:11px;color:var(--text-2);line-height:1.6;">
+        <div style="font-weight:600;color:var(--text-1);margin-bottom:2px;">定义</div>
+        平台现有广告产品对该赛道需求的覆盖程度 + 从种草到转化的路径完整度（含电商闭环）
+      </div>
+      <div style="font-size:11px;color:var(--text-2);line-height:1.6;">
+        <div style="font-weight:600;color:#6366f1;margin-bottom:2px;">Implication</div>
+        产品不配套，客户钱花不出去；路径不完整，客户无法看到ROI，续投意愿低
+      </div>
+      <div style="font-size:11px;color:var(--text-3);line-height:1.5;margin-top:auto;">
+        <div style="font-weight:600;margin-bottom:2px;">数据来源</div>
+        产品线覆盖矩阵 · 电商闭环开通赛道列表 · 转化路径完整度内部评估
+      </div>
+    </div>
+
+    <!-- A5 打法成熟度 -->
+    <div style="background:var(--surface-2);border-radius:10px;padding:14px 12px;border-top:3px solid #6366f1;display:flex;flex-direction:column;gap:8px;">
+      <div style="font-weight:700;font-size:13px;color:var(--text-1);">打法成熟度</div>
+      <div style="display:inline-block;background:#6366f1;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;align-self:start;">权重 20%</div>
+      <div style="font-size:11px;color:var(--text-2);line-height:1.6;">
+        <div style="font-weight:600;color:var(--text-1);margin-bottom:2px;">定义</div>
+        团队在该赛道已有的可复制打法数量 + 标杆案例质量 + BD/运营对赛道的认知深度
+      </div>
+      <div style="font-size:11px;color:var(--text-2);line-height:1.6;">
+        <div style="font-weight:600;color:#6366f1;margin-bottom:2px;">Implication</div>
+        打法越成熟，复制效率越高，BD人效越好；成熟度低意味着需要额外投入探索成本
+      </div>
+      <div style="font-size:11px;color:var(--text-3);line-height:1.5;margin-top:auto;">
+        <div style="font-weight:600;margin-bottom:2px;">数据来源</div>
+        内部案例库 · 行业solution数量 · BD团队赛道经验调研
+      </div>
+    </div>
+
+  </div>
+
+  <div class="deck-footer">
+    <span class="dim2">XHS 商业化快消策略组</span>
+    <span class="slide-number" data-current="6" data-total="13"></span>
+  </div>
 </section>
 
 <!-- ══════════════════════════════════════════
