@@ -1,4 +1,4 @@
-<!-- cache-bust: 1778238643 -->
+<!-- cache-bust: 1778238890 -->
 <!DOCTYPE html>
 <html lang="zh-CN" data-theme="corporate-clean">
 <head>
@@ -849,7 +849,7 @@
     <span class="eyebrow">快消战略优先级框架</span>
   </div>
   <p class="kicker">Strategy Matrix · 12赛道真实数据版 · 气泡大小为Demo估算</p>
-  <h2 class="h2">快消赛道战略优先级矩阵（12赛道 · 真实数据版）</h2>
+  <h2 class="h2">快消赛道战略优先级矩阵（20赛道完整版）</h2>
   <div class="card mt-m" style="padding:16px 16px 8px;position:relative;">
     <div id="bubble-wrap">
       <canvas id="bubbleChart" style="display:block;"></canvas>
@@ -878,7 +878,7 @@
     </div>
     <div style="font-size:10px;color:var(--text-3);text-align:right;">
       气泡大小 = 广告收入体量（<span style="color:#f59e0b;">Demo估算</span>）<br>
-      8个赛道因 UGC 数据待补充未展示
+      透明度：实色=直接UGC数据 · 半透明=品牌估算 · 淡色=无UGC数据
     </div>
   </div>
   <div class="deck-footer">
@@ -2629,22 +2629,29 @@ function render(W, H, c, dpr) {
   // 传统滋补、宠物用品、宠物生活、宠物药品、药房、药品、特医、零售 UGC数据待补充，暂不展示
   // 颜色 = 象限归属：绿=Double Down / 蓝=Defend & Harvest / 橙=Invest to Win / 灰=Deprioritize
   const data = [
-    // 🟢 Double Down（MA≥3.1 & ATW≥3.0）
-    ['母婴食品', 3.7, 4.80, 28, '#16a34a'],
-    ['母婴用品', 3.8, 4.65, 22, '#16a34a'],
-    ['保健食品', 4.1, 4.45, 42, '#16a34a'],
-    ['食品',     3.2, 3.10, 52, '#16a34a'],
-    ['蛋白食饮', 4.2, 3.75, 14, '#16a34a'],
-    ['宠物食品', 3.8, 3.75, 16, '#16a34a'],
-    // 🟡 Invest to Win（MA≥3.1 & ATW<3.0）
-    ['酒类',     3.5, 2.05, 20, '#d97706'],
-    // 🔵 Defend & Harvest（MA<3.1 & ATW≥3.0）--- 餐饮 MA实际3.0，贴着线
-    // ⚫ Deprioritize（ATW<3.0）
-    ['文具玩具', 4.2, 2.90, 10, '#94a3b8'],
-    ['饮料',     4.2, 2.35, 30, '#94a3b8'],
-    ['餐饮',     3.0, 2.65, 18, '#94a3b8'],
-    ['医疗用品', 2.8, 2.35, 14, '#94a3b8'],
-    ['OTC',      2.8, 2.50, 10, '#94a3b8'],
+    // 🔴 Double Down（MA≥3.1 & ATW≥3.0）— 绿色实心
+    ['母婴食品',  3.70, 4.80, 34, '#16a34a', 0.90],
+    ['母婴用品',  3.80, 4.65, 30, '#16a34a', 0.90],
+    ['保健食品',  4.10, 4.45, 32, '#16a34a', 0.90],
+    ['食品',      3.20, 3.10, 30, '#16a34a', 0.90],
+    ['蛋白食饮',  4.20, 3.75, 20, '#16a34a', 0.90],
+    ['宠物食品',  3.80, 3.75, 24, '#16a34a', 0.90],
+    // 🟡 Invest to Win（MA≥3.1 & ATW<3.0）— 橙色
+    ['传统滋补',  3.60, 2.70, 14, '#d97706', 0.70],
+    ['饮料',      4.20, 2.35, 22, '#d97706', 0.90],
+    ['文具玩具礼品',4.20, 2.90, 16, '#d97706', 0.90],
+    ['酒类',      3.50, 2.05, 16, '#d97706', 0.90],
+    ['特医',      3.10, 1.65, 10, '#d97706', 0.70],
+    // ⚪ Deprioritize（MA<3.1 & ATW<3.0）— 灰色
+    ['餐饮',      3.00, 2.65, 28, '#94a3b8', 0.90],
+    ['宠物用品',  2.80, 2.20, 12, '#94a3b8', 0.70],
+    ['宠物生活',  2.80, 1.80,  8, '#94a3b8', 0.45],
+    ['医疗用品',  2.80, 2.35, 22, '#94a3b8', 0.90],
+    ['OTC',       2.80, 2.50, 22, '#94a3b8', 0.90],
+    ['宠物药品',  3.00, 2.60, 10, '#94a3b8', 0.70],
+    ['药房零售',  2.50, 1.70, 12, '#94a3b8', 0.70],
+    ['零售',      1.80, 1.55,  8, '#94a3b8', 0.45],
+    ['药品',      2.80, 1.40,  8, '#94a3b8', 0.70],
   ];
 
   // ── 坐标系 ──
@@ -2708,21 +2715,24 @@ function render(W, H, c, dpr) {
   c.restore();
 
   // ── 气泡 ──
-  data.forEach(([label, ma, atw, sz, color]) => {
+  data.forEach(([label, ma, atw, sz, color, alpha=0.85]) => {
     const px = toPixX(ma);
     const py = toPixY(atw);
     const r  = Math.sqrt(sz) * 2.6;
+    const hexAlpha = Math.round(alpha * 255).toString(16).padStart(2,'0');
     // 气泡
+    c.globalAlpha = alpha;
     c.beginPath();
     c.arc(px, py, r, 0, Math.PI * 2);
-    c.fillStyle = color + 'cc';
+    c.fillStyle = color + hexAlpha;
     c.fill();
     c.strokeStyle = color;
-    c.lineWidth = 1.5;
+    c.lineWidth = alpha < 0.7 ? 1 : 1.5;
     c.stroke();
+    c.globalAlpha = 1.0;
     // 标签
-    c.fillStyle = '#1e293b';
-    c.font = 'bold 9.5px Inter, system-ui, sans-serif';
+    c.fillStyle = alpha < 0.6 ? '#94a3b8' : '#1e293b';
+    c.font = alpha < 0.7 ? '8.5px Inter, system-ui, sans-serif' : 'bold 9.5px Inter, system-ui, sans-serif';
     c.textAlign = 'center';
     c.fillText(label, px, py + r + 11);
   });
