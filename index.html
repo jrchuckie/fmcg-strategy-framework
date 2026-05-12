@@ -1,4 +1,4 @@
-<!-- cache-bust: 1778555267 -->
+<!-- cache-bust: 1778555483 -->
 <!DOCTYPE html>
 <html lang="zh-CN" data-theme="corporate-clean">
 <head>
@@ -2944,8 +2944,8 @@ function render(W, H, c, dpr) {
   const PAD = { top: 24, right: 24, bottom: 44, left: 48 };
   const CW = W - PAD.left - PAD.right;
   const CH = H - PAD.top  - PAD.bottom;
-  const X_MIN = 1.2, X_MAX = 5.0;
-  const Y_MIN = 1.5, Y_MAX = 5.2;
+  const X_MIN = 0.8, X_MAX = 5.2;
+  const Y_MIN = 0.8, Y_MAX = 5.4;
   const MID_X = 3.0, MID_Y = 3.0;
 
   const toPixX = v => PAD.left + (v - X_MIN) / (X_MAX - X_MIN) * CW;
@@ -3016,11 +3016,28 @@ function render(W, H, c, dpr) {
     c.lineWidth = alpha < 0.7 ? 1 : 1.5;
     c.stroke();
     c.globalAlpha = 1.0;
-    // 标签
+    // 标签 —— 智能位置：避开边缘，自动上/下切换
+    const fontSize = alpha < 0.7 ? 8.5 : 9.5;
+    c.font = (alpha < 0.7 ? '' : 'bold ') + fontSize + 'px Inter, system-ui, sans-serif';
     c.fillStyle = alpha < 0.6 ? '#94a3b8' : '#1e293b';
-    c.font = alpha < 0.7 ? '8.5px Inter, system-ui, sans-serif' : 'bold 9.5px Inter, system-ui, sans-serif';
+    const labelW = c.measureText(label).width;
+    // 默认放气泡下方
+    let lx = px;
+    let ly = py + r + 11;
+    // 靠近底部边缘 → 放上方
+    if (ly + fontSize > B - 4) ly = py - r - 3;
+    // 靠近顶部边缘 → 放下方
+    if (ly - fontSize < T + 4) ly = py + r + 11;
+    // 水平边界钳制
+    if (lx - labelW/2 < L + 2) lx = L + 2 + labelW/2;
+    if (lx + labelW/2 > R - 2) lx = R - 2 - labelW/2;
+    // 白色描边提升可读性
     c.textAlign = 'center';
-    c.fillText(label, px, py + r + 11);
+    c.strokeStyle = 'rgba(255,255,255,0.85)';
+    c.lineWidth = 3;
+    c.lineJoin = 'round';
+    c.strokeText(label, lx, ly);
+    c.fillText(label, lx, ly);
   });
 
   // ── 象限角标（4个象限，餐饮在Defend）──
