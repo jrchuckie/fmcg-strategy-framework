@@ -49,6 +49,7 @@ code,kbd,pre,samp{font-family:var(--font-mono)}
   display:flex;flex-direction:column;justify-content:center;
   padding:72px 96px;
   box-sizing:border-box;
+  background:var(--surface);
   opacity:0;pointer-events:none;
   transition:opacity .5s var(--ease), transform .5s var(--ease);
   transform:translateX(30px);
