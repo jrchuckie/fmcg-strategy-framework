@@ -1,656 +1,10 @@
-<!-- cache-bust: 1779868946 -->
+<!-- cache-bust: 1779872971 -->
 <!DOCTYPE html>
 <html lang="zh-CN" data-theme="corporate-clean">
 <head>
 <meta charset="utf-8">
 <title>快消赛道战略优先级框架 — XHS商业化</title>
-<link rel="stylesheet" href="./assets/fonts.css">
-<link rel="stylesheet" href="./assets/base.css">
-<link rel="stylesheet" id="theme-link" href="./assets/themes/corporate-clean.css">
-<link rel="stylesheet" href="./assets/animations/animations.css">
-
-<style>
-/* ── Bubble chart canvas wrapper ── */
-#bubble-wrap { position:relative; width:100%; height:440px; }
-
-/* ── Scoring table ── */
-.st { width:100%; border-collapse:collapse; font-size:13.5px; }
-.st th,.st td { padding:10px 14px; text-align:left; border-bottom:1px solid var(--border); }
-.st th { font-size:11px; text-transform:uppercase; letter-spacing:.08em;
-         color:var(--text-3); font-weight:600; }
-.st tr:hover td { background:var(--surface-2); }
-.st td.num { font-variant-numeric:tabular-nums; text-align:center; }
-.st td.sect { font-weight:700; color:var(--accent); }
-.badge { display:inline-block; padding:2px 10px; border-radius:99px;
-         font-size:11px; font-weight:700; }
-.badge-a { background:#22c55e22; color:#16a34a; }
-.badge-b { background:#f59e0b22; color:#d97706; }
-.badge-c { background:#6366f122; color:#4f46e5; }
-.badge-d { background:#e2e8f0;   color:#64748b; }
-
-/* ── Quadrant labels on 2×2 ── */
-.q-label { position:absolute; font-size:11px; font-weight:700;
-           letter-spacing:.05em; text-transform:uppercase;
-           padding:4px 10px; border-radius:6px; opacity:.82; }
-
-/* ── Axis label ── */
-.axis-lbl { position:absolute; font-size:12px; color:var(--text-3);
-            font-weight:600; letter-spacing:.06em; text-transform:uppercase; }
-
-/* ── Dimension card ── */
-.dim-row { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
-.dim-card { background:var(--surface-2); border:1px solid var(--border);
-            border-radius:12px; padding:20px 22px; }
-.dim-card h4 { margin:0 0 10px; font-size:14px; font-weight:700;
-               color:var(--accent); text-transform:uppercase; letter-spacing:.06em; }
-.dim-card ul { margin:0; padding-left:18px; font-size:13.5px;
-               color:var(--text-2); line-height:1.8; }
-
-/* ── Appendix ref box ── */
-.ref-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin-top:20px; }
-.ref-card { background:var(--surface-2); border:1px solid var(--border);
-            border-radius:10px; padding:18px 20px; }
-.ref-card h5 { margin:0 0 8px; font-size:12px; font-weight:700;
-               text-transform:uppercase; color:var(--accent); }
-.ref-card p { margin:0; font-size:13px; color:var(--text-2); line-height:1.7; }
-
-/* ── POD comparison ── */
-.pod-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
-.pod-card { background:var(--surface-2); border:1px solid var(--border);
-            border-radius:10px; padding:16px 18px; }
-.pod-card .label { font-size:11px; text-transform:uppercase; letter-spacing:.07em;
-                   color:var(--text-3); margin-bottom:6px; }
-.pod-card .val { font-size:22px; font-weight:800; color:var(--text-1); }
-.pod-card .gap { font-size:12px; color:#f59e0b; font-weight:600; margin-top:4px; }
-
-/* ── tag pill row ── */
-.pill-row { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
-
-/* ── Appendix 跳转按钮 ── */
-.app-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 3px 10px;
-  border-radius: 5px;
-  font-size: 10px;
-  font-weight: 600;
-  border: 1px solid currentColor;
-  cursor: pointer;
-  background: transparent;
-  text-decoration: none;
-  transition: background .15s, color .15s;
-  white-space: nowrap;
-}
-.app-btn:hover { opacity: .75; }
-.app-btn-blue  { color: #0ea5e9; border-color: #0ea5e9; }
-.app-btn-purple{ color: #8b5cf6; border-color: #8b5cf6; }
-.app-btn-indigo{ color: #6366f1; border-color: #6366f1; }
-.app-btn-slate { color: #64748b; border-color: #94a3b8; }
-.app-btns { display:flex; gap:6px; flex-wrap:wrap; align-items:center; }
-
-/* ── Slide Nav Sidebar ── */
-#slide-nav {
-  position: fixed;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 9999;
-  display: flex;
-  align-items: flex-start;
-  gap: 0;
-  transition: transform 0.3s ease;
-}
-#slide-nav-toggle {
-  writing-mode: vertical-rl;
-  background: rgba(30,41,59,0.85);
-  color: #f1f5f9;
-  border: none;
-  padding: 12px 6px;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: .05em;
-  cursor: pointer;
-  border-radius: 8px 0 0 8px;
-  backdrop-filter: blur(8px);
-  transition: background 0.2s;
-  user-select: none;
-  min-height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-}
-#slide-nav-toggle:hover { background: rgba(30,41,59,0.95); }
-#slide-nav-toggle .toggle-arrow {
-  font-size: 9px;
-  transition: transform 0.3s;
-}
-#slide-nav.collapsed #slide-nav-toggle .toggle-arrow { transform: rotate(180deg); }
-#slide-nav-panel {
-  background: rgba(15,23,42,0.92);
-  backdrop-filter: blur(12px);
-  border-radius: 0 0 0 10px;
-  padding: 10px 0;
-  min-width: 220px;
-  max-height: 80vh;
-  overflow-y: auto;
-  overflow-x: hidden;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255,255,255,0.2) transparent;
-  box-shadow: -4px 0 20px rgba(0,0,0,0.3);
-  transition: width 0.3s ease, opacity 0.3s ease;
-}
-#slide-nav.collapsed #slide-nav-panel {
-  width: 0;
-  opacity: 0;
-  pointer-events: none;
-  min-width: 0;
-  padding: 0;
-}
-#slide-nav-panel::-webkit-scrollbar { width: 3px; }
-#slide-nav-panel::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 3px; }
-
-.snav-section-label {
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: .1em;
-  color: rgba(148,163,184,0.6);
-  text-transform: uppercase;
-  padding: 8px 14px 3px;
-  margin-top: 4px;
-}
-.snav-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 14px;
-  cursor: pointer;
-  transition: background 0.15s;
-  border-left: 2px solid transparent;
-  text-decoration: none;
-}
-.snav-item:hover { background: rgba(255,255,255,0.07); }
-.snav-item.active {
-  background: rgba(99,102,241,0.2);
-  border-left-color: #6366f1;
-}
-.snav-num {
-  font-size: 9px;
-  font-weight: 700;
-  color: rgba(148,163,184,0.5);
-  min-width: 18px;
-  text-align: right;
-}
-.snav-item.active .snav-num { color: #818cf8; }
-.snav-title {
-  font-size: 11px;
-  color: rgba(226,232,240,0.75);
-  line-height: 1.3;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 170px;
-}
-.snav-item.active .snav-title { color: #e2e8f0; font-weight: 600; }
-
-</style>
-</head>
-<body>
-<div class="deck"
-     data-themes="corporate-clean,minimal-white,pitch-deck-vc,swiss-grid"
-     data-theme-base="./assets/themes/">
-
-<!-- ══════════════════════════════════════════
-     SLIDE 1 · COVER
-══════════════════════════════════════════ -->
-<section class="slide is-active" data-title="封面">
-  <div class="deck-header">
-    <span class="eyebrow">XHS 商业化 · 快消行业策略</span>
-    <span class="eyebrow">2026 · Internal</span>
-  </div>
-  <div class="anim-stagger-list" style="max-width:760px;margin-top:60px;">
-    <p class="kicker">战略框架提案</p>
-    <h1 class="h1 anim-fade-up" style="font-size:clamp(36px,5vw,58px);line-height:1.15;">
-      快消赛道<span class="gradient-text">战略优先级</span>框架
-    </h1>
-    <p class="lede" style="max-width:640px;margin-top:16px;">
-      基于 MA × ATW 双轴评分，对25个快消子赛道（食品→6子）进行战略定位，
-      评估 POA Gap（SoW / Take Rate / 品牌覆盖率），
-      指导资源投入与行动优先级。
-    </p>
-    <div class="pill-row" style="margin-top:20px;">
-      <span class="pill pill-accent">Framework 设计</span>
-      <span class="pill">25赛道评分 &amp; 2×2矩阵</span>
-      <span class="pill">POA Gap 分析</span>
-      <span class="pill">数据附录</span>
-    </div>
-  </div>
-  <div class="deck-footer">
-    <span class="dim2">XHS 商业化快消策略组</span>
-    <span class="slide-number" data-current="1" data-total="11"></span>
-  </div>
-  <div class="notes">封面页。向老板介绍今天要讲的是一套用于快消20个子赛道的战略优先级框架，核心回答三个问题：哪些赛道值得打、我们有没有能力赢、现在的差距有多大。</div>
-</section>
-
-<!-- ══════════════════════════════════════════
-     SLIDE 2 · 目录
-══════════════════════════════════════════ --><section class="slide" data-title="目录">
-  <div class="deck-header">
-    <span class="eyebrow">Today's Agenda</span>
-    <span class="eyebrow">快消战略优先级框架</span>
-  </div>
-  <div style="display:flex;flex-direction:column;justify-content:center;flex:1;gap:0;padding:0 24px;">
-
-    <div style="display:grid;grid-template-columns:48px 1fr;align-items:start;padding:14px 0;border-bottom:1px solid var(--border);">
-      <span style="font-size:28px;font-weight:900;color:#e2e8f0;line-height:1;">01</span>
-      <div>
-        <div style="font-size:15px;font-weight:700;color:var(--text-1);">Framework 设计</div>
-        <div style="font-size:11px;color:var(--text-3);margin-top:2px;">MA × ATW 双轴 · 9个评分维度 · 政策门控</div>
-      </div>
-    </div>
-
-    <div style="display:grid;grid-template-columns:48px 1fr;align-items:start;padding:14px 0;border-bottom:1px solid var(--border);">
-      <span style="font-size:28px;font-weight:900;color:#e2e8f0;line-height:1;">02</span>
-      <div>
-        <div style="font-size:15px;font-weight:700;color:var(--text-1);">25赛道评分 &amp; 2×2 矩阵</div>
-        <div style="font-size:11px;color:var(--text-3);margin-top:2px;">真实数据评分 · Bubble Chart 可视化 · 象限行动建议</div>
-      </div>
-    </div>
-
-    <div style="display:grid;grid-template-columns:48px 1fr;align-items:start;padding:14px 0;border-bottom:1px solid var(--border);">
-      <span style="font-size:28px;font-weight:900;color:#e2e8f0;line-height:1;">03</span>
-      <div>
-        <div style="font-size:15px;font-weight:700;color:var(--text-1);">POA Gap 分析</div>
-        <div style="font-size:11px;color:var(--text-3);margin-top:2px;">SoW 天花板（3.10%）· Take Rate（0.796%）· 品牌覆盖率</div>
-      </div>
-    </div>
-
-    <div style="display:grid;grid-template-columns:48px 1fr;align-items:start;padding:14px 0;border-bottom:1px solid var(--border);">
-      <span style="font-size:28px;font-weight:900;color:#e2e8f0;line-height:1;">04</span>
-      <div>
-        <div style="font-size:15px;font-weight:700;color:var(--text-1);">天花板测算</div>
-        <div style="font-size:11px;color:var(--text-3);margin-top:2px;">ATW分档 × 字节市占 · 2026→2030 · 20赛道增量空间</div>
-      </div>
-    </div>
-
-    <div style="display:grid;grid-template-columns:48px 1fr;align-items:start;padding:14px 0;">
-      <span style="font-size:28px;font-weight:900;color:#e2e8f0;line-height:1;">05</span>
-      <div>
-        <div style="font-size:15px;font-weight:700;color:var(--text-1);">数据附录</div>
-        <div style="font-size:11px;color:var(--text-3);margin-top:2px;">广告流水 · UGC内容势能 · 决策链路 · 市场规模 · SoW &amp; Take Rate · 集中度&amp;融资 · 竞品参考 · 品牌清单</div>
-      </div>
-    </div>
-
-  </div>
-  <div class="deck-footer">
-    <span class="dim2">XHS 商业化快消策略组</span>
-    <span class="slide-number"></span>
-  </div>
-</section>
-
-<section class="slide" data-title="Framework 设计">
-  <div class="deck-header">
-    <span class="eyebrow">01 · Framework 设计</span>
-    <span class="eyebrow">快消战略优先级框架</span>
-  </div>
-  <p class="kicker">FRAMEWORK ARCHITECTURE</p>
-  <h2 class="h2">三层递进式战略分析框架</h2>
-
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-top:24px;">
-
-    <!-- L1 -->
-    <div style="border:1.5px solid #bfdbfe;border-radius:10px;padding:22px 20px;background:#eff6ff;">
-      <div style="font-size:11px;font-weight:700;color:#3b82f6;letter-spacing:.08em;margin-bottom:10px;">L1 · 战略定位矩阵</div>
-      <div style="margin-bottom:10px;">
-        <div style="font-weight:700;color:#1e293b;font-size:13px;">横轴：Market Attractiveness</div>
-        <div style="color:#64748b;font-size:12px;margin-top:3px;">营销预算规模 · 市场增速 · 头部集中度 · 新兴品牌活跃度<br><span style="color:#ef4444;font-size:11px;">⛔ 政策风险：门控变量（Gate）</span></div>
-      </div>
-      <div style="margin-bottom:10px;">
-        <div style="font-weight:700;color:#1e293b;font-size:13px;">纵轴：Ability to Win</div>
-        <div style="color:#64748b;font-size:12px;margin-top:3px;">内容势能存量 · 内容势能增速 · 决策链路重要性 · 解决方案成熟度</div>
-      </div>
-      <div style="border-top:1px solid #bfdbfe;padding-top:10px;margin-top:6px;">
-        <div style="font-weight:700;color:#1e293b;font-size:12px;">Bubble：现有业务收入体量</div>
-        <div style="color:#64748b;font-size:11px;margin-top:2px;">XHS快消赛道2025广告收入估算</div>
-      </div>
-    </div>
-
-    <!-- L2 -->
-    <div style="border:1.5px solid #c7d2fe;border-radius:10px;padding:22px 20px;background:#eef2ff;">
-      <div style="font-size:11px;font-weight:700;color:#6366f1;letter-spacing:.08em;margin-bottom:10px;">L2 · POA Gap 分析</div>
-      <div style="margin-bottom:10px;">
-        <div style="font-weight:700;color:#1e293b;font-size:13px;">SoW 天花板</div>
-        <div style="color:#64748b;font-size:12px;margin-top:3px;">全赛道最高 SoW = 母婴用品 <strong>3.10%</strong><br>Gap = 3.10% − 当前 SoW</div>
-      </div>
-      <div style="margin-bottom:10px;">
-        <div style="font-weight:700;color:#1e293b;font-size:13px;">Take Rate 天花板</div>
-        <div style="color:#64748b;font-size:12px;margin-top:3px;">全赛道最高 = 母婴食品 <strong>0.796%</strong><br>Gap = 0.796% − 当前 Take Rate</div>
-      </div>
-      <div style="border-top:1px solid #c7d2fe;padding-top:10px;margin-top:6px;">
-        <div style="font-weight:700;color:#1e293b;font-size:12px;">品牌覆盖率</div>
-        <div style="color:#64748b;font-size:11px;margin-top:2px;">底池（GMV>1亿品牌） · XHS已投/未投 · 渗透潜力</div>
-      </div>
-    </div>
-
-    <!-- L3 -->
-    <div style="border:1.5px solid #bbf7d0;border-radius:10px;padding:22px 20px;background:#f0fdf4;">
-      <div style="font-size:11px;font-weight:700;color:#16a34a;letter-spacing:.08em;margin-bottom:10px;">L3 · 行动优先级</div>
-      <div style="display:flex;flex-direction:column;gap:8px;">
-        <div style="display:flex;align-items:flex-start;gap:8px;">
-          <span style="background:#16a34a;color:#fff;border-radius:4px;padding:2px 7px;font-size:10px;font-weight:700;white-space:nowrap;">Double Down</span>
-          <span style="color:#64748b;font-size:12px;">重兵投入，建壁垒</span>
-        </div>
-        <div style="display:flex;align-items:flex-start;gap:8px;">
-          <span style="background:#d97706;color:#fff;border-radius:4px;padding:2px 7px;font-size:10px;font-weight:700;white-space:nowrap;">Invest to Win</span>
-          <span style="color:#64748b;font-size:12px;">补能力短板，孵化</span>
-        </div>
-        <div style="display:flex;align-items:flex-start;gap:8px;">
-          <span style="background:#4338ca;color:#fff;border-radius:4px;padding:2px 7px;font-size:10px;font-weight:700;white-space:nowrap;">Defend &amp; Harvest</span>
-          <span style="color:#64748b;font-size:12px;">效率收割，防守阵地</span>
-        </div>
-        <div style="display:flex;align-items:flex-start;gap:8px;">
-          <span style="background:#64748b;color:#fff;border-radius:4px;padding:2px 7px;font-size:10px;font-weight:700;white-space:nowrap;">Deprioritize</span>
-          <span style="color:#64748b;font-size:12px;">按需服务，不主投</span>
-        </div>
-      </div>
-      <div style="border-top:1px solid #bbf7d0;padding-top:10px;margin-top:12px;">
-        <div style="color:#64748b;font-size:11px;">输出：各象限差异化的资源配置 + 打法建议</div>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="deck-footer">
-    <span class="dim2">XHS 商业化快消策略组</span>
-    <span class="slide-number"></span>
-  </div>
-</section>
-
-<section class="slide" data-title="MA评分维度">
-  <div class="deck-header">
-    <span class="eyebrow">01 · Framework 设计</span>
-    <span class="eyebrow">快消战略优先级框架</span>
-  </div>
-  <p class="kicker">Scoring Dimensions · 外部视角</p>
-  <h2 class="h2">📈 Market Attractiveness — 4个评分维度</h2>
-
-  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:18px;">
-
-    <!-- D1 营销预算规模 -->
-    <div style="background:var(--surface-2);border-radius:10px;padding:14px 12px;border-top:3px solid var(--accent);display:flex;flex-direction:column;gap:8px;">
-      <div style="font-weight:700;font-size:13px;color:var(--text-1);">营销预算规模</div>
-      <div style="display:inline-block;background:var(--accent);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;align-self:start;">权重 35%</div>
-      <div style="background:#f0f4ff;border-radius:6px;padding:7px 9px;font-size:10px;color:#3730a3;line-height:1.7;">
-        <div style="font-weight:700;margin-bottom:3px;">📊 实际指标</div>
-        行业市场规模（亿）× 头部上市公司销售费用率均值<br>
-        <span style="color:#6b7280;">= 赛道营销预算估算值</span>
-      </div>
-      <div style="font-size:11px;color:var(--text-2);line-height:1.6;">
-        <div style="font-weight:600;color:var(--accent);margin-bottom:2px;">Implication</div>
-        预算盘子越大，平台可分食的收入天花板越高
-      </div>
-      <div style="font-size:11px;color:var(--text-3);line-height:1.5;margin-top:auto;">
-        <div style="font-weight:600;margin-bottom:2px;">来源</div>
-        Euromonitor 市场规模 · 飞鹤/汤臣倍健/农夫山泉等2024年报销售费用率
-      </div>
-    </div>
-
-    <!-- D2 市场增速 -->
-    <div style="background:var(--surface-2);border-radius:10px;padding:14px 12px;border-top:3px solid var(--accent);display:flex;flex-direction:column;gap:8px;">
-      <div style="font-weight:700;font-size:13px;color:var(--text-1);">市场增速</div>
-      <div style="display:inline-block;background:var(--accent);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;align-self:start;">权重 35%</div>
-      <div style="background:#f0f4ff;border-radius:6px;padding:7px 9px;font-size:10px;color:#3730a3;line-height:1.7;">
-        <div style="font-weight:700;margin-bottom:3px;">📊 实际指标</div>
-        2024→2025 行业营销预算 YoY 增速（%）<br>
-        <span style="color:#6b7280;">行业年报趋势 + 机构增速预测</span>
-      </div>
-      <div style="font-size:11px;color:var(--text-2);line-height:1.6;">
-        <div style="font-weight:600;color:var(--accent);margin-bottom:2px;">Implication</div>
-        高增速赛道客户扩张意愿强，更愿尝试新渠道
-      </div>
-      <div style="font-size:11px;color:var(--text-3);line-height:1.5;margin-top:auto;">
-        <div style="font-weight:600;margin-bottom:2px;">来源</div>
-        Euromonitor · 灼识咨询 · 公司年报趋势推算
-      </div>
-    </div>
-
-    <!-- D3 头部客户可攻性 -->
-    <div style="background:var(--surface-2);border-radius:10px;padding:14px 12px;border-top:3px solid var(--accent);display:flex;flex-direction:column;gap:8px;">
-      <div style="font-weight:700;font-size:13px;color:var(--text-1);">头部客户可攻性</div>
-      <div style="display:inline-block;background:var(--accent);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;align-self:start;">权重 15%</div>
-      <div style="background:#f0f4ff;border-radius:6px;padding:7px 9px;font-size:10px;color:#3730a3;line-height:1.7;">
-        <div style="font-weight:700;margin-bottom:3px;">📊 实际指标</div>
-        CR100 = Top100品牌销售额 / 赛道总GMV<br>
-        <span style="color:#6b7280;">5分≥60% · 4分45-60% · 3分30-45%<br>2分15-30% · 1分&lt;15%</span>
-      </div>
-      <div style="font-size:11px;color:var(--text-2);line-height:1.6;">
-        <div style="font-weight:600;color:var(--accent);margin-bottom:2px;">Implication</div>
-        CR100高 → 规模客户集中，BD效率高；CR100低 → 长尾碎片，服务成本高
-      </div>
-      <div style="font-size:11px;color:var(--text-3);line-height:1.5;margin-top:auto;">
-        <div style="font-weight:600;margin-bottom:2px;">来源</div>
-        魔镜市场情报 · 尼尔森零研云 · 天猫/京东类目榜
-      </div>
-    </div>
-
-    <!-- D4 新兴品牌活跃度 -->
-    <div style="background:var(--surface-2);border-radius:10px;padding:14px 12px;border-top:3px solid var(--accent);display:flex;flex-direction:column;gap:8px;">
-      <div style="font-weight:700;font-size:13px;color:var(--text-1);">新兴品牌活跃度</div>
-      <div style="display:inline-block;background:var(--accent);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;align-self:start;">权重 15%</div>
-      <div style="background:#f0f4ff;border-radius:6px;padding:7px 9px;font-size:10px;color:#3730a3;line-height:1.7;">
-        <div style="font-weight:700;margin-bottom:3px;">📊 实际指标</div>
-        近2年 VC/PE 融资频次 × 融资金额<br>
-        <span style="color:#6b7280;">🔥高热 · 🌡️中热 · ❄️冷静</span>
-      </div>
-      <div style="font-size:11px;color:var(--text-2);line-height:1.6;">
-        <div style="font-weight:600;color:var(--accent);margin-bottom:2px;">Implication</div>
-        新品牌天然依赖种草，是增量客户主要来源；融资热 → 预算充足、投放意愿强
-      </div>
-      <div style="font-size:11px;color:var(--text-3);line-height:1.5;margin-top:auto;">
-        <div style="font-weight:600;margin-bottom:2px;">来源</div>
-        IT桔子 · 36氪 · FBIF · 钛媒体沥金
-      </div>
-    </div>
-
-    <!-- D5 政策风险（门控） -->
-    <div style="background:#fff7ed;border-radius:10px;padding:14px 12px;border-top:3px solid #f97316;display:flex;flex-direction:column;gap:8px;">
-      <div style="font-weight:700;font-size:13px;color:#9a3412;">政策风险</div>
-      <div style="display:inline-block;background:#f97316;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;align-self:start;">⛔ 门控变量</div>
-      <div style="background:#fff3e0;border-radius:6px;padding:7px 9px;font-size:10px;color:#9a3412;line-height:1.7;">
-        <div style="font-weight:700;margin-bottom:3px;">📊 实际指标</div>
-        广告法合规等级评估<br>
-        <span style="color:#6b7280;">⛔高风险：药品/特医/OTC/医疗器械<br>⚠️中风险：保健食品/宠物药品</span>
-      </div>
-      <div style="font-size:11px;color:#9a3412;line-height:1.6;">
-        <div style="font-weight:600;margin-bottom:2px;">Implication</div>
-        不参与加权打分；高政策风险直接降档至"观望"
-      </div>
-      <div style="font-size:11px;color:var(--text-3);line-height:1.5;margin-top:auto;">
-        <div style="font-weight:600;margin-bottom:2px;">来源</div>
-        广告法合规清单 · 国家药监局政策 · 法务团队评估
-      </div>
-    </div>
-
-  </div>
-
-  
-  <div class="app-btns" style="margin-bottom:4px;"><button class="app-btn app-btn-blue" onclick="goToAppendix('D 市场规模&营销预算')">↗ Appendix A1 市场规模</button><button class="app-btn app-btn-blue" onclick="goToAppendix('E 市场增速 YoY')">↗ Appendix A2 增速</button><button class="app-btn app-btn-slate" onclick="goToAppendix('G 集中度&融资')">↗ Appendix 集中度&融资</button></div>
-  <div class="deck-footer">
-    <span class="dim2">XHS 商业化快消策略组</span>
-    <span class="slide-number" data-current="5" data-total="13"></span>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════
-     SLIDE 5B · Ability to Win 5维度详解
-══════════════════════════════════════════ -->
-<section class="slide" data-title="ATW评分维度">
-  <div class="deck-header">
-    <span class="eyebrow">01 · Framework 设计</span>
-    <span class="eyebrow">快消战略优先级框架</span>
-  </div>
-  <p class="kicker">Scoring Dimensions · 内部视角</p>
-  <h2 class="h2">🏆 Ability to Win — 4个评分维度</h2>
-
-  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px;">
-
-    <!-- A1 内容势能存量 -->
-    <div style="background:var(--surface-2);border-radius:10px;padding:14px 12px;border-top:3px solid #6366f1;display:flex;flex-direction:column;gap:8px;">
-      <div style="font-weight:700;font-size:13px;color:var(--text-1);">内容势能存量</div>
-      <div style="display:inline-block;background:#6366f1;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;align-self:start;">权重 20%</div>
-      <div style="background:#f5f3ff;border-radius:6px;padding:7px 9px;font-size:10px;color:#4338ca;line-height:1.7;">
-        <div style="font-weight:700;margin-bottom:3px;">📊 实际指标</div>
-        笔记曝光量（亿）<br>
-        新发笔记量（万篇）<br>
-        创作者数（万人）<br>
-        <span style="color:#6b7280;">5≥200亿曝光 · 4=50-199亿<br>3=20-49亿 · 2=5-19亿 · 1&lt;5亿</span>
-      </div>
-      <div style="font-size:11px;color:var(--text-2);line-height:1.6;">
-        <div style="font-weight:600;color:#6366f1;margin-bottom:2px;">Implication</div>
-        存量越厚，内容生态越丰富，广告的种草环境越好
-      </div>
-      <div style="font-size:11px;color:var(--text-3);line-height:1.5;margin-top:auto;">
-        <div style="font-weight:600;margin-bottom:2px;">来源</div>
-        XHS RedBI 2025全年 · 12赛道已接入真实数据
-      </div>
-    </div>
-
-    <!-- A2 内容势能增速 -->
-    <div style="background:var(--surface-2);border-radius:10px;padding:14px 12px;border-top:3px solid #6366f1;display:flex;flex-direction:column;gap:8px;">
-      <div style="font-weight:700;font-size:13px;color:var(--text-1);">内容势能增速</div>
-      <div style="display:inline-block;background:#6366f1;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;align-self:start;">权重 15%</div>
-      <div style="background:#f5f3ff;border-radius:6px;padding:7px 9px;font-size:10px;color:#4338ca;line-height:1.7;">
-        <div style="font-weight:700;margin-bottom:3px;">📊 实际指标</div>
-        笔记曝光量 YoY（%）<br>
-        <span style="color:#6b7280;">5≥+50% · 4=+20-49%<br>3=+8-19% · 2=+1-7% · 1=负增长</span>
-      </div>
-      <div style="font-size:11px;color:var(--text-2);line-height:1.6;">
-        <div style="font-weight:600;color:#6366f1;margin-bottom:2px;">Implication</div>
-        存量高+增速高 = 核心赛道；存量低+增速高 = 新兴机会
-      </div>
-      <div style="font-size:11px;color:var(--text-3);line-height:1.5;margin-top:auto;">
-        <div style="font-weight:600;margin-bottom:2px;">来源</div>
-        XHS RedBI 2025全年 · 12赛道已接入真实数据
-      </div>
-    </div>
-
-    <!-- A3 决策链路重要性 -->
-    <div style="background:var(--surface-2);border-radius:10px;padding:14px 12px;border-top:3px solid #6366f1;display:flex;flex-direction:column;gap:8px;">
-      <div style="font-weight:700;font-size:13px;color:var(--text-1);">决策链路重要性</div>
-      <div style="display:inline-block;background:#6366f1;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;align-self:start;">权重 25%</div>
-      <div style="background:#f5f3ff;border-radius:6px;padding:7px 9px;font-size:10px;color:#4338ca;line-height:1.7;">
-        <div style="font-weight:700;margin-bottom:3px;">📊 实际指标</div>
-        消费者购前使用小红书种草/决策的概率<br>
-        <span style="color:#6b7280;">5=强内容决策品类（母婴/保健）<br>4=较强 · 3=中等 · 2=弱<br>1=合规限制极强（OTC/药品）</span>
-      </div>
-      <div style="font-size:11px;color:var(--text-2);line-height:1.6;">
-        <div style="font-weight:600;color:#6366f1;margin-bottom:2px;">Implication</div>
-        链路越重要，品牌主越愿意归因XHS种草，续投意愿越强
-      </div>
-      <div style="font-size:11px;color:var(--text-3);line-height:1.5;margin-top:auto;">
-        <div style="font-weight:600;margin-bottom:2px;">来源</div>
-        研究推导（决策成本+口碑依赖+合规限制）· 全25赛道已完成（食品→6子）
-      </div>
-    </div>
-
-    <!-- A4 解决方案成熟度（合并原产品承接+打法成熟） -->
-    <div style="background:var(--surface-2);border-radius:10px;padding:14px 12px;border-top:3px solid #6366f1;display:flex;flex-direction:column;gap:8px;opacity:0.85;">
-      <div style="font-weight:700;font-size:13px;color:var(--text-1);">解决方案成熟度</div>
-      <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap;">
-        <span style="display:inline-block;background:#6366f1;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;">权重 40%</span>
-        
-      </div>
-      <div style="background:#f5f3ff;border-radius:6px;padding:7px 9px;font-size:10px;color:#4338ca;line-height:1.8;">
-        <div style="font-weight:700;margin-bottom:3px;">📊 实际指标（待填）</div>
-        广告产品覆盖完整度（能不能投）<br>
-        种草→转化链路完整度（能不能归因）<br>
-        可复制打法 SOP 数量（能不能批量复制）<br>
-        标杆案例质量与数量（有没有信标）<br>
-        BD/运营赛道认知深度（团队能力匹配）
-      </div>
-      <div style="font-size:11px;color:var(--text-2);line-height:1.6;">
-        <div style="font-weight:600;color:#6366f1;margin-bottom:2px;">Implication</div>
-        衡量小红书平台与广告主需求的适配度——<br>
-        能不能提供满足广告主需求的 solution。<br>
-        产品不配套→客户无法花钱；打法不成熟→无法规模化复制
-      </div>
-      <div style="font-size:11px;color:var(--text-3);line-height:1.5;margin-top:auto;">
-        <div style="font-weight:600;margin-bottom:2px;">来源</div>
-        内部产品团队 · 案例库 · 策略+销售运营联合评分
-      </div>
-    </div>
-
-  </div>
-
-  
-  <div class="app-btns" style="margin-bottom:4px;"><button class="app-btn app-btn-purple" onclick="goToAppendix('B UGC内容势能')">↗ Appendix B1 UGC内容势能</button><button class="app-btn app-btn-purple" onclick="goToAppendix('C 决策链路重要性')">↗ Appendix B2 决策链路</button></div>
-  <div class="deck-footer">
-    <span class="dim2">XHS 商业化快消策略组</span>
-    <span class="slide-number" data-current="6" data-total="13"></span>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════
-     SLIDE 6 · 打分表（25赛道）
-══════════════════════════════════════════ -->
-<!-- ══════════════════════════════════════════
-     SLIDE 6A · 空白 2×2 框架 + 四象限含义
-══════════════════════════════════════════ -->
-<section class="slide" data-title="战略矩阵框架">
-  <div class="deck-header">
-    <span class="eyebrow">02 · 评分 & 矩阵</span>
-    <span class="eyebrow">快消战略优先级框架</span>
-  </div>
-  <p class="kicker">Framework · 战略矩阵 × 做功方向</p>
-  <h2 class="h2">2×2 矩阵定位 + 四象限行动 Playbook</h2>
-
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px;align-items:start;">
-    <!-- 左：空白框架图 -->
-    <div style="position:relative;background:var(--surface-2);border-radius:12px;padding:16px;">
-      <div style="display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:4px;height:300px;">
-        <!-- 右上：核心赛道 -->
-        <div style="background:#dcfce7;border-radius:8px;border:2px solid #22c55e;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;grid-column:2;grid-row:1;">
-          <div style="font-size:22px;margin-bottom:6px;">🔴</div>
-          <div style="font-weight:700;color:#15803d;font-size:15px;">Double Down</div>
-          <div style="font-size:11px;color:#166534;margin-top:4px;text-align:center;">高市场吸引力 × 强赢单能力</div>
-        </div>
-        <!-- 左上：效率收割 -->
-        <div style="background:#ede9fe;border-radius:8px;border:2px solid #6366f1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;grid-column:1;grid-row:1;">
-          <div style="font-size:22px;margin-bottom:6px;">🟢</div>
-          <div style="font-weight:700;color:#4338ca;font-size:15px;">Defend & Harvest</div>
-          <div style="font-size:11px;color:#3730a3;margin-top:4px;text-align:center;">低市场吸引力 × 强赢单能力</div>
-        </div>
-        <!-- 右下：战略培育 -->
-        <div style="background:#fef3c7;border-radius:8px;border:2px solid #f59e0b;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;grid-column:2;grid-row:2;">
-          <div style="font-size:22px;margin-bottom:6px;">🟡</div>
-          <div style="font-weight:700;color:#92400e;font-size:15px;">Invest to Win</div>
-          <div style="font-size:11px;color:#78350f;margin-top:4px;text-align:center;">高市场吸引力 × 弱赢单能力</div>
-        </div>
-        <!-- 左下：观望 -->
-        <div style="background:#f8fafc;border-radius:8px;border:2px dashed #cbd5e1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;grid-column:1;grid-row:2;">
-          <div style="font-size:22px;margin-bottom:6px;">⚪</div>
-          <div style="font-weight:700;color:#64748b;font-size:15px;">Deprioritize</div>
-          <div style="font-size:11px;color:#64748b;margin-top:4px;text-align:center;">低市场吸引力 × 弱赢单能力</div>
-        </div>
-      </div>
-      <!-- 轴标签 -->
-      <div style="position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-size:11px;color:var(--text-3);white-space:nowrap;">
-        Market Attractiveness →
-      </div>
-      <div style="position:absolute;top:50%;left:-24px;transform:translateY(-50%) rotate(-90deg);font-size:11px;color:var(--text-3);white-space:nowrap;">
-        Ability to Win →
-      </div>
-    </div>
-
-    <!-- 右：四象限做工方向（行动建议合并） -->
-    <div style="display:flex;flex-direction:column;gap:10px;">
-      <!-- Double Down -->
-      <div style="background:#dcfce7;border-left:4px solid #22c55e;border-radius:0 8px 8px 0;padding:10px 14px;">
-        <div style="font-weight:700;color:#15803d;font-size:12px;margin-bottom:4px;">🔴 Double Down · 重点攻坚</div>
-        <ul style="margin:0;padding-left:16px;font-size:11px;color:#166534;line-height:1.8;">
-          <li>集中资源建标杆，巩固头部客户</li>
-          <li>产品深度适配，季度Review跟进</li>
+<li>产品深度适配，季度Review跟进</li>
         </ul>
       </div>
       <!-- Invest to Win -->
@@ -689,7 +43,6 @@
     <span class="dim2">每个赛道通过10维打分定位象限</span>
     <span class="slide-number" data-current="6" data-total="12"></span>
   </div>
-</section>
 
 <!-- ══════════════════════════════════════════
      SLIDE 6B · 打分表
@@ -951,906 +304,11 @@
   <div class="notes">这是核心的2×2矩阵。横轴越靠右代表市场吸引力越高，纵轴越靠上代表我们的赢的能力越强。气泡越大说明当前收入规模越大。右上角是我们的核心赛道，左上角是高市场吸引力但我们能力还不足的培育赛道。</div>
 </section>
 
-<!-- ══════════════════════════════════════════
-     SLIDE 8 · POA Gap
-══════════════════════════════════════════ -->
+
+<!-- APPENDIX J · 天花板测算 -->
 
 
-<section class="slide" data-title="POA天花板评估">
-  <div class="deck-header">
-    <span class="eyebrow">03 · POA Gap 分析</span>
-    <span class="eyebrow">快消战略优先级框架</span>
-  </div>
-  <p class="kicker">POA Assessment · 小红书赛道收入天花板在哪</p>
-  <h2 class="h2">📊 4个核心评估指标</h2>
 
-  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px;">
-
-    <!-- P1 Share of Wallet -->
-    <div style="background:var(--surface-2);border-radius:10px;padding:18px 16px;border-top:3px solid #0ea5e9;display:flex;flex-direction:column;gap:10px;">
-      <div style="font-weight:700;font-size:14px;color:var(--text-1);">Share of Wallet（SoW）</div>
-      <div style="display:inline-block;background:#0ea5e9;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;align-self:start;">核心变现指标</div>
-      <div style="font-size:12px;color:var(--text-2);line-height:1.7;">
-        <div style="font-weight:600;color:var(--text-1);margin-bottom:4px;">定义</div>
-        小红书在该赛道的广告收入 ÷ 赛道品牌全渠道营销预算
-        <br>
-        <span style="font-family:monospace;font-size:11px;background:var(--border);padding:2px 8px;border-radius:4px;display:inline-block;margin-top:6px;">SoW = XHS收入 / 行业营销预算</span>
-      </div>
-      <div style="font-size:12px;color:var(--text-2);line-height:1.7;">
-        <div style="font-weight:600;color:#0ea5e9;margin-bottom:4px;">Implication</div>
-        直接衡量"从客户口袋里拿了多少"。<br>
-        SoW低 → 客户预算大但给我们少 → 核心攻坚方向<br>
-        <strong>天花板 = 全赛道最高 SoW（母婴用品 3.10%）</strong><br>
-        Gap = 3.10% − 当前 SoW，Gap越大增量潜力越高
-      </div>
-      <div style="font-size:11px;color:var(--text-3);line-height:1.5;margin-top:auto;">
-        <div style="font-weight:600;margin-bottom:2px;">数据来源</div>
-        内部广告流水 · 营销预算 = 市场规模 × 销售费用率（年报均值）
-      </div>
-    </div>
-
-    <!-- P2 客户渗透率 -->
-    <div style="background:var(--surface-2);border-radius:10px;padding:18px 16px;border-top:3px solid #6366f1;display:flex;flex-direction:column;gap:10px;">
-      <div style="font-weight:700;font-size:14px;color:var(--text-1);">客户渗透率</div>
-      <div style="display:inline-block;background:#6366f1;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;align-self:start;">客户覆盖指标</div>
-      <div style="font-size:12px;color:var(--text-2);line-height:1.7;">
-        <div style="font-weight:600;color:var(--text-1);margin-bottom:4px;">定义</div>
-        XHS 活跃投放广告主数量 ÷ 赛道 Top 100 品牌总数<br>
-        <span style="font-family:monospace;font-size:11px;background:var(--border);padding:2px 8px;border-radius:4px;display:inline-block;margin-top:6px;">渗透率 = 已投放品牌 / Top 100</span>
-      </div>
-      <div style="font-size:12px;color:var(--text-2);line-height:1.7;">
-        <div style="font-weight:600;color:#6366f1;margin-bottom:4px;">Implication</div>
-        未投放的头部品牌 = 未开发客户池<br>
-        渗透率低 + SoW Gap大 → <strong>拓客优先</strong><br>
-        渗透率高 + SoW Gap大 → <strong>深耕提频优先</strong>
-      </div>
-      <div style="font-size:11px;color:var(--text-3);line-height:1.5;margin-top:auto;">
-        <div style="font-weight:600;margin-bottom:2px;">数据来源</div>
-        内部 CRM 开户数据 · 行业 Top 品牌名单（魔镜/品观/天猫类目榜）
-      </div>
-    </div>
-
-
-    <!-- P3 Take Rate -->
-    <div style="background:var(--surface-2);border-radius:10px;padding:18px 16px;border-top:3px solid #8b5cf6;display:flex;flex-direction:column;gap:10px;">
-      <div style="font-weight:700;font-size:14px;color:var(--text-1);">Take Rate</div>
-      <div style="display:inline-block;background:#8b5cf6;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;align-self:start;">GMV变现效率</div>
-      <div style="font-size:12px;color:var(--text-2);line-height:1.7;">
-        <div style="font-weight:600;color:var(--text-1);margin-bottom:4px;">定义</div>
-        小红书在该赛道的广告收入 ÷ 赛道全行业 GMV<br>
-        <span style="font-family:monospace;font-size:11px;background:var(--border);padding:2px 8px;border-radius:4px;display:inline-block;margin-top:6px;">Take Rate = XHS收入 / 赛道GMV</span>
-      </div>
-      <div style="font-size:12px;color:var(--text-2);line-height:1.7;">
-        <div style="font-weight:600;color:#8b5cf6;margin-bottom:4px;">Implication</div>
-        衡量平台从行业规模中提取的广告份额<br>
-        TR低 + 赛道规模大 → <strong>绝对增量空间巨大</strong><br>
-        <strong>天花板 = 全赛道最高 Take Rate（母婴食品 0.796%）</strong><br>
-        Gap = 0.796% − 当前 Take Rate
-      </div>
-      <div style="font-size:11px;color:var(--text-3);line-height:1.5;margin-top:auto;">
-        <div style="font-weight:600;margin-bottom:2px;">数据来源</div>
-        内部广告流水 · 赛道 GMV = 市场规模（尼尔森/欧睿/行业报告）
-      </div>
-    </div>
-
-  </div>
-
-  <!-- 天花板公式 -->
-  <div style="margin-top:12px;background:linear-gradient(135deg,#e0f2fe,#f0fdf4);border-radius:10px;padding:12px 20px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
-    <div style="font-weight:700;font-size:11px;color:#0369a1;">📐 Gap 逻辑</div>
-    <div style="font-size:11px;color:#1e293b;"><strong>SoW 天花板</strong> = 母婴用品 <code>3.10%</code> &nbsp;→&nbsp; Gap = 3.10% − 当前 SoW</div>
-    <div style="color:#cbd5e1;font-size:14px;">|</div>
-    <div style="font-size:11px;color:#1e293b;"><strong>Take Rate 天花板</strong> = 母婴食品 <code>0.796%</code> &nbsp;→&nbsp; Gap = 0.796% − 当前 Take Rate</div>
-    <div style="margin-left:auto;font-size:10px;color:#64748b;">Gap越大 = 增量潜力越高 · 结合渗透率判断拓客 vs 深耕</div>
-  </div>
-
-  
-  <div class="app-btns" style="margin-bottom:4px;"><button class="app-btn app-btn-indigo" onclick="goToAppendix('F SoW & Take Rate')">↗ Appendix C SoW & Take Rate数据</button><button class="app-btn app-btn-indigo" onclick="goToAppendix('D：客户渗透率')">↗ Appendix D 品牌覆盖明细</button></div>
-  <div class="deck-footer">
-    <span class="dim2">Layer 2 · 在矩阵定位基础上评估收入天花板与 Gap</span>
-    <span class="slide-number" data-current="10" data-total="13"></span>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════
-     SLIDE POA-2 · 25赛道 POA Assessment
-══════════════════════════════════════════ -->
-<section class="slide" data-title="25赛道POA评估">
-  <div class="deck-header">
-    <span class="eyebrow">03 · POA Gap 分析</span>
-    <span class="eyebrow">快消战略优先级框架</span>
-  </div>
-  <p class="kicker">POA Assessment · 25赛道（食品→6子） · SoW天花板3.10%（母婴用品）· TakeRate天花板0.796%（母婴食品）· 客户渗透率天花板100%</p>
-  <h2 class="h2">SoW / Take Rate / 客户渗透率 — 三维 Gap 评估</h2>
-
-  <div style="margin-top:8px;overflow-x:auto;">
-  <table style="width:100%;border-collapse:collapse;font-size:11px;min-width:860px;">
-    <thead>
-      <tr style="background:var(--surface-2);">
-        <th rowspan="2" style="padding:6px 8px;text-align:left;border-bottom:2px solid var(--border);font-size:10px;color:var(--text-3);">赛道</th>
-        <th colspan="3" style="padding:5px 6px;text-align:center;border-bottom:1px solid var(--border);font-size:10px;color:#0ea5e9;border-right:1px solid var(--border);">SoW（营销预算份额）</th>
-        <th colspan="3" style="padding:5px 6px;text-align:center;border-bottom:1px solid var(--border);font-size:10px;color:#8b5cf6;border-right:1px solid var(--border);">Take Rate（GMV变现效率）</th>
-        <th colspan="3" style="padding:5px 6px;text-align:center;border-bottom:1px solid var(--border);font-size:10px;color:#6366f1;border-right:1px solid var(--border);">客户渗透率</th>
-        <th rowspan="2" style="padding:6px 8px;text-align:left;border-bottom:2px solid var(--border);font-size:10px;color:var(--text-3);">策略</th>
-      </tr>
-      <tr style="background:var(--surface-2);">
-        <th style="padding:4px 5px;text-align:center;border-bottom:2px solid var(--border);font-size:9px;color:#0ea5e9;">当前</th>
-        <th style="padding:4px 5px;text-align:center;border-bottom:2px solid var(--border);font-size:9px;color:#22c55e;">天花板</th>
-        <th style="padding:4px 5px;text-align:center;border-bottom:2px solid var(--border);font-size:9px;color:#f59e0b;border-right:1px solid var(--border);">Gap</th>
-        <th style="padding:4px 5px;text-align:center;border-bottom:2px solid var(--border);font-size:9px;color:#8b5cf6;">当前</th>
-        <th style="padding:4px 5px;text-align:center;border-bottom:2px solid var(--border);font-size:9px;color:#22c55e;">天花板</th>
-        <th style="padding:4px 5px;text-align:center;border-bottom:2px solid var(--border);font-size:9px;color:#f59e0b;border-right:1px solid var(--border);">Gap</th>
-        <th style="padding:4px 5px;text-align:center;border-bottom:2px solid var(--border);font-size:9px;color:#6366f1;">当前</th>
-        <th style="padding:4px 5px;text-align:center;border-bottom:2px solid var(--border);font-size:9px;color:#22c55e;">天花板</th>
-        <th style="padding:4px 5px;text-align:center;border-bottom:2px solid var(--border);font-size:9px;color:#f59e0b;border-right:1px solid var(--border);">Gap</th>
-      </tr>
-    </thead>
-    <tbody><tr style="background:#dcfce722;">
-  <td colspan="11" style="padding:4px 8px;font-size:10px;font-weight:700;color:#15803d;border-bottom:1px solid #bbf7d0;">🔴 Double Down（MA ≥ 3.0 & ATW≥3.0）</td>
-</tr>
-<tr style="border-bottom:1px solid var(--border);">
-  <td style="padding:6px 8px;font-weight:600;">母婴食品</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#22c55e;">2.84%</td>
-  <td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">3.10%</td>
-  <td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">0.26pp</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#f59e0b;">0.796%</td>
-  <td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">0.796%</td>
-  <td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">—</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#22c55e;">73%<br><span style="font-size:8px;color:#64748b;font-weight:400;">底池84 已61/未23</span></td><td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">100%</td><td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">27pp</td>
-  <td style="padding:5px 8px;font-size:10px;color:var(--text-2);">深耕提频</td>
-</tr>
-<tr style="border-bottom:1px solid var(--border);">
-  <td style="padding:6px 8px;font-weight:600;">母婴用品</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#22c55e;">3.10%</td>
-  <td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">3.10%</td>
-  <td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">—</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#f59e0b;">0.526%</td>
-  <td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">0.796%</td>
-  <td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">0.27pp</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#22c55e;">63%<br><span style="font-size:8px;color:#64748b;font-weight:400;">底池203 已127/未76</span></td><td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">100%</td><td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">37pp</td>
-  <td style="padding:5px 8px;font-size:10px;color:var(--text-2);">标杆赛道</td>
-</tr>
-<tr style="border-bottom:1px solid var(--border);">
-  <td style="padding:6px 8px;font-weight:600;">保健食品</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#f59e0b;">1.47%</td>
-  <td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">3.10%</td>
-  <td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">1.63pp</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#ef4444;">0.440%</td>
-  <td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">0.796%</td>
-  <td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">0.356pp</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#f59e0b;">56%<br><span style="font-size:8px;color:#64748b;font-weight:400;">底池232 已130/未102</span></td><td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">100%</td><td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">44pp</td>
-  <td style="padding:5px 8px;font-size:10px;color:var(--text-2);">双Gap大，规模扩客</td>
-</tr>
-<tr style="border-bottom:1px solid var(--border);">
-  <td style="padding:6px 8px;font-weight:600;">宠物食品</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#22c55e;">1.51%</td>
-  <td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">3.10%</td>
-  <td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">1.59pp</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#ef4444;">0.273%</td>
-  <td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">0.796%</td>
-  <td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">0.523pp</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#22c55e;">79%<span style="font-size:8px;color:#94a3b8;"> 打标修正</span><br><span style="font-size:8px;color:#64748b;font-weight:400;">底池57 已45/未12</span></td><td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">100%</td><td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">21pp</td>
-  <td style="padding:5px 8px;font-size:10px;color:var(--text-2);">新品牌多，新客开发</td>
-</tr>
-<tr style="border-bottom:1px solid var(--border);">
-  <td style="padding:6px 8px;padding-left:16px;"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#16a34a;margin-right:4px;vertical-align:middle;"></span>休闲零食<span style="font-size:9px;color:#6366f1;margin-left:3px;">↳</span></td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#f59e0b;">0.07%</td><td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">3.10%</td><td style="padding:5px 6px;text-align:center;color:var(--text-2);border-right:1px solid var(--border);">-3.03pp</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#ef4444;">0.012%</td><td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">0.796%</td><td style="padding:5px 6px;text-align:center;color:var(--text-2);border-right:1px solid var(--border);">-0.784pp</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#8b5cf6;">87%</td><td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">100%</td><td style="padding:5px 6px;text-align:center;color:var(--text-2);">-13pp</td>
-  <td style="padding:5px 6px;font-size:10px;color:#475569;">规模成熟，聚焦新品牌/新品类增量</td>
-</tr>
-<tr style="border-bottom:1px solid var(--border);">
-  <td style="padding:6px 8px;padding-left:16px;"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#16a34a;margin-right:4px;vertical-align:middle;"></span>中式滋补<span style="font-size:9px;color:#6366f1;margin-left:3px;">↳</span></td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#f59e0b;">0.10%</td><td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">3.10%</td><td style="padding:5px 6px;text-align:center;color:var(--text-2);border-right:1px solid var(--border);">-3.00pp</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#ef4444;">0.026%</td><td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">0.796%</td><td style="padding:5px 6px;text-align:center;color:var(--text-2);border-right:1px solid var(--border);">-0.770pp</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#8b5cf6;">232%⚠️</td><td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">100%</td><td style="padding:5px 6px;text-align:center;color:#f59e0b;">+132pp</td>
-  <td style="padding:5px 6px;font-size:10px;color:#475569;">广告逆势增长，聚焦高客单即食品类</td>
-</tr>
-<tr style="border-bottom:1px solid var(--border);">
-  <td style="padding:6px 8px;padding-left:16px;"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#16a34a;margin-right:4px;vertical-align:middle;"></span>预制速食<span style="font-size:9px;color:#6366f1;margin-left:3px;">↳</span></td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#f59e0b;">0.09%</td><td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">3.10%</td><td style="padding:5px 6px;text-align:center;color:var(--text-2);border-right:1px solid var(--border);">-3.01pp</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#ef4444;">0.011%</td><td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">0.796%</td><td style="padding:5px 6px;text-align:center;color:var(--text-2);border-right:1px solid var(--border);">-0.785pp</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#8b5cf6;">58%</td><td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">100%</td><td style="padding:5px 6px;text-align:center;color:var(--text-2);">-42pp</td>
-  <td style="padding:5px 6px;font-size:10px;color:#475569;">市场增速最高，突破C端口碑认知</td>
-</tr>
-<tr style="border-bottom:1px solid var(--border);">
-  <td style="padding:6px 8px;padding-left:16px;"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#16a34a;margin-right:4px;vertical-align:middle;"></span>西式膳食<span style="font-size:9px;color:#6366f1;margin-left:3px;">↳</span></td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#f59e0b;">0.46%</td><td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">3.10%</td><td style="padding:5px 6px;text-align:center;color:var(--text-2);border-right:1px solid var(--border);">-2.64pp</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#ef4444;">0.101%</td><td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">0.796%</td><td style="padding:5px 6px;text-align:center;color:var(--text-2);border-right:1px solid var(--border);">-0.695pp</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#8b5cf6;">36%</td><td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">100%</td><td style="padding:5px 6px;text-align:center;color:var(--text-2);">-64pp</td>
-  <td style="padding:5px 6px;font-size:10px;color:#475569;">SoW最高，品牌自主投放强</td>
-</tr>
-<tr style="border-bottom:1px solid var(--border);">
-  <td style="padding:6px 8px;font-weight:600;">蛋白食饮</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#ef4444;">0.28%</td>
-  <td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">3.10%</td>
-  <td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">2.82pp</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#ef4444;">0.069%</td>
-  <td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">0.796%</td>
-  <td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">0.727pp</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#22c55e;">68%<span style="font-size:8px;color:#94a3b8;"> 打标修正</span><br><span style="font-size:8px;color:#64748b;font-weight:400;">底池50 已34/未16</span></td><td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">100%</td><td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">32pp</td>
-  <td style="padding:5px 8px;font-size:10px;color:var(--text-2);">高增赛道，快速拓客</td>
-</tr>
-<tr style="background:#fef3c722;">
-  <td colspan="11" style="padding:4px 8px;font-size:10px;font-weight:700;color:#92400e;border-bottom:1px solid #fde68a;">🟡 Invest to Win（MA ≥ 3.0 & ATW<3.0）</td>
-</tr>
-<tr style="border-bottom:1px solid var(--border);">
-  <td style="padding:6px 8px;font-weight:600;">文具玩具礼品</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#ef4444;">0.22%</td>
-  <td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">3.10%</td>
-  <td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">2.88pp</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#ef4444;">0.039%</td>
-  <td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">0.796%</td>
-  <td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">0.757pp</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#ef4444;">29%<br><span style="font-size:8px;color:#64748b;font-weight:400;">底池115 已33/未82</span></td><td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">100%</td><td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">71pp</td>
-  <td style="padding:5px 8px;font-size:10px;color:var(--text-2);">IP/潮玩，先建生态</td>
-</tr>
-<tr style="border-bottom:1px solid var(--border);">
-  <td style="padding:6px 8px;font-weight:600;">传统滋补营养品</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#ef4444;">0.05%</td>
-  <td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">3.10%</td>
-  <td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">3.05pp</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#94a3b8;">—</td>
-  <td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">0.796%</td>
-  <td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">—</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#ef4444;">33%<br><span style="font-size:8px;color:#64748b;font-weight:400;">底池39 已13/未26</span></td><td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">100%</td><td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">67pp</td>
-  <td style="padding:5px 8px;font-size:10px;color:var(--text-2);">KA头部切入</td>
-</tr>
-<tr style="border-bottom:1px solid var(--border);">
-  <td style="padding:6px 8px;font-weight:600;">饮料</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#ef4444;">0.20%</td>
-  <td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">3.10%</td>
-  <td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">2.90pp</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#ef4444;">0.020%</td>
-  <td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">0.796%</td>
-  <td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">0.776pp</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#ef4444;">16%<br><span style="font-size:8px;color:#64748b;font-weight:400;">底池57 已9/未48</span></td><td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">100%</td><td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">84pp</td>
-  <td style="padding:5px 8px;font-size:10px;color:var(--text-2);">无糖茶/功能，先建生态</td>
-</tr>
-<tr style="border-bottom:1px solid var(--border);">
-  <td style="padding:6px 8px;font-weight:600;">酒类</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#ef4444;">0.07%</td>
-  <td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">3.10%</td>
-  <td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">3.03pp</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#ef4444;">0.069%</td>
-  <td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">0.796%</td>
-  <td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">0.727pp</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#ef4444;">34%<br><span style="font-size:8px;color:#64748b;font-weight:400;">底池117 已40/未77</span></td><td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">100%</td><td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">66pp</td>
-  <td style="padding:5px 8px;font-size:10px;color:var(--text-2);">内容心智等复苏</td>
-</tr>
-<tr style="border-bottom:1px solid var(--border);">
-  <td style="padding:6px 8px;font-weight:600;">特医</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#f59e0b;">0.61%</td>
-  <td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">3.10%</td>
-  <td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">2.49pp</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#ef4444;">0.153%</td>
-  <td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">0.796%</td>
-  <td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">0.643pp</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#ef4444;">25%<span style="font-size:8px;color:#94a3b8;"> 本地估算</span><br><span style="font-size:8px;color:#64748b;font-weight:400;">底池20 已5/未15</span></td><td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">100%</td><td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">75pp</td>
-  <td style="padding:5px 8px;font-size:10px;color:var(--text-2);">⛔受众窄，不优先</td>
-</tr>
-<tr style="border-bottom:1px solid var(--border);">
-  <td style="padding:6px 8px;padding-left:16px;"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#d97706;margin-right:4px;vertical-align:middle;"></span>水果生鲜<span style="font-size:9px;color:#6366f1;margin-left:3px;">↳</span></td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#f59e0b;">0.04%</td><td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">3.10%</td><td style="padding:5px 6px;text-align:center;color:var(--text-2);border-right:1px solid var(--border);">-3.06pp</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#ef4444;">0.002%</td><td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">0.796%</td><td style="padding:5px 6px;text-align:center;color:var(--text-2);border-right:1px solid var(--border);">-0.794pp</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#8b5cf6;">37%</td><td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">100%</td><td style="padding:5px 6px;text-align:center;color:var(--text-2);">-63pp</td>
-  <td style="padding:5px 6px;font-size:10px;color:#475569;">大市场低SoW，电商属性强，按需服务</td>
-</tr>
-<tr style="background:#ede9fe22;">
-  <td colspan="11" style="padding:4px 8px;font-size:10px;font-weight:700;color:#4338ca;border-bottom:1px solid #c7d2fe;">🔵 Defend &amp; Harvest（MA<3.1 & ATW≥3.0）</td>
-</tr>
-<tr style="border-bottom:1px solid var(--border);">
-  <td style="padding:6px 8px;font-weight:600;">宠物用品</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#f59e0b;">0.52%</td>
-  <td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">3.10%</td>
-  <td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">2.58pp</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#ef4444;">0.094%</td>
-  <td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">0.796%</td>
-  <td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">0.702pp</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#22c55e;">75%<span style="font-size:8px;color:#94a3b8;"> 打标修正</span><br><span style="font-size:8px;color:#64748b;font-weight:400;">底池8 已6/未2</span></td><td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">100%</td><td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">25pp</td>
-  <td style="padding:5px 8px;font-size:10px;color:var(--text-2);">智能品类切入</td>
-</tr>
-<tr style="border-bottom:1px solid var(--border);">
-  <td style="padding:6px 8px;font-weight:600;">宠物生活</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#f59e0b;">1.07%</td>
-  <td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">3.10%</td>
-  <td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">2.03pp</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#ef4444;">0.053%</td>
-  <td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">0.796%</td>
-  <td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">0.743pp</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#22c55e;">68%<br><span style="font-size:8px;color:#64748b;font-weight:400;">底池19 已13/未6</span></td><td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">100%</td><td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">32pp</td>
-  <td style="padding:5px 8px;font-size:10px;color:var(--text-2);">守住降本</td>
-</tr>
-<tr style="background:#f8fafc;">
-  <td colspan="11" style="padding:4px 8px;font-size:10px;font-weight:700;color:#64748b;border-bottom:1px solid #e2e8f0;">⚪ Deprioritize（MA<3.1 & ATW<3.0）</td>
-</tr>
-<tr style="border-bottom:1px solid var(--border);opacity:.85;">
-  <td style="padding:6px 8px;font-weight:600;">医疗用品</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#f59e0b;">1.32%</td>
-  <td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">3.10%</td>
-  <td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">1.78pp</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#ef4444;">0.265%</td>
-  <td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">0.796%</td>
-  <td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">0.531pp</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#f59e0b;">45%<br><span style="font-size:8px;color:#64748b;font-weight:400;">底池107 已48/未59</span></td><td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">100%</td><td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">55pp</td>
-  <td style="padding:5px 8px;font-size:10px;color:var(--text-2);">⛔合规限制，观望</td>
-</tr>
-<tr style="border-bottom:1px solid var(--border);opacity:.85;">
-  <td style="padding:6px 8px;font-weight:600;">OTC</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#ef4444;">0.19%</td>
-  <td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">3.10%</td>
-  <td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">2.91pp</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#ef4444;">0.019%</td>
-  <td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">0.796%</td>
-  <td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">0.777pp</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#f59e0b;">45%<br><span style="font-size:8px;color:#64748b;font-weight:400;">底池78 已35/未43</span></td><td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">100%</td><td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">55pp</td>
-  <td style="padding:5px 8px;font-size:10px;color:var(--text-2);">⛔预算高但合规锁死</td>
-</tr>
-<tr style="border-bottom:1px solid var(--border);opacity:.85;">
-  <td style="padding:6px 8px;font-weight:600;">宠物药品&健康品</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#f59e0b;">0.87%</td>
-  <td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">3.10%</td>
-  <td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">2.23pp</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#ef4444;">0.217%</td>
-  <td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">0.796%</td>
-  <td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">0.579pp</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#f59e0b;">46%<span style="font-size:8px;color:#94a3b8;"> 打标修正</span><br><span style="font-size:8px;color:#64748b;font-weight:400;">底池13 已6/未7</span></td><td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">100%</td><td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">54pp</td>
-  <td style="padding:5px 8px;font-size:10px;color:var(--text-2);">垂类内容先行</td>
-</tr>
-<tr style="border-bottom:1px solid var(--border);opacity:.85;">
-  <td style="padding:6px 8px;font-weight:600;">餐饮</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#ef4444;">0.21%</td>
-  <td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">3.10%</td>
-  <td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">2.89pp</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#ef4444;">0.011%</td>
-  <td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">0.796%</td>
-  <td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">0.785pp</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#ef4444;">9%<span style="font-size:8px;color:#94a3b8;"> 本地估算</span><br><span style="font-size:8px;color:#64748b;font-weight:400;">底池300 已26/未274</span></td><td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">100%</td><td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">91pp</td>
-  <td style="padding:5px 8px;font-size:10px;color:var(--text-2);">本地生活，非快消主线</td>
-</tr>
-<tr style="border-bottom:1px solid var(--border);opacity:.85;">
-  <td style="padding:6px 8px;font-weight:600;">药房零售</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#ef4444;">0.19%</td>
-  <td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">3.10%</td>
-  <td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">2.91pp</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#ef4444;">0.019%</td>
-  <td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">0.796%</td>
-  <td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">0.777pp</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#ef4444;">0%<span style="font-size:8px;color:#94a3b8;"> 本地估算</span><br><span style="font-size:8px;color:#64748b;font-weight:400;">底池50 已0/未50</span></td><td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">100%</td><td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">100pp</td>
-  <td style="padding:5px 8px;font-size:10px;color:var(--text-2);">渠道商，维持基础</td>
-</tr>
-<tr style="border-bottom:1px solid var(--border);opacity:.85;">
-  <td style="padding:6px 8px;font-weight:600;">药品</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#ef4444;">0.00%</td>
-  <td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">3.10%</td>
-  <td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">3.10pp</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#ef4444;">0.000%</td>
-  <td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">0.796%</td>
-  <td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">0.796pp</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#ef4444;">9%<br><span style="font-size:8px;color:#64748b;font-weight:400;">底池11 已1/未10</span></td><td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">100%</td><td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">91pp</td>
-  <td style="padding:5px 8px;font-size:10px;color:var(--text-2);">⛔处方药强监管</td>
-</tr>
-<tr style="border-bottom:1px solid var(--border);opacity:.85;">
-  <td style="padding:6px 8px;font-weight:600;">零售</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#94a3b8;">~估</td>
-  <td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">3.10%</td>
-  <td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">—</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#94a3b8;">—</td>
-  <td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">0.796%</td>
-  <td style="padding:5px 6px;text-align:center;color:#f59e0b;border-right:1px solid var(--border);">—</td>
-  <td style="padding:5px 6px;text-align:center;color:#94a3b8;">—</td><td style="padding:5px 6px;text-align:center;color:#64748b;font-size:10px;">100%</td><td style="padding:5px 6px;text-align:center;color:#94a3b8;border-right:1px solid var(--border);">—</td>
-  <td style="padding:5px 8px;font-size:10px;color:var(--text-2);">渠道商，定向探索</td>
-</tr>
-<tr style="border-bottom:1px solid var(--border);">
-  <td style="padding:6px 8px;padding-left:16px;"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#64748b;margin-right:4px;vertical-align:middle;"></span>粮油调味<span style="font-size:9px;color:#6366f1;margin-left:3px;">↳</span></td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#f59e0b;">0.06%</td><td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">3.10%</td><td style="padding:5px 6px;text-align:center;color:var(--text-2);border-right:1px solid var(--border);">-3.04pp</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#ef4444;">0.005%</td><td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">0.796%</td><td style="padding:5px 6px;text-align:center;color:var(--text-2);border-right:1px solid var(--border);">-0.791pp</td>
-  <td style="padding:5px 6px;text-align:center;font-weight:700;color:#8b5cf6;">55%</td><td style="padding:5px 6px;text-align:center;color:#22c55e;font-size:10px;">100%</td><td style="padding:5px 6px;text-align:center;color:var(--text-2);">-45pp</td>
-  <td style="padding:5px 6px;font-size:10px;color:#475569;">传统龙头主导，低毛利低投放意愿</td>
-</tr></tbody>
-  </table>
-  </div>
-
-  <div style="font-size:10px;color:var(--text-3);margin-top:6px;display:flex;gap:16px;flex-wrap:wrap;">
-    <span>SoW天花板=母婴用品<strong>3.10%</strong></span>
-    <span>Take Rate天花板=母婴食品<strong>0.796%</strong></span>
-    <span>客户渗透率天花板=<strong>100%</strong>（底池品牌全覆盖）</span>
-    <span>底池口径：全网电商/连锁收入&gt;1亿品牌 · 打标修正=宠物赛道猫狗标签估算</span>
-    <span>→ <a href="#" onclick="document.querySelector('[data-title=\"Appendix D：客户渗透率品牌清单\"]')?.scrollIntoView()" style="color:#6366f1;">Appendix D 查看品牌明细 ↓</a></span>
-  </div>
-  
-  <div class="app-btns" style="margin-bottom:4px;"><button class="app-btn app-btn-indigo" onclick="goToAppendix('F SoW & Take Rate')">↗ Appendix C SoW & Take Rate</button><button class="app-btn app-btn-indigo" onclick="goToAppendix('D：客户渗透率')">↗ Appendix D 品牌清单</button></div>
-  <div class="deck-footer">
-    <span class="dim2">Layer 2 · SoW衡量预算份额 · Take Rate衡量GMV变现效率 · 客户渗透率衡量拓客空间</span>
-    <span class="slide-number" data-current="11" data-total="21"></span>
-  </div>
-</section>
-<!-- ══════════════════════════════════════════
-     SLIDE 10 · 总结 & 下一步
-══════════════════════════════════════════ -->
-
-<section class="slide" data-title="快消天花板总览">
-  <div class="deck-header">
-    <span class="eyebrow">04 · 天花板测算</span>
-    <span class="eyebrow">ATW分档 × 字节市占 × QuestMobile+5%/年</span>
-  </div>
-  <p class="kicker" style="margin-bottom:16px;">天花板市占 = 字节市占 × ATW档位%；大盘：QuestMobile+5%/年（2026→2030）；★=已超字节市占，维持当前市占随大盘增长</p>
-
-  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:20px;padding:0 8px;flex:1;">
-
-    <!-- Card 1: 线上广告大盘 -->
-    <div style="border-radius:10px;border:1px solid #e2e8f0;overflow:hidden;display:flex;flex-direction:column;">
-      <div style="background:#f8fafc;padding:10px 18px;border-bottom:1px solid #e2e8f0;">
-        <span style="font-size:11px;color:#64748b;font-weight:600;letter-spacing:.5px;">线上广告大盘（QuestMobile）</span>
-      </div>
-      <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:20px 24px;gap:10px;">
-        <div>
-          <div style="font-size:10px;color:#94a3b8;margin-bottom:2px;">2030 保守预测</div>
-          <div style="font-size:48px;font-weight:900;color:#1e293b;line-height:1;">9,633<span style="font-size:20px;font-weight:600;">亿</span></div>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px;padding:2px 0;">
-          <div style="flex:1;height:1px;background:var(--border,#e2e8f0);"></div>
-          <div style="display:flex;flex-direction:column;align-items:center;gap:1px;">
-            <span style="font-size:9px;color:#94a3b8;font-weight:500;">2026</span>
-            <span style="font-size:18px;line-height:1;">↑</span>
-            <span style="font-size:9px;color:#94a3b8;font-weight:500;">2030</span>
-          </div>
-          <div style="flex:1;height:1px;background:var(--border,#e2e8f0);"></div>
-        </div>
-        <div>
-          <div style="font-size:10px;color:#94a3b8;margin-bottom:2px;">2026 基准</div>
-          <div style="font-size:26px;font-weight:700;color:#64748b;line-height:1;">7,931<span style="font-size:14px;">亿</span></div>
-        </div>
-      </div>
-      <div style="background:#eff6ff;padding:6px 18px;border-top:1px solid #bfdbfe;">
-        <span style="font-size:10px;color:#3b82f6;">+5%/年复合增长 × 4年</span>
-      </div>
-    </div>
-
-    <!-- Card 2: 快消广告年化 -->
-    <div style="border-radius:10px;border:1px solid #fecaca;overflow:hidden;display:flex;flex-direction:column;">
-      <div style="background:#fff5f5;padding:10px 18px;border-bottom:1px solid #fecaca;">
-        <span style="font-size:11px;color:#dc2626;font-weight:600;letter-spacing:.5px;">快消广告年化</span>
-      </div>
-      <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:20px 24px;gap:10px;">
-        <div>
-          <div style="font-size:10px;color:#94a3b8;margin-bottom:2px;">2030 天花板</div>
-          <div style="font-size:48px;font-weight:900;color:#dc2626;line-height:1;">551<span style="font-size:20px;font-weight:600;">亿</span></div>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px;padding:2px 0;">
-          <div style="flex:1;height:1px;background:var(--border,#e2e8f0);"></div>
-          <div style="display:flex;flex-direction:column;align-items:center;gap:1px;">
-            <span style="font-size:9px;color:#94a3b8;font-weight:500;">2026</span>
-            <span style="font-size:18px;line-height:1;">↑</span>
-            <span style="font-size:9px;color:#94a3b8;font-weight:500;">2030</span>
-          </div>
-          <div style="flex:1;height:1px;background:var(--border,#e2e8f0);"></div>
-        </div>
-        <div>
-          <div style="font-size:10px;color:#94a3b8;margin-bottom:2px;">当前年化</div>
-          <div style="font-size:26px;font-weight:700;color:#9f1239;line-height:1;">93<span style="font-size:14px;">亿</span></div>
-        </div>
-      </div>
-      <div style="background:#fef2f2;padding:6px 18px;border-top:1px solid #fecaca;">
-        <span style="font-size:10px;color:#dc2626;">天花板倍数 5.9x · 增量 +458亿</span>
-      </div>
-    </div>
-
-    <!-- Card 3: 快消在核心平台份额 -->
-    <div style="border-radius:10px;border:1px solid #c7d2fe;overflow:hidden;display:flex;flex-direction:column;">
-      <div style="background:#f5f3ff;padding:10px 18px;border-bottom:1px solid #c7d2fe;">
-        <span style="font-size:11px;color:#6366f1;font-weight:600;letter-spacing:.5px;">快消在核心平台份额（SoW）</span>
-      </div>
-      <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:20px 24px;gap:10px;">
-        <div>
-          <div style="font-size:10px;color:#94a3b8;margin-bottom:2px;">2030 天花板</div>
-          <div style="font-size:48px;font-weight:900;color:#6366f1;line-height:1;">21.6<span style="font-size:20px;font-weight:600;">%</span></div>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px;padding:2px 0;">
-          <div style="flex:1;height:1px;background:var(--border,#e2e8f0);"></div>
-          <div style="display:flex;flex-direction:column;align-items:center;gap:1px;">
-            <span style="font-size:9px;color:#94a3b8;font-weight:500;">2026</span>
-            <span style="font-size:18px;line-height:1;">↑</span>
-            <span style="font-size:9px;color:#94a3b8;font-weight:500;">2030</span>
-          </div>
-          <div style="flex:1;height:1px;background:var(--border,#e2e8f0);"></div>
-        </div>
-        <div>
-          <div style="font-size:10px;color:#94a3b8;margin-bottom:2px;">当前份额</div>
-          <div style="font-size:26px;font-weight:700;color:#4338ca;line-height:1;">4.4<span style="font-size:14px;">%</span></div>
-        </div>
-      </div>
-      <div style="background:#eef2ff;padding:6px 18px;border-top:1px solid #c7d2fe;">
-        <span style="font-size:10px;color:#6366f1;">Gap +17.2ppt · 对标字节快消份额</span>
-      </div>
-    </div>
-
-    <!-- Card 4: 快消总增量空间 -->
-    <div style="border-radius:10px;border:1px solid #bae6fd;overflow:hidden;display:flex;flex-direction:column;">
-      <div style="background:#f0f9ff;padding:10px 18px;border-bottom:1px solid #bae6fd;">
-        <span style="font-size:11px;color:#0284c7;font-weight:600;letter-spacing:.5px;">快消总增量空间</span>
-      </div>
-      <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:20px 24px;gap:10px;">
-        <div>
-          <div style="font-size:10px;color:#94a3b8;margin-bottom:2px;">2030 总增量</div>
-          <div style="font-size:48px;font-weight:900;color:#0284c7;line-height:1;">+458<span style="font-size:20px;font-weight:600;">亿</span></div>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px;padding:2px 0;">
-          <div style="flex:1;height:1px;background:var(--border,#e2e8f0);"></div>
-          <div style="display:flex;flex-direction:column;align-items:center;gap:1px;">
-            <span style="font-size:9px;color:#94a3b8;font-weight:500;">2026</span>
-            <span style="font-size:18px;line-height:1;">↑</span>
-            <span style="font-size:9px;color:#94a3b8;font-weight:500;">2030</span>
-          </div>
-          <div style="flex:1;height:1px;background:var(--border,#e2e8f0);"></div>
-        </div>
-        <div>
-          <div style="font-size:10px;color:#94a3b8;margin-bottom:2px;">食品赛道增量（最大单赛道）</div>
-          <div style="font-size:26px;font-weight:700;color:#0369a1;line-height:1;">+242<span style="font-size:14px;">亿</span></div>
-        </div>
-      </div>
-      <div style="background:#e0f2fe;padding:6px 18px;border-top:1px solid #bae6fd;">
-        <span style="font-size:10px;color:#0284c7;">母婴用品+保健食品+医疗用品 · 稳健高倍数赛道</span>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="deck-footer" style="margin-top:12px;">
-    <span class="dim2">ATW档位：5.0=100% / 4.5–4.9=85% / 4.0–4.4=65% / 3.5–3.9=50% / 3.0–3.4=38% / 2.5–2.9=28% / 2.0–2.4=18% / &lt;2.0=10%</span>
-    <span class="slide-number"></span>
-  </div>
-</section>
-
-<section class="slide" data-title="快消全赛道天花板收入测算" style="display:flex;flex-direction:column;">
-  <div class="deck-header">
-    <span class="eyebrow">04 · 天花板测算 · 20赛道明细</span>
-    <span class="eyebrow">ATW分档 × 字节市占 × 大盘+5%/年（2026→2030）</span>
-  </div>
-  <p class="kicker">天花板市占 = 字节市占 × ATW档位%；大盘：QuestMobile+5%/年（2026→2030）；★=已超字节市占，维持当前市占随大盘增长</p>
-  <div style="overflow-y:auto;flex:1;min-height:0;">
-
-    <!-- Double Down -->
-    <div style="margin-bottom:7px;border-radius:6px;overflow:hidden;border:1px solid #16a34a;">
-      <div style="background:#16a34a;color:#fff;padding:5px 12px;font-size:11px;font-weight:700;display:flex;justify-content:space-between;">
-        <span>🔴 Double Down</span>
-        <span>5个赛道 · 当前58亿 → 2030天花板179亿 · 增量+121亿</span>
-      </div>
-      <table style="width:100%;border-collapse:collapse;font-size:11px;">
-        <thead><tr style="background:#f0fdf4;color:#166534;font-weight:700;">
-          <th style="padding:5px 8px;text-align:left;border-bottom:1px solid #bbf7d0;">赛道</th>
-          <th style="padding:5px 8px;text-align:center;border-bottom:1px solid #bbf7d0;">MA</th>
-          <th style="padding:5px 8px;text-align:center;border-bottom:1px solid #bbf7d0;">ATW</th>
-          <th style="padding:5px 8px;text-align:center;border-bottom:1px solid #bbf7d0;">档位%</th>
-          <th style="padding:5px 8px;text-align:center;border-bottom:1px solid #bbf7d0;">当前市占</th>
-          <th style="padding:5px 8px;text-align:center;border-bottom:1px solid #bbf7d0;">2030市占</th>
-          <th style="padding:5px 8px;text-align:right;border-bottom:1px solid #bbf7d0;color:#15803d;">当前年化</th>
-          <th style="padding:5px 8px;text-align:right;border-bottom:1px solid #bbf7d0;color:#15803d;">2030天花板</th>
-          <th style="padding:5px 8px;text-align:right;border-bottom:1px solid #bbf7d0;color:#15803d;">增量</th>
-        </tr></thead>
-        <tbody>
-          <tr style="border-bottom:1px solid #f0fdf4;">
-            <td style="padding:5px 8px;font-weight:600;">母婴食品</td>
-            <td style="padding:5px 8px;text-align:center;">4.70</td>
-            <td style="padding:5px 8px;text-align:center;">5.00</td>
-            <td style="padding:5px 8px;text-align:center;color:#dc2626;font-weight:700;">★61.2%</td>
-            <td style="padding:5px 8px;text-align:center;">35.2%</td>
-            <td style="padding:5px 8px;text-align:center;">61.2%</td>
-            <td style="padding:5px 8px;text-align:right;font-weight:600;">28.0亿</td>
-            <td style="padding:5px 8px;text-align:right;font-weight:700;color:#15803d;">60.3亿</td>
-            <td style="padding:5px 8px;text-align:right;color:#15803d;font-weight:700;background:#f0fdf4;">⭐ +32.3亿 ★</td>
-          </tr>
-          <tr style="border-bottom:1px solid #f0fdf4;background:#fafffe;">
-            <td style="padding:5px 8px;font-weight:600;">母婴用品</td>
-            <td style="padding:5px 8px;text-align:center;">4.35</td>
-            <td style="padding:5px 8px;text-align:center;">4.80</td>
-            <td style="padding:5px 8px;text-align:center;color:#7c3aed;font-weight:700;">85%</td>
-            <td style="padding:5px 8px;text-align:center;">9.6%</td>
-            <td style="padding:5px 8px;text-align:center;">48.2%</td>
-            <td style="padding:5px 8px;text-align:right;font-weight:600;">9.0亿</td>
-            <td style="padding:5px 8px;text-align:right;font-weight:700;color:#15803d;">55.0亿</td>
-            <td style="padding:5px 8px;text-align:right;color:#d97706;font-weight:700;background:#fef3c7;">🔥 +46.0亿</td>
-          </tr>
-          <tr style="border-bottom:1px solid #f0fdf4;">
-            <td style="padding:5px 8px;font-weight:600;">保健食品</td>
-            <td style="padding:5px 8px;text-align:center;">4.00</td>
-            <td style="padding:5px 8px;text-align:center;">4.45</td>
-            <td style="padding:5px 8px;text-align:center;color:#7c3aed;font-weight:700;">65%</td>
-            <td style="padding:5px 8px;text-align:center;">12.6%</td>
-            <td style="padding:5px 8px;text-align:center;">38.2%</td>
-            <td style="padding:5px 8px;text-align:right;font-weight:600;">13.0亿</td>
-            <td style="padding:5px 8px;text-align:right;font-weight:700;color:#15803d;">47.7亿</td>
-            <td style="padding:5px 8px;text-align:right;color:#d97706;font-weight:700;background:#fef3c7;">🔥 +34.7亿</td>
-          </tr>
-          <tr style="border-bottom:1px solid #f0fdf4;background:#fafffe;">
-            <td style="padding:5px 8px;font-weight:600;">宠物食品</td>
-            <td style="padding:5px 8px;text-align:center;">3.50</td>
-            <td style="padding:5px 8px;text-align:center;">4.10</td>
-            <td style="padding:5px 8px;text-align:center;color:#7c3aed;font-weight:700;">65%</td>
-            <td style="padding:5px 8px;text-align:center;">7.2%</td>
-            <td style="padding:5px 8px;text-align:center;">32.0%</td>
-            <td style="padding:5px 8px;text-align:right;font-weight:600;">5.5亿</td>
-            <td style="padding:5px 8px;text-align:right;font-weight:700;color:#15803d;">29.6亿</td>
-            <td style="padding:5px 8px;text-align:right;color:#15803d;font-weight:700;background:#f0fdf4;">⭐ +24.1亿</td>
-          </tr>
-          <tr style="border-bottom:1px solid #f0fdf4;">
-            <td style="padding:5px 8px;font-weight:600;">蛋白食饮</td>
-            <td style="padding:5px 8px;text-align:center;">4.50</td>
-            <td style="padding:5px 8px;text-align:center;">3.90</td>
-            <td style="padding:5px 8px;text-align:center;color:#7c3aed;font-weight:700;">50%</td>
-            <td style="padding:5px 8px;text-align:center;">8.2%</td>
-            <td style="padding:5px 8px;text-align:center;">28.9%</td>
-            <td style="padding:5px 8px;text-align:right;font-weight:600;">3.0亿</td>
-            <td style="padding:5px 8px;text-align:right;font-weight:700;color:#15803d;">12.9亿</td>
-            <td style="padding:5px 8px;text-align:right;color:#16a34a;font-weight:700;">+9.9亿</td>
-          </tr>
-          <tr style="background:#f0fdf4;font-weight:700;">
-            <td style="padding:5px 8px;" colspan="6">小计</td>
-            <td style="padding:5px 8px;text-align:right;">58.5亿</td>
-            <td style="padding:5px 8px;text-align:right;color:#15803d;">205.5亿</td>
-            <td style="padding:5px 8px;text-align:right;color:#16a34a;">+147.0亿</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- Defend & Harvest -->
-    <div style="margin-bottom:7px;border-radius:6px;overflow:hidden;border:1px solid #3b82f6;">
-      <div style="background:#3b82f6;color:#fff;padding:5px 12px;font-size:11px;font-weight:700;display:flex;justify-content:space-between;">
-        <span>🔵 Defend &amp; Harvest</span>
-        <span>2个赛道 · 当前11亿 → 2030天花板44亿 · 增量+34亿</span>
-      </div>
-      <table style="width:100%;border-collapse:collapse;font-size:11px;">
-        <thead><tr style="background:#eff6ff;color:#1e40af;font-weight:700;">
-          <th style="padding:5px 8px;text-align:left;border-bottom:1px solid #bfdbfe;">赛道</th>
-          <th style="padding:5px 8px;text-align:center;border-bottom:1px solid #bfdbfe;">MA</th>
-          <th style="padding:5px 8px;text-align:center;border-bottom:1px solid #bfdbfe;">ATW</th>
-          <th style="padding:5px 8px;text-align:center;border-bottom:1px solid #bfdbfe;">档位%</th>
-          <th style="padding:5px 8px;text-align:center;border-bottom:1px solid #bfdbfe;">当前市占</th>
-          <th style="padding:5px 8px;text-align:center;border-bottom:1px solid #bfdbfe;">2030市占</th>
-          <th style="padding:5px 8px;text-align:right;border-bottom:1px solid #bfdbfe;color:#1d4ed8;">当前年化</th>
-          <th style="padding:5px 8px;text-align:right;border-bottom:1px solid #bfdbfe;color:#1d4ed8;">2030天花板</th>
-          <th style="padding:5px 8px;text-align:right;border-bottom:1px solid #bfdbfe;color:#1d4ed8;">增量</th>
-        </tr></thead>
-        <tbody>
-          <tr style="border-bottom:1px solid #eff6ff;">
-            <td style="padding:5px 8px;font-weight:600;">餐饮</td>
-            <td style="padding:5px 8px;text-align:center;">2.70</td>
-            <td style="padding:5px 8px;text-align:center;">3.10</td>
-            <td style="padding:5px 8px;text-align:center;color:#7c3aed;font-weight:700;">38%</td>
-            <td style="padding:5px 8px;text-align:center;">5.6%</td>
-            <td style="padding:5px 8px;text-align:center;">10.4%</td>
-            <td style="padding:5px 8px;text-align:right;font-weight:600;">5.7亿</td>
-            <td style="padding:5px 8px;text-align:right;font-weight:700;color:#1d4ed8;">13.0亿</td>
-            <td style="padding:5px 8px;text-align:right;color:#3b82f6;font-weight:700;">+7.3亿</td>
-          </tr>
-          <tr style="border-bottom:1px solid #eff6ff;background:#fafeff;">
-            <td style="padding:5px 8px;font-weight:600;">医疗用品</td>
-            <td style="padding:5px 8px;text-align:center;">2.85</td>
-            <td style="padding:5px 8px;text-align:center;">3.15</td>
-            <td style="padding:5px 8px;text-align:center;color:#7c3aed;font-weight:700;">38%</td>
-            <td style="padding:5px 8px;text-align:center;">3.3%</td>
-            <td style="padding:5px 8px;text-align:center;">16.9%</td>
-            <td style="padding:5px 8px;text-align:right;font-weight:600;">5.0亿</td>
-            <td style="padding:5px 8px;text-align:right;font-weight:700;color:#1d4ed8;">31.5亿</td>
-            <td style="padding:5px 8px;text-align:right;color:#15803d;font-weight:700;background:#f0fdf4;">⭐ +26.5亿</td>
-          </tr>
-          <tr style="background:#eff6ff;font-weight:700;">
-            <td style="padding:5px 8px;" colspan="6">小计</td>
-            <td style="padding:5px 8px;text-align:right;">10.7亿</td>
-            <td style="padding:5px 8px;text-align:right;color:#1d4ed8;">44.5亿</td>
-            <td style="padding:5px 8px;text-align:right;color:#3b82f6;">+33.8亿</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- Invest to Win -->
-    <div style="margin-bottom:7px;border-radius:6px;overflow:hidden;border:1px solid #f59e0b;">
-      <div style="background:#f59e0b;color:#fff;padding:5px 12px;font-size:11px;font-weight:700;display:flex;justify-content:space-between;">
-        <span>🟡 Invest to Win</span>
-        <span>7个赛道 · 当前20亿 → 2030天花板312亿 · 增量+293亿</span>
-      </div>
-      <table style="width:100%;border-collapse:collapse;font-size:11px;">
-        <thead><tr style="background:#fffbeb;color:#92400e;font-weight:700;">
-          <th style="padding:5px 8px;text-align:left;border-bottom:1px solid #fde68a;">赛道</th>
-          <th style="padding:5px 8px;text-align:center;border-bottom:1px solid #fde68a;">MA</th>
-          <th style="padding:5px 8px;text-align:center;border-bottom:1px solid #fde68a;">ATW</th>
-          <th style="padding:5px 8px;text-align:center;border-bottom:1px solid #fde68a;">档位%</th>
-          <th style="padding:5px 8px;text-align:center;border-bottom:1px solid #fde68a;">当前市占</th>
-          <th style="padding:5px 8px;text-align:center;border-bottom:1px solid #fde68a;">2030市占</th>
-          <th style="padding:5px 8px;text-align:right;border-bottom:1px solid #fde68a;color:#b45309;">当前年化</th>
-          <th style="padding:5px 8px;text-align:right;border-bottom:1px solid #fde68a;color:#b45309;">2030天花板</th>
-          <th style="padding:5px 8px;text-align:right;border-bottom:1px solid #fde68a;color:#b45309;">增量</th>
-        </tr></thead>
-        <tbody>
-          <tr style="border-bottom:1px solid #fffbeb;">
-            <td style="padding:5px 8px;font-weight:600;">食品</td>
-            <td style="padding:5px 8px;text-align:center;">3.50</td>
-            <td style="padding:5px 8px;text-align:center;">2.70</td>
-            <td style="padding:5px 8px;text-align:center;color:#7c3aed;font-weight:700;">28%</td>
-            <td style="padding:5px 8px;text-align:center;">1.1%</td>
-            <td style="padding:5px 8px;text-align:center;">20.8%</td>
-            <td style="padding:5px 8px;text-align:right;font-weight:600;">11.0亿</td>
-            <td style="padding:5px 8px;text-align:right;font-weight:700;color:#b45309;">253.0亿</td>
-            <td style="padding:5px 8px;text-align:right;color:#d97706;font-weight:700;background:#fef3c7;">🔥 +242.0亿</td>
-          </tr>
-          <tr style="border-bottom:1px solid #fffbeb;background:#fffef5;">
-            <td style="padding:5px 8px;font-weight:600;">饮料</td>
-            <td style="padding:5px 8px;text-align:center;">3.70</td>
-            <td style="padding:5px 8px;text-align:center;">2.15</td>
-            <td style="padding:5px 8px;text-align:center;color:#7c3aed;font-weight:700;">18%</td>
-            <td style="padding:5px 8px;text-align:center;">1.5%</td>
-            <td style="padding:5px 8px;text-align:center;">13.7%</td>
-            <td style="padding:5px 8px;text-align:right;font-weight:600;">3.0亿</td>
-            <td style="padding:5px 8px;text-align:right;font-weight:700;color:#b45309;">33.8亿</td>
-            <td style="padding:5px 8px;text-align:right;color:#15803d;font-weight:700;background:#f0fdf4;">⭐ +30.8亿</td>
-          </tr>
-          <tr style="border-bottom:1px solid #fffbeb;">
-            <td style="padding:5px 8px;font-weight:600;">文具玩具礼品</td>
-            <td style="padding:5px 8px;text-align:center;">3.35</td>
-            <td style="padding:5px 8px;text-align:center;">2.80</td>
-            <td style="padding:5px 8px;text-align:center;color:#7c3aed;font-weight:700;">28%</td>
-            <td style="padding:5px 8px;text-align:center;">2.3%</td>
-            <td style="padding:5px 8px;text-align:center;">19.1%</td>
-            <td style="padding:5px 8px;text-align:right;font-weight:600;">1.4亿</td>
-            <td style="padding:5px 8px;text-align:right;font-weight:700;color:#b45309;">14.2亿</td>
-            <td style="padding:5px 8px;text-align:right;color:#f59e0b;font-weight:700;">+12.8亿</td>
-          </tr>
-          <tr style="border-bottom:1px solid #fffbeb;background:#fffef5;">
-            <td style="padding:5px 8px;font-weight:600;">酒类</td>
-            <td style="padding:5px 8px;text-align:center;">3.50</td>
-            <td style="padding:5px 8px;text-align:center;">1.85</td>
-            <td style="padding:5px 8px;text-align:center;color:#7c3aed;font-weight:700;">10%</td>
-            <td style="padding:5px 8px;text-align:center;">1.6%</td>
-            <td style="padding:5px 8px;text-align:center;">4.9%</td>
-            <td style="padding:5px 8px;text-align:right;font-weight:600;">2.0亿</td>
-            <td style="padding:5px 8px;text-align:right;font-weight:700;color:#b45309;">7.5亿</td>
-            <td style="padding:5px 8px;text-align:right;color:#f59e0b;font-weight:700;">+5.5亿</td>
-          </tr>
-          <tr style="border-bottom:1px solid #fffbeb;">
-            <td style="padding:5px 8px;font-weight:600;">传统滋补 <span style="color:#9ca3af;font-size:9px;">Demo</span></td>
-            <td style="padding:5px 8px;text-align:center;">3.15</td>
-            <td style="padding:5px 8px;text-align:center;">2.55</td>
-            <td style="padding:5px 8px;text-align:center;color:#7c3aed;font-weight:700;">28%</td>
-            <td style="padding:5px 8px;text-align:center;">—</td>
-            <td style="padding:5px 8px;text-align:center;">—</td>
-            <td style="padding:5px 8px;text-align:right;font-weight:600;">1.5亿</td>
-            <td style="padding:5px 8px;text-align:right;font-weight:700;color:#b45309;">2.2亿</td>
-            <td style="padding:5px 8px;text-align:right;color:#f59e0b;font-weight:700;">+0.7亿</td>
-          </tr>
-          <tr style="border-bottom:1px solid #fffbeb;background:#fffef5;">
-            <td style="padding:5px 8px;font-weight:600;">宠物用品</td>
-            <td style="padding:5px 8px;text-align:center;">3.05</td>
-            <td style="padding:5px 8px;text-align:center;">2.80</td>
-            <td style="padding:5px 8px;text-align:center;color:#7c3aed;font-weight:700;">28%</td>
-            <td style="padding:5px 8px;text-align:center;">7.2%</td>
-            <td style="padding:5px 8px;text-align:center;">13.8%</td>
-            <td style="padding:5px 8px;text-align:right;font-weight:600;">0.5亿</td>
-            <td style="padding:5px 8px;text-align:right;font-weight:700;color:#b45309;">1.1亿</td>
-            <td style="padding:5px 8px;text-align:right;color:#f59e0b;font-weight:700;">+0.6亿</td>
-          </tr>
-          <tr style="border-bottom:1px solid #fffbeb;">
-            <td style="padding:5px 8px;font-weight:600;">特医 <span style="color:#9ca3af;font-size:9px;">Demo</span></td>
-            <td style="padding:5px 8px;text-align:center;">3.85</td>
-            <td style="padding:5px 8px;text-align:center;">2.55</td>
-            <td style="padding:5px 8px;text-align:center;color:#7c3aed;font-weight:700;">28%</td>
-            <td style="padding:5px 8px;text-align:center;">—</td>
-            <td style="padding:5px 8px;text-align:center;">—</td>
-            <td style="padding:5px 8px;text-align:right;font-weight:600;">0.2亿</td>
-            <td style="padding:5px 8px;text-align:right;font-weight:700;color:#b45309;">0.3亿</td>
-            <td style="padding:5px 8px;text-align:right;color:#f59e0b;font-weight:700;">+0.1亿</td>
-          </tr>
-          <tr style="background:#fffbeb;font-weight:700;">
-            <td style="padding:5px 8px;" colspan="6">小计</td>
-            <td style="padding:5px 8px;text-align:right;">19.6亿</td>
-            <td style="padding:5px 8px;text-align:right;color:#b45309;">312.1亿</td>
-            <td style="padding:5px 8px;text-align:right;color:#f59e0b;">+292.5亿</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- Deprioritize -->
-    <div style="margin-bottom:7px;border-radius:6px;overflow:hidden;border:1px solid #9ca3af;">
-      <div style="background:#6b7280;color:#fff;padding:5px 12px;font-size:11px;font-weight:700;display:flex;justify-content:space-between;">
-        <span>⚪ Deprioritize</span>
-        <span>6个赛道 · 当前4亿 → 2030天花板15亿 · 增量+11亿</span>
-      </div>
-      <table style="width:100%;border-collapse:collapse;font-size:11px;">
-        <thead><tr style="background:#f9fafb;color:#374151;font-weight:700;">
-          <th style="padding:5px 8px;text-align:left;border-bottom:1px solid #e5e7eb;">赛道</th>
-          <th style="padding:5px 8px;text-align:center;border-bottom:1px solid #e5e7eb;">MA</th>
-          <th style="padding:5px 8px;text-align:center;border-bottom:1px solid #e5e7eb;">ATW</th>
-          <th style="padding:5px 8px;text-align:center;border-bottom:1px solid #e5e7eb;">档位%</th>
-          <th style="padding:5px 8px;text-align:center;border-bottom:1px solid #e5e7eb;">当前市占</th>
-          <th style="padding:5px 8px;text-align:center;border-bottom:1px solid #e5e7eb;">2030市占</th>
-          <th style="padding:5px 8px;text-align:right;border-bottom:1px solid #e5e7eb;">当前年化</th>
-          <th style="padding:5px 8px;text-align:right;border-bottom:1px solid #e5e7eb;">2030天花板</th>
-          <th style="padding:5px 8px;text-align:right;border-bottom:1px solid #e5e7eb;">增量</th>
-        </tr></thead>
-        <tbody>
-          <tr style="border-bottom:1px solid #f3f4f6;">
-            <td style="padding:5px 8px;font-weight:600;">OTC</td>
-            <td style="padding:5px 8px;text-align:center;">2.15</td>
-            <td style="padding:5px 8px;text-align:center;">2.30</td>
-            <td style="padding:5px 8px;text-align:center;color:#7c3aed;font-weight:700;">18%</td>
-            <td style="padding:5px 8px;text-align:center;">2.1%</td>
-            <td style="padding:5px 8px;text-align:center;">10.0%</td>
-            <td style="padding:5px 8px;text-align:right;font-weight:600;">2.0亿</td>
-            <td style="padding:5px 8px;text-align:right;font-weight:700;">11.7亿</td>
-            <td style="padding:5px 8px;text-align:right;color:#6b7280;font-weight:700;">+9.7亿</td>
-          </tr>
-          <tr style="border-bottom:1px solid #f3f4f6;background:#fafafa;">
-            <td style="padding:5px 8px;font-weight:600;">宠物药品 <span style="color:#9ca3af;font-size:9px;">Demo</span></td>
-            <td style="padding:5px 8px;text-align:center;">2.35</td>
-            <td style="padding:5px 8px;text-align:center;">2.65</td>
-            <td style="padding:5px 8px;text-align:center;color:#7c3aed;font-weight:700;">28%</td>
-            <td style="padding:5px 8px;text-align:center;">—</td>
-            <td style="padding:5px 8px;text-align:center;">—</td>
-            <td style="padding:5px 8px;text-align:right;font-weight:600;">0.7亿</td>
-            <td style="padding:5px 8px;text-align:right;font-weight:700;">1.5亿</td>
-            <td style="padding:5px 8px;text-align:right;color:#6b7280;font-weight:700;">+0.9亿</td>
-          </tr>
-          <tr style="border-bottom:1px solid #f3f4f6;">
-            <td style="padding:5px 8px;font-weight:600;">宠物生活 <span style="color:#9ca3af;font-size:9px;">Demo</span></td>
-            <td style="padding:5px 8px;text-align:center;">2.35</td>
-            <td style="padding:5px 8px;text-align:center;">2.00</td>
-            <td style="padding:5px 8px;text-align:center;color:#7c3aed;font-weight:700;">18%</td>
-            <td style="padding:5px 8px;text-align:center;">—</td>
-            <td style="padding:5px 8px;text-align:center;">—</td>
-            <td style="padding:5px 8px;text-align:right;font-weight:600;">0.1亿</td>
-            <td style="padding:5px 8px;text-align:right;font-weight:700;">0.1亿</td>
-            <td style="padding:5px 8px;text-align:right;color:#6b7280;font-weight:700;">+0.0亿</td>
-          </tr>
-          <tr style="border-bottom:1px solid #f3f4f6;background:#fafafa;">
-            <td style="padding:5px 8px;font-weight:600;">零售</td>
-            <td style="padding:5px 8px;text-align:center;">2.35</td>
-            <td style="padding:5px 8px;text-align:center;">1.65</td>
-            <td style="padding:5px 8px;text-align:center;color:#dc2626;font-weight:700;">★维持</td>
-            <td style="padding:5px 8px;text-align:center;">16.1%</td>
-            <td style="padding:5px 8px;text-align:center;">16.1%</td>
-            <td style="padding:5px 8px;text-align:right;font-weight:600;">0.9亿</td>
-            <td style="padding:5px 8px;text-align:right;font-weight:700;">1.1亿</td>
-            <td style="padding:5px 8px;text-align:right;color:#6b7280;font-weight:700;">+0.2亿 ★</td>
-          </tr>
-          <tr style="border-bottom:1px solid #f3f4f6;">
-            <td style="padding:5px 8px;font-weight:600;">药房 <span style="color:#9ca3af;font-size:9px;">Demo</span></td>
-            <td style="padding:5px 8px;text-align:center;">1.15</td>
-            <td style="padding:5px 8px;text-align:center;">1.35</td>
-            <td style="padding:5px 8px;text-align:center;color:#7c3aed;font-weight:700;">10%</td>
-            <td style="padding:5px 8px;text-align:center;">—</td>
-            <td style="padding:5px 8px;text-align:center;">—</td>
-            <td style="padding:5px 8px;text-align:right;font-weight:600;">0.2亿</td>
-            <td style="padding:5px 8px;text-align:right;font-weight:700;">0.1亿</td>
-            <td style="padding:5px 8px;text-align:right;color:#dc2626;font-weight:700;">-0.1亿</td>
-          </tr>
-          <tr style="border-bottom:1px solid #f3f4f6;background:#fafafa;">
-            <td style="padding:5px 8px;font-weight:600;">药品 <span style="color:#9ca3af;font-size:9px;">Demo</span></td>
-            <td style="padding:5px 8px;text-align:center;">1.00</td>
-            <td style="padding:5px 8px;text-align:center;">1.35</td>
-            <td style="padding:5px 8px;text-align:center;color:#7c3aed;font-weight:700;">10%</td>
-            <td style="padding:5px 8px;text-align:center;">—</td>
-            <td style="padding:5px 8px;text-align:center;">—</td>
-            <td style="padding:5px 8px;text-align:right;font-weight:600;">0.3亿</td>
-            <td style="padding:5px 8px;text-align:right;font-weight:700;">0.2亿</td>
-            <td style="padding:5px 8px;text-align:right;color:#dc2626;font-weight:700;">-0.1亿</td>
-          </tr>
-          <tr style="background:#f3f4f6;font-weight:700;">
-            <td style="padding:5px 8px;" colspan="6">小计</td>
-            <td style="padding:5px 8px;text-align:right;">4.2亿</td>
-            <td style="padding:5px 8px;text-align:right;">14.7亿</td>
-            <td style="padding:5px 8px;text-align:right;color:#6b7280;">+10.5亿</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div style="font-size:10px;color:#9ca3af;padding:4px 8px;text-align:right;">
-      SoW口径：线上广告预算（已去除Trade Marketing）· 天花板市占=字节赛道市占×ATW档位% · ★=已超字节→用快消整体均值61.2%×档位% · 大盘=QuestMobile 2025 快消广告+5%/年 · Demo数据待验证
-    </div>
-  </div>
-</section>
 
 <section class="slide" data-title="A 广告流水">
   <div class="deck-header">
@@ -2399,7 +857,7 @@
         <td style="padding:6px 8px;text-align:center;">1,500–1,600</td>
         <td style="padding:6px 8px;text-align:center;color:#22c55e;font-weight:700;">17–18%</td>
         <td style="padding:6px 8px;text-align:center;font-weight:700;color:#0ea5e9;">~91（线上）</td>
-        <td style="padding:6px 8px;text-align:center;"><span style="background:#fef9c3;color:#854d0e;padding:2px 8px;border-radius:8px;font-weight:700;">3</span></td>
+        <td style="padding:6px 8px;text-align:center;"><span style="background:#bbf7d0;color:#166534;padding:2px 8px;border-radius:8px;font-weight:700;">4</span></td>
         <td style="padding:6px 10px;font-size:10px;color:var(--text-2);">贝亲(~20%)、宝洁婴儿(~15%)、好奇/帮宝适（P&G ~17%）</td>
       </tr><tr style="border-bottom:1px solid var(--border);">
         <td style="padding:6px 10px;font-weight:600;">保健食品</td>
@@ -2447,8 +905,8 @@
         <td style="padding:6px 10px;font-weight:600;">文具玩具礼品</td>
         <td style="padding:6px 8px;text-align:center;">3,500（文具+玩具礼品）</td>
         <td style="padding:6px 8px;text-align:center;">18%</td>
-        <td style="padding:6px 8px;text-align:center;font-weight:700;color:#0ea5e9;">~264（线上）</td>
-        <td style="padding:6px 8px;text-align:center;"><span style="background:#dcfce7;color:#15803d;padding:2px 8px;border-radius:8px;font-weight:700;">4</span></td>
+        <td style="padding:6px 8px;text-align:center;font-weight:700;color:#0ea5e9;">~76（线上）</td>
+        <td style="padding:6px 8px;text-align:center;"><span style="background:#dcfce7;color:#15803d;padding:2px 8px;border-radius:8px;font-weight:700;">3</span></td>
         <td style="padding:6px 10px;font-size:10px;color:var(--text-2);">晨光文具(~12%)、泡泡玛特(~25%)、乐高中国(~20%)加权</td>
       </tr><tr style="border-bottom:1px solid var(--border);">
   <td style="padding:6px 10px;padding-left:20px;">休闲零食<span style="font-size:9px;color:#6366f1;margin-left:4px;">↳</span></td>
@@ -2468,7 +926,7 @@
   <td style="padding:6px 10px;padding-left:20px;">预制速食<span style="font-size:9px;color:#6366f1;margin-left:4px;">↳</span></td>
   <td style="padding:6px 8px;text-align:center;">7,782</td>
   <td style="padding:6px 8px;text-align:center;color:#22c55e;font-weight:700;">12%</td>
-  <td style="padding:6px 8px;text-align:center;font-weight:700;color:#0ea5e9;">~187（线上）</td>
+  <td style="padding:6px 8px;text-align:center;font-weight:700;color:#0ea5e9;">~134（线上）</td>
   <td style="padding:6px 8px;text-align:center;"><span style="background:#bbf7d0;color:#166534;padding:2px 8px;border-radius:8px;font-weight:700;">4</span></td>
   <td style="padding:6px 10px;font-size:10px;color:var(--text-2);">艾媒咨询2024</td>
 </tr><tr style="border-bottom:1px solid var(--border);">
@@ -2496,8 +954,8 @@
         <td style="padding:6px 10px;font-weight:600;">蛋白食饮/运动营养</td>
         <td style="padding:6px 8px;text-align:center;">4,700</td>
         <td style="padding:6px 8px;text-align:center;">25%</td>
-        <td style="padding:6px 8px;text-align:center;font-weight:700;color:#0ea5e9;">~411（线上）</td>
-        <td style="padding:6px 8px;text-align:center;"><span style="background:#dcfce7;color:#15803d;padding:2px 8px;border-radius:8px;font-weight:700;">5</span></td>
+        <td style="padding:6px 8px;text-align:center;font-weight:700;color:#0ea5e9;">~32（线上）</td>
+        <td style="padding:6px 8px;text-align:center;"><span style="background:#fef9c3;color:#854d0e;padding:2px 8px;border-radius:8px;font-weight:700;">3</span></td>
         <td style="padding:6px 10px;font-size:10px;color:var(--text-2);">汤臣倍健运动(32%)、康比特(~25%)、Myprotein（估算）</td>
       </tr><tr style="border-bottom:1px solid var(--border);">
         <td style="padding:6px 10px;font-weight:600;">酒类</td>
@@ -2510,8 +968,8 @@
         <td style="padding:6px 10px;font-weight:600;">饮料</td>
         <td style="padding:6px 8px;text-align:center;">5,000–8,000</td>
         <td style="padding:6px 8px;text-align:center;">15–20%</td>
-        <td style="padding:6px 8px;text-align:center;font-weight:700;color:#0ea5e9;">~330（线上）</td>
-        <td style="padding:6px 8px;text-align:center;"><span style="background:#dcfce7;color:#15803d;padding:2px 8px;border-radius:8px;font-weight:700;">5</span></td>
+        <td style="padding:6px 8px;text-align:center;font-weight:700;color:#0ea5e9;">~177（线上）</td>
+        <td style="padding:6px 8px;text-align:center;"><span style="background:#bbf7d0;color:#166534;padding:2px 8px;border-radius:8px;font-weight:700;">4</span></td>
         <td style="padding:6px 10px;font-size:10px;color:var(--text-2);">农夫山泉(21%)、东鹏特饮(~18%)、承德露露(~12%)加权</td>
       </tr><tr style="border-bottom:1px solid var(--border);">
         <td style="padding:6px 10px;font-weight:600;">医疗用品（家用器械）</td>
@@ -2552,8 +1010,8 @@
         <td style="padding:6px 10px;font-weight:600;">餐饮</td>
         <td style="padding:6px 8px;text-align:center;">53,000</td>
         <td style="padding:6px 8px;text-align:center;">~4–5%</td>
-        <td style="padding:6px 8px;text-align:center;font-weight:700;color:#0ea5e9;">~485（线上）</td>
-        <td style="padding:6px 8px;text-align:center;"><span style="background:#dcfce7;color:#15803d;padding:2px 8px;border-radius:8px;font-weight:700;">5</span></td>
+        <td style="padding:6px 8px;text-align:center;font-weight:700;color:#0ea5e9;">~166（线上）</td>
+        <td style="padding:6px 8px;text-align:center;"><span style="background:#dcfce7;color:#15803d;padding:2px 8px;border-radius:8px;font-weight:700;">4</span></td>
         <td style="padding:6px 10px;font-size:10px;color:var(--text-2);">百胜中国(~5%)、麦当劳中国(~4%)、海底捞(~3%)加权；绝对体量大但费率极低</td>
       </tr><tr>
         <td style="padding:6px 10px;font-weight:600;">零售</td>
@@ -3736,6 +2194,489 @@
     <span class="slide-number" data-current="D" data-total="21"></span>
   </div>
 </section>
+
+<section class="slide" data-title="快消天花板总览">
+  <div class="deck-header">
+    <span class="eyebrow">04 · 天花板测算</span>
+    <span class="eyebrow">ATW分档 × 字节市占 × QuestMobile+5%/年</span>
+  </div>
+  <p class="kicker" style="margin-bottom:16px;">天花板市占 = 字节市占 × ATW档位%；大盘：QuestMobile+5%/年（2026→2030）；★=已超字节市占，维持当前市占随大盘增长</p>
+
+  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:20px;padding:0 8px;flex:1;">
+
+    <!-- Card 1: 线上广告大盘 -->
+    <div style="border-radius:10px;border:1px solid #e2e8f0;overflow:hidden;display:flex;flex-direction:column;">
+      <div style="background:#f8fafc;padding:10px 18px;border-bottom:1px solid #e2e8f0;">
+        <span style="font-size:11px;color:#64748b;font-weight:600;letter-spacing:.5px;">线上广告大盘（QuestMobile）</span>
+      </div>
+      <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:20px 24px;gap:10px;">
+        <div>
+          <div style="font-size:10px;color:#94a3b8;margin-bottom:2px;">2030 保守预测</div>
+          <div style="font-size:48px;font-weight:900;color:#1e293b;line-height:1;">9,633<span style="font-size:20px;font-weight:600;">亿</span></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;padding:2px 0;">
+          <div style="flex:1;height:1px;background:var(--border,#e2e8f0);"></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:1px;">
+            <span style="font-size:9px;color:#94a3b8;font-weight:500;">2026</span>
+            <span style="font-size:18px;line-height:1;">↑</span>
+            <span style="font-size:9px;color:#94a3b8;font-weight:500;">2030</span>
+          </div>
+          <div style="flex:1;height:1px;background:var(--border,#e2e8f0);"></div>
+        </div>
+        <div>
+          <div style="font-size:10px;color:#94a3b8;margin-bottom:2px;">2026 基准</div>
+          <div style="font-size:26px;font-weight:700;color:#64748b;line-height:1;">7,931<span style="font-size:14px;">亿</span></div>
+        </div>
+      </div>
+      <div style="background:#eff6ff;padding:6px 18px;border-top:1px solid #bfdbfe;">
+        <span style="font-size:10px;color:#3b82f6;">+5%/年复合增长 × 4年</span>
+      </div>
+    </div>
+
+    <!-- Card 2: 快消广告年化 -->
+    <div style="border-radius:10px;border:1px solid #fecaca;overflow:hidden;display:flex;flex-direction:column;">
+      <div style="background:#fff5f5;padding:10px 18px;border-bottom:1px solid #fecaca;">
+        <span style="font-size:11px;color:#dc2626;font-weight:600;letter-spacing:.5px;">快消广告年化</span>
+      </div>
+      <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:20px 24px;gap:10px;">
+        <div>
+          <div style="font-size:10px;color:#94a3b8;margin-bottom:2px;">2030 天花板</div>
+          <div style="font-size:48px;font-weight:900;color:#dc2626;line-height:1;">551<span style="font-size:20px;font-weight:600;">亿</span></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;padding:2px 0;">
+          <div style="flex:1;height:1px;background:var(--border,#e2e8f0);"></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:1px;">
+            <span style="font-size:9px;color:#94a3b8;font-weight:500;">2026</span>
+            <span style="font-size:18px;line-height:1;">↑</span>
+            <span style="font-size:9px;color:#94a3b8;font-weight:500;">2030</span>
+          </div>
+          <div style="flex:1;height:1px;background:var(--border,#e2e8f0);"></div>
+        </div>
+        <div>
+          <div style="font-size:10px;color:#94a3b8;margin-bottom:2px;">当前年化</div>
+          <div style="font-size:26px;font-weight:700;color:#9f1239;line-height:1;">93<span style="font-size:14px;">亿</span></div>
+        </div>
+      </div>
+      <div style="background:#fef2f2;padding:6px 18px;border-top:1px solid #fecaca;">
+        <span style="font-size:10px;color:#dc2626;">天花板倍数 5.9x · 增量 +458亿</span>
+      </div>
+    </div>
+
+    <!-- Card 3: 快消在核心平台份额 -->
+    <div style="border-radius:10px;border:1px solid #c7d2fe;overflow:hidden;display:flex;flex-direction:column;">
+      <div style="background:#f5f3ff;padding:10px 18px;border-bottom:1px solid #c7d2fe;">
+        <span style="font-size:11px;color:#6366f1;font-weight:600;letter-spacing:.5px;">快消在核心平台份额（SoW）</span>
+      </div>
+      <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:20px 24px;gap:10px;">
+        <div>
+          <div style="font-size:10px;color:#94a3b8;margin-bottom:2px;">2030 天花板</div>
+          <div style="font-size:48px;font-weight:900;color:#6366f1;line-height:1;">21.6<span style="font-size:20px;font-weight:600;">%</span></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;padding:2px 0;">
+          <div style="flex:1;height:1px;background:var(--border,#e2e8f0);"></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:1px;">
+            <span style="font-size:9px;color:#94a3b8;font-weight:500;">2026</span>
+            <span style="font-size:18px;line-height:1;">↑</span>
+            <span style="font-size:9px;color:#94a3b8;font-weight:500;">2030</span>
+          </div>
+          <div style="flex:1;height:1px;background:var(--border,#e2e8f0);"></div>
+        </div>
+        <div>
+          <div style="font-size:10px;color:#94a3b8;margin-bottom:2px;">当前份额</div>
+          <div style="font-size:26px;font-weight:700;color:#4338ca;line-height:1;">4.4<span style="font-size:14px;">%</span></div>
+        </div>
+      </div>
+      <div style="background:#eef2ff;padding:6px 18px;border-top:1px solid #c7d2fe;">
+        <span style="font-size:10px;color:#6366f1;">Gap +17.2ppt · 对标字节快消份额</span>
+      </div>
+    </div>
+
+    <!-- Card 4: 快消总增量空间 -->
+    <div style="border-radius:10px;border:1px solid #bae6fd;overflow:hidden;display:flex;flex-direction:column;">
+      <div style="background:#f0f9ff;padding:10px 18px;border-bottom:1px solid #bae6fd;">
+        <span style="font-size:11px;color:#0284c7;font-weight:600;letter-spacing:.5px;">快消总增量空间</span>
+      </div>
+      <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:20px 24px;gap:10px;">
+        <div>
+          <div style="font-size:10px;color:#94a3b8;margin-bottom:2px;">2030 总增量</div>
+          <div style="font-size:48px;font-weight:900;color:#0284c7;line-height:1;">+458<span style="font-size:20px;font-weight:600;">亿</span></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;padding:2px 0;">
+          <div style="flex:1;height:1px;background:var(--border,#e2e8f0);"></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:1px;">
+            <span style="font-size:9px;color:#94a3b8;font-weight:500;">2026</span>
+            <span style="font-size:18px;line-height:1;">↑</span>
+            <span style="font-size:9px;color:#94a3b8;font-weight:500;">2030</span>
+          </div>
+          <div style="flex:1;height:1px;background:var(--border,#e2e8f0);"></div>
+        </div>
+        <div>
+          <div style="font-size:10px;color:#94a3b8;margin-bottom:2px;">食品赛道增量（最大单赛道）</div>
+          <div style="font-size:26px;font-weight:700;color:#0369a1;line-height:1;">+242<span style="font-size:14px;">亿</span></div>
+        </div>
+      </div>
+      <div style="background:#e0f2fe;padding:6px 18px;border-top:1px solid #bae6fd;">
+        <span style="font-size:10px;color:#0284c7;">母婴用品+保健食品+医疗用品 · 稳健高倍数赛道</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="deck-footer" style="margin-top:12px;">
+    <span class="dim2">ATW档位：5.0=100% / 4.5–4.9=85% / 4.0–4.4=65% / 3.5–3.9=50% / 3.0–3.4=38% / 2.5–2.9=28% / 2.0–2.4=18% / &lt;2.0=10%</span>
+    <span class="slide-number"></span>
+  </div>
+</section>
+
+<section class="slide" data-title="快消全赛道天花板收入测算" style="display:flex;flex-direction:column;">
+  <div class="deck-header">
+    <span class="eyebrow">04 · 天花板测算 · 20赛道明细</span>
+    <span class="eyebrow">ATW分档 × 字节市占 × 大盘+5%/年（2026→2030）</span>
+  </div>
+  <p class="kicker">天花板市占 = 字节市占 × ATW档位%；大盘：QuestMobile+5%/年（2026→2030）；★=已超字节市占，维持当前市占随大盘增长</p>
+  <div style="overflow-y:auto;flex:1;min-height:0;">
+
+    <!-- Double Down -->
+    <div style="margin-bottom:7px;border-radius:6px;overflow:hidden;border:1px solid #16a34a;">
+      <div style="background:#16a34a;color:#fff;padding:5px 12px;font-size:11px;font-weight:700;display:flex;justify-content:space-between;">
+        <span>🔴 Double Down</span>
+        <span>5个赛道 · 当前58亿 → 2030天花板179亿 · 增量+121亿</span>
+      </div>
+      <table style="width:100%;border-collapse:collapse;font-size:11px;">
+        <thead><tr style="background:#f0fdf4;color:#166534;font-weight:700;">
+          <th style="padding:5px 8px;text-align:left;border-bottom:1px solid #bbf7d0;">赛道</th>
+          <th style="padding:5px 8px;text-align:center;border-bottom:1px solid #bbf7d0;">MA</th>
+          <th style="padding:5px 8px;text-align:center;border-bottom:1px solid #bbf7d0;">ATW</th>
+          <th style="padding:5px 8px;text-align:center;border-bottom:1px solid #bbf7d0;">档位%</th>
+          <th style="padding:5px 8px;text-align:center;border-bottom:1px solid #bbf7d0;">当前市占</th>
+          <th style="padding:5px 8px;text-align:center;border-bottom:1px solid #bbf7d0;">2030市占</th>
+          <th style="padding:5px 8px;text-align:right;border-bottom:1px solid #bbf7d0;color:#15803d;">当前年化</th>
+          <th style="padding:5px 8px;text-align:right;border-bottom:1px solid #bbf7d0;color:#15803d;">2030天花板</th>
+          <th style="padding:5px 8px;text-align:right;border-bottom:1px solid #bbf7d0;color:#15803d;">增量</th>
+        </tr></thead>
+        <tbody>
+          <tr style="border-bottom:1px solid #f0fdf4;">
+            <td style="padding:5px 8px;font-weight:600;">母婴食品</td>
+            <td style="padding:5px 8px;text-align:center;">4.70</td>
+            <td style="padding:5px 8px;text-align:center;">5.00</td>
+            <td style="padding:5px 8px;text-align:center;color:#dc2626;font-weight:700;">★61.2%</td>
+            <td style="padding:5px 8px;text-align:center;">35.2%</td>
+            <td style="padding:5px 8px;text-align:center;">61.2%</td>
+            <td style="padding:5px 8px;text-align:right;font-weight:600;">28.0亿</td>
+            <td style="padding:5px 8px;text-align:right;font-weight:700;color:#15803d;">60.3亿</td>
+            <td style="padding:5px 8px;text-align:right;color:#15803d;font-weight:700;background:#f0fdf4;">⭐ +32.3亿 ★</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f0fdf4;background:#fafffe;">
+            <td style="padding:5px 8px;font-weight:600;">母婴用品</td>
+            <td style="padding:5px 8px;text-align:center;">4.35</td>
+            <td style="padding:5px 8px;text-align:center;">4.80</td>
+            <td style="padding:5px 8px;text-align:center;color:#7c3aed;font-weight:700;">85%</td>
+            <td style="padding:5px 8px;text-align:center;">9.6%</td>
+            <td style="padding:5px 8px;text-align:center;">48.2%</td>
+            <td style="padding:5px 8px;text-align:right;font-weight:600;">9.0亿</td>
+            <td style="padding:5px 8px;text-align:right;font-weight:700;color:#15803d;">55.0亿</td>
+            <td style="padding:5px 8px;text-align:right;color:#d97706;font-weight:700;background:#fef3c7;">🔥 +46.0亿</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f0fdf4;">
+            <td style="padding:5px 8px;font-weight:600;">保健食品</td>
+            <td style="padding:5px 8px;text-align:center;">4.00</td>
+            <td style="padding:5px 8px;text-align:center;">4.45</td>
+            <td style="padding:5px 8px;text-align:center;color:#7c3aed;font-weight:700;">65%</td>
+            <td style="padding:5px 8px;text-align:center;">12.6%</td>
+            <td style="padding:5px 8px;text-align:center;">38.2%</td>
+            <td style="padding:5px 8px;text-align:right;font-weight:600;">13.0亿</td>
+            <td style="padding:5px 8px;text-align:right;font-weight:700;color:#15803d;">47.7亿</td>
+            <td style="padding:5px 8px;text-align:right;color:#d97706;font-weight:700;background:#fef3c7;">🔥 +34.7亿</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f0fdf4;background:#fafffe;">
+            <td style="padding:5px 8px;font-weight:600;">宠物食品</td>
+            <td style="padding:5px 8px;text-align:center;">3.50</td>
+            <td style="padding:5px 8px;text-align:center;">4.10</td>
+            <td style="padding:5px 8px;text-align:center;color:#7c3aed;font-weight:700;">65%</td>
+            <td style="padding:5px 8px;text-align:center;">7.2%</td>
+            <td style="padding:5px 8px;text-align:center;">32.0%</td>
+            <td style="padding:5px 8px;text-align:right;font-weight:600;">5.5亿</td>
+            <td style="padding:5px 8px;text-align:right;font-weight:700;color:#15803d;">29.6亿</td>
+            <td style="padding:5px 8px;text-align:right;color:#15803d;font-weight:700;background:#f0fdf4;">⭐ +24.1亿</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f0fdf4;">
+            <td style="padding:5px 8px;font-weight:600;">蛋白食饮</td>
+            <td style="padding:5px 8px;text-align:center;">4.50</td>
+            <td style="padding:5px 8px;text-align:center;">3.90</td>
+            <td style="padding:5px 8px;text-align:center;color:#7c3aed;font-weight:700;">50%</td>
+            <td style="padding:5px 8px;text-align:center;">8.2%</td>
+            <td style="padding:5px 8px;text-align:center;">28.9%</td>
+            <td style="padding:5px 8px;text-align:right;font-weight:600;">3.0亿</td>
+            <td style="padding:5px 8px;text-align:right;font-weight:700;color:#15803d;">12.9亿</td>
+            <td style="padding:5px 8px;text-align:right;color:#16a34a;font-weight:700;">+9.9亿</td>
+          </tr>
+          <tr style="background:#f0fdf4;font-weight:700;">
+            <td style="padding:5px 8px;" colspan="6">小计</td>
+            <td style="padding:5px 8px;text-align:right;">58.5亿</td>
+            <td style="padding:5px 8px;text-align:right;color:#15803d;">205.5亿</td>
+            <td style="padding:5px 8px;text-align:right;color:#16a34a;">+147.0亿</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Defend & Harvest -->
+    <div style="margin-bottom:7px;border-radius:6px;overflow:hidden;border:1px solid #3b82f6;">
+      <div style="background:#3b82f6;color:#fff;padding:5px 12px;font-size:11px;font-weight:700;display:flex;justify-content:space-between;">
+        <span>🔵 Defend &amp; Harvest</span>
+        <span>2个赛道 · 当前11亿 → 2030天花板44亿 · 增量+34亿</span>
+      </div>
+      <table style="width:100%;border-collapse:collapse;font-size:11px;">
+        <thead><tr style="background:#eff6ff;color:#1e40af;font-weight:700;">
+          <th style="padding:5px 8px;text-align:left;border-bottom:1px solid #bfdbfe;">赛道</th>
+          <th style="padding:5px 8px;text-align:center;border-bottom:1px solid #bfdbfe;">MA</th>
+          <th style="padding:5px 8px;text-align:center;border-bottom:1px solid #bfdbfe;">ATW</th>
+          <th style="padding:5px 8px;text-align:center;border-bottom:1px solid #bfdbfe;">档位%</th>
+          <th style="padding:5px 8px;text-align:center;border-bottom:1px solid #bfdbfe;">当前市占</th>
+          <th style="padding:5px 8px;text-align:center;border-bottom:1px solid #bfdbfe;">2030市占</th>
+          <th style="padding:5px 8px;text-align:right;border-bottom:1px solid #bfdbfe;color:#1d4ed8;">当前年化</th>
+          <th style="padding:5px 8px;text-align:right;border-bottom:1px solid #bfdbfe;color:#1d4ed8;">2030天花板</th>
+          <th style="padding:5px 8px;text-align:right;border-bottom:1px solid #bfdbfe;color:#1d4ed8;">增量</th>
+        </tr></thead>
+        <tbody>
+          <tr style="border-bottom:1px solid #eff6ff;">
+            <td style="padding:5px 8px;font-weight:600;">餐饮</td>
+            <td style="padding:5px 8px;text-align:center;">2.70</td>
+            <td style="padding:5px 8px;text-align:center;">3.10</td>
+            <td style="padding:5px 8px;text-align:center;color:#7c3aed;font-weight:700;">38%</td>
+            <td style="padding:5px 8px;text-align:center;">5.6%</td>
+            <td style="padding:5px 8px;text-align:center;">10.4%</td>
+            <td style="padding:5px 8px;text-align:right;font-weight:600;">5.7亿</td>
+            <td style="padding:5px 8px;text-align:right;font-weight:700;color:#1d4ed8;">13.0亿</td>
+            <td style="padding:5px 8px;text-align:right;color:#3b82f6;font-weight:700;">+7.3亿</td>
+          </tr>
+          <tr style="border-bottom:1px solid #eff6ff;background:#fafeff;">
+            <td style="padding:5px 8px;font-weight:600;">医疗用品</td>
+            <td style="padding:5px 8px;text-align:center;">2.85</td>
+            <td style="padding:5px 8px;text-align:center;">3.15</td>
+            <td style="padding:5px 8px;text-align:center;color:#7c3aed;font-weight:700;">38%</td>
+            <td style="padding:5px 8px;text-align:center;">3.3%</td>
+            <td style="padding:5px 8px;text-align:center;">16.9%</td>
+            <td style="padding:5px 8px;text-align:right;font-weight:600;">5.0亿</td>
+            <td style="padding:5px 8px;text-align:right;font-weight:700;color:#1d4ed8;">31.5亿</td>
+            <td style="padding:5px 8px;text-align:right;color:#15803d;font-weight:700;background:#f0fdf4;">⭐ +26.5亿</td>
+          </tr>
+          <tr style="background:#eff6ff;font-weight:700;">
+            <td style="padding:5px 8px;" colspan="6">小计</td>
+            <td style="padding:5px 8px;text-align:right;">10.7亿</td>
+            <td style="padding:5px 8px;text-align:right;color:#1d4ed8;">44.5亿</td>
+            <td style="padding:5px 8px;text-align:right;color:#3b82f6;">+33.8亿</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Invest to Win -->
+    <div style="margin-bottom:7px;border-radius:6px;overflow:hidden;border:1px solid #f59e0b;">
+      <div style="background:#f59e0b;color:#fff;padding:5px 12px;font-size:11px;font-weight:700;display:flex;justify-content:space-between;">
+        <span>🟡 Invest to Win</span>
+        <span>7个赛道 · 当前20亿 → 2030天花板312亿 · 增量+293亿</span>
+      </div>
+      <table style="width:100%;border-collapse:collapse;font-size:11px;">
+        <thead><tr style="background:#fffbeb;color:#92400e;font-weight:700;">
+          <th style="padding:5px 8px;text-align:left;border-bottom:1px solid #fde68a;">赛道</th>
+          <th style="padding:5px 8px;text-align:center;border-bottom:1px solid #fde68a;">MA</th>
+          <th style="padding:5px 8px;text-align:center;border-bottom:1px solid #fde68a;">ATW</th>
+          <th style="padding:5px 8px;text-align:center;border-bottom:1px solid #fde68a;">档位%</th>
+          <th style="padding:5px 8px;text-align:center;border-bottom:1px solid #fde68a;">当前市占</th>
+          <th style="padding:5px 8px;text-align:center;border-bottom:1px solid #fde68a;">2030市占</th>
+          <th style="padding:5px 8px;text-align:right;border-bottom:1px solid #fde68a;color:#b45309;">当前年化</th>
+          <th style="padding:5px 8px;text-align:right;border-bottom:1px solid #fde68a;color:#b45309;">2030天花板</th>
+          <th style="padding:5px 8px;text-align:right;border-bottom:1px solid #fde68a;color:#b45309;">增量</th>
+        </tr></thead>
+        <tbody>
+          <tr style="border-bottom:1px solid #fffbeb;">
+            <td style="padding:5px 8px;font-weight:600;">食品</td>
+            <td style="padding:5px 8px;text-align:center;">3.50</td>
+            <td style="padding:5px 8px;text-align:center;">2.70</td>
+            <td style="padding:5px 8px;text-align:center;color:#7c3aed;font-weight:700;">28%</td>
+            <td style="padding:5px 8px;text-align:center;">1.1%</td>
+            <td style="padding:5px 8px;text-align:center;">20.8%</td>
+            <td style="padding:5px 8px;text-align:right;font-weight:600;">11.0亿</td>
+            <td style="padding:5px 8px;text-align:right;font-weight:700;color:#b45309;">253.0亿</td>
+            <td style="padding:5px 8px;text-align:right;color:#d97706;font-weight:700;background:#fef3c7;">🔥 +242.0亿</td>
+          </tr>
+          <tr style="border-bottom:1px solid #fffbeb;background:#fffef5;">
+            <td style="padding:5px 8px;font-weight:600;">饮料</td>
+            <td style="padding:5px 8px;text-align:center;">3.70</td>
+            <td style="padding:5px 8px;text-align:center;">2.15</td>
+            <td style="padding:5px 8px;text-align:center;color:#7c3aed;font-weight:700;">18%</td>
+            <td style="padding:5px 8px;text-align:center;">1.5%</td>
+            <td style="padding:5px 8px;text-align:center;">13.7%</td>
+            <td style="padding:5px 8px;text-align:right;font-weight:600;">3.0亿</td>
+            <td style="padding:5px 8px;text-align:right;font-weight:700;color:#b45309;">33.8亿</td>
+            <td style="padding:5px 8px;text-align:right;color:#15803d;font-weight:700;background:#f0fdf4;">⭐ +30.8亿</td>
+          </tr>
+          <tr style="border-bottom:1px solid #fffbeb;">
+            <td style="padding:5px 8px;font-weight:600;">文具玩具礼品</td>
+            <td style="padding:5px 8px;text-align:center;">3.35</td>
+            <td style="padding:5px 8px;text-align:center;">2.80</td>
+            <td style="padding:5px 8px;text-align:center;color:#7c3aed;font-weight:700;">28%</td>
+            <td style="padding:5px 8px;text-align:center;">2.3%</td>
+            <td style="padding:5px 8px;text-align:center;">19.1%</td>
+            <td style="padding:5px 8px;text-align:right;font-weight:600;">1.4亿</td>
+            <td style="padding:5px 8px;text-align:right;font-weight:700;color:#b45309;">14.2亿</td>
+            <td style="padding:5px 8px;text-align:right;color:#f59e0b;font-weight:700;">+12.8亿</td>
+          </tr>
+          <tr style="border-bottom:1px solid #fffbeb;background:#fffef5;">
+            <td style="padding:5px 8px;font-weight:600;">酒类</td>
+            <td style="padding:5px 8px;text-align:center;">3.50</td>
+            <td style="padding:5px 8px;text-align:center;">1.85</td>
+            <td style="padding:5px 8px;text-align:center;color:#7c3aed;font-weight:700;">10%</td>
+            <td style="padding:5px 8px;text-align:center;">1.6%</td>
+            <td style="padding:5px 8px;text-align:center;">4.9%</td>
+            <td style="padding:5px 8px;text-align:right;font-weight:600;">2.0亿</td>
+            <td style="padding:5px 8px;text-align:right;font-weight:700;color:#b45309;">7.5亿</td>
+            <td style="padding:5px 8px;text-align:right;color:#f59e0b;font-weight:700;">+5.5亿</td>
+          </tr>
+          <tr style="border-bottom:1px solid #fffbeb;">
+            <td style="padding:5px 8px;font-weight:600;">传统滋补 <span style="color:#9ca3af;font-size:9px;">Demo</span></td>
+            <td style="padding:5px 8px;text-align:center;">3.15</td>
+            <td style="padding:5px 8px;text-align:center;">2.55</td>
+            <td style="padding:5px 8px;text-align:center;color:#7c3aed;font-weight:700;">28%</td>
+            <td style="padding:5px 8px;text-align:center;">—</td>
+            <td style="padding:5px 8px;text-align:center;">—</td>
+            <td style="padding:5px 8px;text-align:right;font-weight:600;">1.5亿</td>
+            <td style="padding:5px 8px;text-align:right;font-weight:700;color:#b45309;">2.2亿</td>
+            <td style="padding:5px 8px;text-align:right;color:#f59e0b;font-weight:700;">+0.7亿</td>
+          </tr>
+          <tr style="border-bottom:1px solid #fffbeb;background:#fffef5;">
+            <td style="padding:5px 8px;font-weight:600;">宠物用品</td>
+            <td style="padding:5px 8px;text-align:center;">3.05</td>
+            <td style="padding:5px 8px;text-align:center;">2.80</td>
+            <td style="padding:5px 8px;text-align:center;color:#7c3aed;font-weight:700;">28%</td>
+            <td style="padding:5px 8px;text-align:center;">7.2%</td>
+            <td style="padding:5px 8px;text-align:center;">13.8%</td>
+            <td style="padding:5px 8px;text-align:right;font-weight:600;">0.5亿</td>
+            <td style="padding:5px 8px;text-align:right;font-weight:700;color:#b45309;">1.1亿</td>
+            <td style="padding:5px 8px;text-align:right;color:#f59e0b;font-weight:700;">+0.6亿</td>
+          </tr>
+          <tr style="border-bottom:1px solid #fffbeb;">
+            <td style="padding:5px 8px;font-weight:600;">特医 <span style="color:#9ca3af;font-size:9px;">Demo</span></td>
+            <td style="padding:5px 8px;text-align:center;">3.85</td>
+            <td style="padding:5px 8px;text-align:center;">2.55</td>
+            <td style="padding:5px 8px;text-align:center;color:#7c3aed;font-weight:700;">28%</td>
+            <td style="padding:5px 8px;text-align:center;">—</td>
+            <td style="padding:5px 8px;text-align:center;">—</td>
+            <td style="padding:5px 8px;text-align:right;font-weight:600;">0.2亿</td>
+            <td style="padding:5px 8px;text-align:right;font-weight:700;color:#b45309;">0.3亿</td>
+            <td style="padding:5px 8px;text-align:right;color:#f59e0b;font-weight:700;">+0.1亿</td>
+          </tr>
+          <tr style="background:#fffbeb;font-weight:700;">
+            <td style="padding:5px 8px;" colspan="6">小计</td>
+            <td style="padding:5px 8px;text-align:right;">19.6亿</td>
+            <td style="padding:5px 8px;text-align:right;color:#b45309;">312.1亿</td>
+            <td style="padding:5px 8px;text-align:right;color:#f59e0b;">+292.5亿</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Deprioritize -->
+    <div style="margin-bottom:7px;border-radius:6px;overflow:hidden;border:1px solid #9ca3af;">
+      <div style="background:#6b7280;color:#fff;padding:5px 12px;font-size:11px;font-weight:700;display:flex;justify-content:space-between;">
+        <span>⚪ Deprioritize</span>
+        <span>6个赛道 · 当前4亿 → 2030天花板15亿 · 增量+11亿</span>
+      </div>
+      <table style="width:100%;border-collapse:collapse;font-size:11px;">
+        <thead><tr style="background:#f9fafb;color:#374151;font-weight:700;">
+          <th style="padding:5px 8px;text-align:left;border-bottom:1px solid #e5e7eb;">赛道</th>
+          <th style="padding:5px 8px;text-align:center;border-bottom:1px solid #e5e7eb;">MA</th>
+          <th style="padding:5px 8px;text-align:center;border-bottom:1px solid #e5e7eb;">ATW</th>
+          <th style="padding:5px 8px;text-align:center;border-bottom:1px solid #e5e7eb;">档位%</th>
+          <th style="padding:5px 8px;text-align:center;border-bottom:1px solid #e5e7eb;">当前市占</th>
+          <th style="padding:5px 8px;text-align:center;border-bottom:1px solid #e5e7eb;">2030市占</th>
+          <th style="padding:5px 8px;text-align:right;border-bottom:1px solid #e5e7eb;">当前年化</th>
+          <th style="padding:5px 8px;text-align:right;border-bottom:1px solid #e5e7eb;">2030天花板</th>
+          <th style="padding:5px 8px;text-align:right;border-bottom:1px solid #e5e7eb;">增量</th>
+        </tr></thead>
+        <tbody>
+          <tr style="border-bottom:1px solid #f3f4f6;">
+            <td style="padding:5px 8px;font-weight:600;">OTC</td>
+            <td style="padding:5px 8px;text-align:center;">2.15</td>
+            <td style="padding:5px 8px;text-align:center;">2.30</td>
+            <td style="padding:5px 8px;text-align:center;color:#7c3aed;font-weight:700;">18%</td>
+            <td style="padding:5px 8px;text-align:center;">2.1%</td>
+            <td style="padding:5px 8px;text-align:center;">10.0%</td>
+            <td style="padding:5px 8px;text-align:right;font-weight:600;">2.0亿</td>
+            <td style="padding:5px 8px;text-align:right;font-weight:700;">11.7亿</td>
+            <td style="padding:5px 8px;text-align:right;color:#6b7280;font-weight:700;">+9.7亿</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f3f4f6;background:#fafafa;">
+            <td style="padding:5px 8px;font-weight:600;">宠物药品 <span style="color:#9ca3af;font-size:9px;">Demo</span></td>
+            <td style="padding:5px 8px;text-align:center;">2.35</td>
+            <td style="padding:5px 8px;text-align:center;">2.65</td>
+            <td style="padding:5px 8px;text-align:center;color:#7c3aed;font-weight:700;">28%</td>
+            <td style="padding:5px 8px;text-align:center;">—</td>
+            <td style="padding:5px 8px;text-align:center;">—</td>
+            <td style="padding:5px 8px;text-align:right;font-weight:600;">0.7亿</td>
+            <td style="padding:5px 8px;text-align:right;font-weight:700;">1.5亿</td>
+            <td style="padding:5px 8px;text-align:right;color:#6b7280;font-weight:700;">+0.9亿</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f3f4f6;">
+            <td style="padding:5px 8px;font-weight:600;">宠物生活 <span style="color:#9ca3af;font-size:9px;">Demo</span></td>
+            <td style="padding:5px 8px;text-align:center;">2.35</td>
+            <td style="padding:5px 8px;text-align:center;">2.00</td>
+            <td style="padding:5px 8px;text-align:center;color:#7c3aed;font-weight:700;">18%</td>
+            <td style="padding:5px 8px;text-align:center;">—</td>
+            <td style="padding:5px 8px;text-align:center;">—</td>
+            <td style="padding:5px 8px;text-align:right;font-weight:600;">0.1亿</td>
+            <td style="padding:5px 8px;text-align:right;font-weight:700;">0.1亿</td>
+            <td style="padding:5px 8px;text-align:right;color:#6b7280;font-weight:700;">+0.0亿</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f3f4f6;background:#fafafa;">
+            <td style="padding:5px 8px;font-weight:600;">零售</td>
+            <td style="padding:5px 8px;text-align:center;">2.35</td>
+            <td style="padding:5px 8px;text-align:center;">1.65</td>
+            <td style="padding:5px 8px;text-align:center;color:#dc2626;font-weight:700;">★维持</td>
+            <td style="padding:5px 8px;text-align:center;">16.1%</td>
+            <td style="padding:5px 8px;text-align:center;">16.1%</td>
+            <td style="padding:5px 8px;text-align:right;font-weight:600;">0.9亿</td>
+            <td style="padding:5px 8px;text-align:right;font-weight:700;">1.1亿</td>
+            <td style="padding:5px 8px;text-align:right;color:#6b7280;font-weight:700;">+0.2亿 ★</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f3f4f6;">
+            <td style="padding:5px 8px;font-weight:600;">药房 <span style="color:#9ca3af;font-size:9px;">Demo</span></td>
+            <td style="padding:5px 8px;text-align:center;">1.15</td>
+            <td style="padding:5px 8px;text-align:center;">1.35</td>
+            <td style="padding:5px 8px;text-align:center;color:#7c3aed;font-weight:700;">10%</td>
+            <td style="padding:5px 8px;text-align:center;">—</td>
+            <td style="padding:5px 8px;text-align:center;">—</td>
+            <td style="padding:5px 8px;text-align:right;font-weight:600;">0.2亿</td>
+            <td style="padding:5px 8px;text-align:right;font-weight:700;">0.1亿</td>
+            <td style="padding:5px 8px;text-align:right;color:#dc2626;font-weight:700;">-0.1亿</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f3f4f6;background:#fafafa;">
+            <td style="padding:5px 8px;font-weight:600;">药品 <span style="color:#9ca3af;font-size:9px;">Demo</span></td>
+            <td style="padding:5px 8px;text-align:center;">1.00</td>
+            <td style="padding:5px 8px;text-align:center;">1.35</td>
+            <td style="padding:5px 8px;text-align:center;color:#7c3aed;font-weight:700;">10%</td>
+            <td style="padding:5px 8px;text-align:center;">—</td>
+            <td style="padding:5px 8px;text-align:center;">—</td>
+            <td style="padding:5px 8px;text-align:right;font-weight:600;">0.3亿</td>
+            <td style="padding:5px 8px;text-align:right;font-weight:700;">0.2亿</td>
+            <td style="padding:5px 8px;text-align:right;color:#dc2626;font-weight:700;">-0.1亿</td>
+          </tr>
+          <tr style="background:#f3f4f6;font-weight:700;">
+            <td style="padding:5px 8px;" colspan="6">小计</td>
+            <td style="padding:5px 8px;text-align:right;">4.2亿</td>
+            <td style="padding:5px 8px;text-align:right;">14.7亿</td>
+            <td style="padding:5px 8px;text-align:right;color:#6b7280;">+10.5亿</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="font-size:10px;color:#9ca3af;padding:4px 8px;text-align:right;">
+      SoW口径：线上广告预算（已去除Trade Marketing）· 天花板市占=字节赛道市占×ATW档位% · ★=已超字节→用快消整体均值61.2%×档位% · 大盘=QuestMobile 2025 快消广告+5%/年 · Demo数据待验证
+    </div>
+  </div>
+</section>
 </div><!-- /.deck -->
 
 <script src="./assets/runtime.js"></script>
@@ -3789,22 +2730,22 @@ function render(W, H, c, dpr) {
   const data = [
     // 🔴 Double Down（MA≥3.0 & ATW≥3.0）
     ['母婴食品', 4.12, 5.0, 22, '#16a34a', 0.85],
-    ['母婴用品', 3.37, 4.5, 17.4, '#16a34a', 0.85],
+    ['母婴用品', 3.72, 4.5, 17.4, '#16a34a', 0.85],
     ['保健食品', 4.0, 4.25, 19.7, '#16a34a', 0.85],
     ['宠物食品', 4.42, 4.0, 15.3, '#16a34a', 0.85],
-    ['蛋白食饮', 4.7, 3.9, 13.0, '#16a34a', 0.85],
+    ['蛋白食饮', 4.00, 3.9, 13.0, '#16a34a', 0.85],
     ['休闲零食', 4.17, 3.75, 14.1, '#16a34a', 0.85],
     ['中式滋补', 3.9, 3.35, 12.8, '#16a34a', 0.85],
-    ['文具玩具礼品', 4.35, 3.5, 11.8, '#16a34a', 0.85],
+    ['文具玩具礼品', 4.00, 3.5, 11.8, '#16a34a', 0.85],
     ['医疗用品', 3.35, 3.0, 14.0, '#16a34a', 0.85],
     // 🟠 Invest to Win（MA≥3.0 & ATW≥3.0）
     ['传统滋补营养品', 3.0, 2.0, 5.0, '#f59e0b', 0.75],
     ['酒类', 3.2, 2.15, 10.2, '#f59e0b', 0.75],
-    ['饮料', 4.25, 2.15, 11.2, '#f59e0b', 0.75],
+    ['饮料', 3.9, 2.15, 11.2, '#f59e0b', 0.75],
     ['OTC', 3.17, 2.0, 13.1, '#f59e0b', 0.75],
     ['预制速食', 3.95, 2.9, 11.6, '#f59e0b', 0.75],
     ['宠物药品', 3.15, 2.75, 7.2, '#f59e0b', 0.75],
-    ['餐饮', 3.88, 1.65, 16.2, '#f59e0b', 0.75],
+    ['餐饮', 3.35, 1.65, 16.2, '#f59e0b', 0.75],
     ['传统滋补', 3.4, 2.5, 5.5, '#f59e0b', 0.75],
     // 🔵 Defend & Harvest（MA≥3.0 & ATW<3.0）
     ['宠物用品', 3.22, 3.25, 6.5, '#16a34a', 0.75],
@@ -3970,7 +2911,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <span>目录</span><span class="toggle-arrow">◀</span>
   </button>
   <div id="slide-nav-panel">
-<div class="snav-section-label">正文</div><div class="snav-item active" data-idx="0" onclick="window.__goTo && window.__goTo(0); snavUpdate(0);"><span class="snav-num">1</span><span class="snav-title">封面</span></div><div class="snav-item" data-idx="1" onclick="window.__goTo && window.__goTo(1); snavUpdate(1);"><span class="snav-num">2</span><span class="snav-title">目录</span></div><div class="snav-item" data-idx="2" onclick="window.__goTo && window.__goTo(2); snavUpdate(2);"><span class="snav-num">3</span><span class="snav-title">Framework 设计</span></div><div class="snav-item" data-idx="3" onclick="window.__goTo && window.__goTo(3); snavUpdate(3);"><span class="snav-num">4</span><span class="snav-title">MA评分维度</span></div><div class="snav-item" data-idx="4" onclick="window.__goTo && window.__goTo(4); snavUpdate(4);"><span class="snav-num">5</span><span class="snav-title">ATW评分维度</span></div><div class="snav-item" data-idx="5" onclick="window.__goTo && window.__goTo(5); snavUpdate(5);"><span class="snav-num">6</span><span class="snav-title">战略矩阵框架</span></div><div class="snav-item" data-idx="6" onclick="window.__goTo && window.__goTo(6); snavUpdate(6);"><span class="snav-num">7</span><span class="snav-title">25赛道评分表</span></div><div class="snav-item" data-idx="7" onclick="window.__goTo && window.__goTo(7); snavUpdate(7);"><span class="snav-num">8</span><span class="snav-title">2×2战略矩阵</span></div><div class="snav-item" data-idx="8" onclick="window.__goTo && window.__goTo(8); snavUpdate(8);"><span class="snav-num">9</span><span class="snav-title">POA定义</span></div><div class="snav-item" data-idx="9" onclick="window.__goTo && window.__goTo(9); snavUpdate(9);"><span class="snav-num">10</span><span class="snav-title">25赛道POA评估</span></div><div class="snav-item" data-idx="10" onclick="window.__goTo && window.__goTo(10); snavUpdate(10);"><span class="snav-num">11</span><span class="snav-title">天花板总览</span></div><div class="snav-item" data-idx="11" onclick="window.__goTo && window.__goTo(11); snavUpdate(11);"><span class="snav-num">12</span><span class="snav-title">天花板明细</span></div><div class="snav-section-label">Appendix</div><div class="snav-item" data-idx="12" onclick="window.__goTo && window.__goTo(12); snavUpdate(12);"><span class="snav-num">13</span><span class="snav-title">A 广告流水</span></div><div class="snav-item" data-idx="13" onclick="window.__goTo && window.__goTo(13); snavUpdate(13);"><span class="snav-num">14</span><span class="snav-title">B UGC内容势能</span></div><div class="snav-item" data-idx="14" onclick="window.__goTo && window.__goTo(14); snavUpdate(14);"><span class="snav-num">15</span><span class="snav-title">C 决策链路</span></div><div class="snav-item" data-idx="15" onclick="window.__goTo && window.__goTo(15); snavUpdate(15);"><span class="snav-num">16</span><span class="snav-title">D 市场规模</span></div><div class="snav-item" data-idx="16" onclick="window.__goTo && window.__goTo(16); snavUpdate(16);"><span class="snav-num">17</span><span class="snav-title">E 市场增速</span></div><div class="snav-item" data-idx="17" onclick="window.__goTo && window.__goTo(17); snavUpdate(17);"><span class="snav-num">18</span><span class="snav-title">F SoW & Take Rate</span></div><div class="snav-item" data-idx="18" onclick="window.__goTo && window.__goTo(18); snavUpdate(18);"><span class="snav-num">19</span><span class="snav-title">G 集中度&融资</span></div><div class="snav-item" data-idx="19" onclick="window.__goTo && window.__goTo(19); snavUpdate(19);"><span class="snav-num">20</span><span class="snav-title">H 竞品参考</span></div><div class="snav-item" data-idx="20" onclick="window.__goTo && window.__goTo(20); snavUpdate(20);"><span class="snav-num">21</span><span class="snav-title">I 客户渗透率</span></div>
+<div class="snav-section-label">正文</div><div class="snav-item active" data-idx="0" onclick="window.__goTo && window.__goTo(0); snavUpdate(0);"><span class="snav-num">1</span><span class="snav-title">封面</span></div><div class="snav-item" data-idx="1" onclick="window.__goTo && window.__goTo(1); snavUpdate(1);"><span class="snav-num">2</span><span class="snav-title">目录</span></div><div class="snav-item" data-idx="2" onclick="window.__goTo && window.__goTo(2); snavUpdate(2);"><span class="snav-num">3</span><span class="snav-title">Framework 设计</span></div><div class="snav-item" data-idx="3" onclick="window.__goTo && window.__goTo(3); snavUpdate(3);"><span class="snav-num">4</span><span class="snav-title">MA评分维度</span></div><div class="snav-item" data-idx="4" onclick="window.__goTo && window.__goTo(4); snavUpdate(4);"><span class="snav-num">5</span><span class="snav-title">ATW评分维度</span></div><div class="snav-item" data-idx="5" onclick="window.__goTo && window.__goTo(5); snavUpdate(5);"><span class="snav-num">6</span><span class="snav-title">战略矩阵框架</span></div><div class="snav-item" data-idx="6" onclick="window.__goTo && window.__goTo(6); snavUpdate(6);"><span class="snav-num">7</span><span class="snav-title">25赛道评分表</span></div><div class="snav-item" data-idx="7" onclick="window.__goTo && window.__goTo(7); snavUpdate(7);"><span class="snav-num">8</span><span class="snav-title">2×2战略矩阵</span></div><div class="snav-section-label">Appendix</div><div class="snav-item" data-idx="8" onclick="window.__goTo && window.__goTo(8); snavUpdate(8);"><span class="snav-num">9</span><span class="snav-title">A 广告流水</span></div><div class="snav-item" data-idx="9" onclick="window.__goTo && window.__goTo(9); snavUpdate(9);"><span class="snav-num">10</span><span class="snav-title">B UGC内容势能</span></div><div class="snav-item" data-idx="10" onclick="window.__goTo && window.__goTo(10); snavUpdate(10);"><span class="snav-num">11</span><span class="snav-title">C 决策链路</span></div><div class="snav-item" data-idx="11" onclick="window.__goTo && window.__goTo(11); snavUpdate(11);"><span class="snav-num">12</span><span class="snav-title">D 市场规模</span></div><div class="snav-item" data-idx="12" onclick="window.__goTo && window.__goTo(12); snavUpdate(12);"><span class="snav-num">13</span><span class="snav-title">E 市场增速</span></div><div class="snav-item" data-idx="13" onclick="window.__goTo && window.__goTo(13); snavUpdate(13);"><span class="snav-num">14</span><span class="snav-title">F SoW & Take Rate</span></div><div class="snav-item" data-idx="14" onclick="window.__goTo && window.__goTo(14); snavUpdate(14);"><span class="snav-num">15</span><span class="snav-title">G 集中度&融资</span></div><div class="snav-item" data-idx="15" onclick="window.__goTo && window.__goTo(15); snavUpdate(15);"><span class="snav-num">16</span><span class="snav-title">H 竞品参考</span></div><div class="snav-item" data-idx="16" onclick="window.__goTo && window.__goTo(16); snavUpdate(16);"><span class="snav-num">17</span><span class="snav-title">I 客户渗透率</span></div><div class="snav-item" data-idx="17" onclick="window.__goTo && window.__goTo(17); snavUpdate(17);"><span class="snav-num">18</span><span class="snav-title">J 天花板总览</span></div><div class="snav-item" data-idx="18" onclick="window.__goTo && window.__goTo(18); snavUpdate(18);"><span class="snav-num">19</span><span class="snav-title">J2 天花板明细</span></div>
   </div>
 </div>
 
