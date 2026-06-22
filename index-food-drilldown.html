@@ -3588,6 +3588,113 @@ function render(W, H, c, dpr) {
     ['药房', 2.52, 1.50, 9.2, '#6b7280', 0.75],
     ['药品', 1.35, 1.50, 5.0, '#6b7280', 0.75],
   ];
+  // ── 坐标系 ──
+  const PAD = { top: 24, right: 24, bottom: 44, left: 48 };
+  const CW = W - PAD.left - PAD.right;
+  const CH = H - PAD.top  - PAD.bottom;
+  const X_MIN = 0.8, X_MAX = 5.2;
+  const Y_MIN = 0.8, Y_MAX = 5.4;
+  const MID_X = 3.0, MID_Y = 3.0;
+
+  const toPixX = v => PAD.left + (v - X_MIN) / (X_MAX - X_MIN) * CW;
+  const toPixY = v => PAD.top  + (Y_MAX - v) / (Y_MAX - Y_MIN) * CH;
+
+  // ── 背景色分区 ──
+  const mx = toPixX(MID_X), my = toPixY(MID_Y);
+  const L = PAD.left, T = PAD.top, R = PAD.left + CW, B = PAD.top + CH;
+
+  c.fillStyle = 'rgba(34,197,94,0.05)';   c.fillRect(mx, T,  R-mx, my-T);   // 右上
+  c.fillStyle = 'rgba(245,158,11,0.05)';  c.fillRect(mx, my, R-mx, B-my);   // 右下
+  c.fillStyle = 'rgba(99,102,241,0.05)';  c.fillRect(L,  T,  mx-L, my-T);   // 左上
+  c.fillStyle = 'rgba(148,163,184,0.06)'; c.fillRect(L,  my, mx-L, B-my);   // 左下
+
+  // ── 网格线 ──
+  c.strokeStyle = '#e2e8f0'; c.lineWidth = 1;
+  for (let v = 1.5; v < X_MAX; v += 0.5) {
+    const px = toPixX(v);
+    c.beginPath(); c.moveTo(px, T); c.lineTo(px, B); c.stroke();
+  }
+  for (let v = 1.5; v < Y_MAX; v += 0.5) {
+    const py = toPixY(v);
+    c.beginPath(); c.moveTo(L, py); c.lineTo(R, py); c.stroke();
+  }
+
+  // ── 分界线 ──
+  c.save();
+  c.setLineDash([6, 4]);
+  c.strokeStyle = '#94a3b8'; c.lineWidth = 1.5;
+  c.beginPath(); c.moveTo(mx, T); c.lineTo(mx, B); c.stroke();
+  c.beginPath(); c.moveTo(L, my); c.lineTo(R, my); c.stroke();
+  c.restore();
+
+  // ── 轴标签 ──
+  c.fillStyle = '#64748b'; c.font = '11px Inter, system-ui, sans-serif';
+  c.textAlign = 'center';
+  for (let v = 1.5; v <= X_MAX; v += 0.5) {
+    c.fillText(v.toFixed(1), toPixX(v), B + 16);
+  }
+  c.textAlign = 'right';
+  for (let v = 1.5; v <= Y_MAX; v += 0.5) {
+    c.fillText(v.toFixed(1), L - 6, toPixY(v) + 4);
+  }
+
+  // ── 轴标题 ──
+  c.fillStyle = '#475569'; c.font = 'bold 11px Inter, system-ui, sans-serif';
+  c.textAlign = 'center';
+  c.fillText('Market Attractiveness →', L + CW/2, B + 36);
+  c.save();
+  c.translate(12, T + CH/2);
+  c.rotate(-Math.PI/2);
+  c.fillText('Ability to Win →', 0, 0);
+  c.restore();
+
+  // ── 气泡 ──
+  data.forEach(([label, ma, atw, sz, color, alpha=0.85, labelOff=[0,0]]) => {
+    const px = toPixX(ma);
+    const py = toPixY(atw);
+    const r  = sz;  // sz已是像素半径（对数映射自Y25广告流水）
+    const hexAlpha = Math.round(alpha * 255).toString(16).padStart(2,'0');
+    // 气泡
+    c.globalAlpha = alpha;
+    c.beginPath();
+    c.arc(px, py, r, 0, Math.PI * 2);
+    c.fillStyle = color + hexAlpha;
+    c.fill();
+    c.strokeStyle = color;
+    c.lineWidth = alpha < 0.7 ? 1 : 1.5;
+    c.stroke();
+    c.globalAlpha = 1.0;
+    // 标签 —— 智能位置：避开边缘，自动上/下切换
+    const fontSize = alpha < 0.7 ? 8.5 : 9.5;
+    c.font = (alpha < 0.7 ? '' : 'bold ') + fontSize + 'px Inter, system-ui, sans-serif';
+    c.fillStyle = alpha < 0.6 ? '#94a3b8' : '#1e293b';
+    const labelW = c.measureText(label).width;
+    // 默认放气泡下方
+    let lx = px + labelOff[0];
+    let ly = (labelOff[1] !== 0) ? py + labelOff[1] : py + r + 11;
+    // 靠近底部边缘 → 放上方
+    if (ly + fontSize > B - 4) ly = py - r - 3;
+    // 靠近顶部边缘 → 放下方
+    if (ly - fontSize < T + 4) ly = py + r + 11;
+    // 水平边界钳制
+    if (lx - labelW/2 < L + 2) lx = L + 2 + labelW/2;
+    if (lx + labelW/2 > R - 2) lx = R - 2 - labelW/2;
+    // 白色描边提升可读性
+    c.textAlign = 'center';
+    c.strokeStyle = 'rgba(255,255,255,0.85)';
+    c.lineWidth = 3;
+    c.lineJoin = 'round';
+    c.strokeText(label, lx, ly);
+    c.fillText(label, lx, ly);
+  });
+
+  // ── 象限角标（4个象限，餐饮在Defend）──
+  const qLabels = [
+    [R - 6,  T + 14, 'right', '🟢 Double Down',      '#15803d'],
+    [L + 6,  T + 14, 'left',  '🔵 Defend & Harvest', '#4338ca'],
+    [R - 6,  B - 8,  'right', '🟠 Invest to Win',    '#92400e'],
+    [L + 6,  B - 8,  'left',  '⚫ Deprioritize',     '#64748b'],
+  ];
   qLabels.forEach(([x, y, align, txt, col]) => {
     c.fillStyle = col;
     c.font = 'bold 10px Inter, system-ui, sans-serif';
